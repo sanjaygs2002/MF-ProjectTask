@@ -1,0 +1,8 @@
+npx create-mf-app@1.1.8
+To Check version: npm view create-mf-app versions
+
+npm install --save-dev cross-env Then config package.json = cross-env
+
+
+
+

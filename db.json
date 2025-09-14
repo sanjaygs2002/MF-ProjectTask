@@ -1,0 +1,119 @@
+{
+  "users": [
+    {
+      "id": "74e9",
+      "username": "Sanjay",
+      "email": "sanjay@gmail.com",
+      "password": "Sanjay@2002",
+      "cart": [],
+      "orders": []
+    },
+    {
+      "id": "f4c7",
+      "username": "Ram",
+      "email": "ram@gmail.com",
+      "password": "Ram@2002",
+      "cart": [],
+      "orders": []
+    }
+  ],
+
+  "products": [
+    {
+      "id": "1",
+      "name": "Classic Silver Watch",
+      "rating": 4.5,
+      "brand": "Brand A",
+      "color": "Silver",
+      "gender": "Unisex",
+      "price": 149.99,
+      "offers": "10% off",
+      "description": "Elegant silver watch with a stainless steel band.",
+      "image": "image1.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Luxury Gold Watch",
+      "rating": 4.8,
+      "brand": "Brand B",
+      "color": "Gold",
+      "gender": "Male",
+      "price": 299.99,
+      "offers": "15% off",
+      "description": "Luxurious gold watch with a leather strap.",
+      "image": "image2.jpg"
+    },
+    {
+      "id": "3",
+      "name": "Sporty Blue Watch",
+      "rating": 4.2,
+      "brand": "Brand C",
+      "color": "Blue",
+      "gender": "Female",
+      "price": 99.99,
+      "offers": "5% off",
+      "description": "Sporty watch with a comfortable silicone band.",
+      "image": "image3.jpg"
+    },
+    {
+      "id": "4",
+      "name": "Classic Black Watch",
+      "rating": 4.7,
+      "brand": "Brand D",
+      "color": "Black",
+      "gender": "Male",
+      "price": 129.99,
+      "offers": "20% off",
+      "description": "Classic black watch with a minimalist design.",
+      "image": "image4.jpeg"
+    },
+    {
+      "id": "5",
+      "name": "Elegant Rose Gold Watch",
+      "rating": 4.9,
+      "brand": "Brand E",
+      "color": "Rose Gold",
+      "gender": "Female",
+      "price": 249.99,
+      "offers": "25% off",
+      "description": "Elegant rose gold watch with a mesh band.",
+      "image": "image5.jpg"
+    },
+    {
+      "id": "6",
+      "name": "Digital Black Watch",
+      "rating": 4.3,
+      "brand": "Brand F",
+      "color": "Black",
+      "gender": "Unisex",
+      "price": 89.99,
+      "offers": "10% off",
+      "description": "Modern digital watch with multiple features.",
+      "image": "image6.jpg"
+    },
+    {
+      "id": "7",
+      "name": "Vintage Brown Watch",
+      "rating": 4.6,
+      "brand": "Brand G",
+      "color": "Brown",
+      "gender": "Male",
+      "price": 199.99,
+      "offers": "30% off",
+      "description": "Vintage watch with a classic leather band.",
+      "image": "image7.jpg"
+    },
+    {
+      "id": "8",
+      "name": "Chic White Watch",
+      "rating": 4.4,
+      "brand": "Brand H",
+      "color": "Black",
+      "gender": "Female",
+      "price": 109.99,
+      "offers": "20% off",
+      "description": "Chic white watch with a ceramic band.",
+      "image": "image8.jpg"
+    }
+  ]
+}
