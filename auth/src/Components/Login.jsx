@@ -1,46 +1,27 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "host/store"; // 👈 adjust path if different
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { error, loading } = useSelector((state) => state.auth);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!form.email || !form.password) {
-      setError("All fields are required");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:5000/users");
-      const users = await response.json();
-
-      const user = users.find(
-        (u) => u.email === form.email && u.password === form.password
-      );
-
-      if (!user) {
-        alert("No account found. Please sign up first.");
+    dispatch(loginUser(form))
+      .unwrap()
+      .then(() => {
+        alert("Login successful!");
+        navigate("/");
+      })
+      .catch(() => {
+        alert("Invalid credentials. Please sign up first.");
         navigate("/signup");
-        return;
-      }
-
-      localStorage.setItem("user", JSON.stringify(user));
-      alert("Login successful!");
-      setForm({ email: "", password: "" });
-      navigate("/"); // or navigate to home/dashboard
-    } catch (err) {
-      console.error(err);
-      setError("Something went wrong");
-    }
+      });
   };
 
   return (
@@ -53,16 +34,18 @@ function Login() {
           name="email"
           placeholder="Email"
           value={form.email}
-          onChange={handleChange}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
         <input
           type="password"
           name="password"
           placeholder="Password"
           value={form.password}
-          onChange={handleChange}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
         <p>
           Don’t have an account?{" "}
           <span className="link" onClick={() => navigate("/signup")}>

@@ -1,21 +1,14 @@
-import React from "react";
-import Navbar from "./components/Navbar";
+// shared/Layout.jsx
+import Navbar from "./components/Navbar"; // ensure Navbar is exposed
 import Footer from "./components/Footer";
-import "./Layout.css"; // optional external CSS
-
 export default function Layout({ children }) {
   return (
-    <div className="layout-container">
-      {/* Navbar */}
+    <div>
       <Navbar />
-
-      {/* Page Content */}
-      <main className="layout-content">
+      <main style={{ minHeight: "80vh", padding: "1rem" }}>
         {children}
       </main>
-
-      {/* Footer */}
-      <Footer />
+     <Footer/>
     </div>
   );
 }

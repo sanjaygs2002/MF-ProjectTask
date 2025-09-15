@@ -50,6 +50,11 @@ module.exports = {
   plugins: [
     new rspack.container.ModuleFederationPlugin({
       name: 'host',
+      filename: "remoteEntry.js",
+      exposes: {
+        "./store": "./src/redux/store.jsx",
+      },
+
       remotes: {
         auth: 'auth@http://localhost:8081/remoteEntry.js', // 👈 FIXED: use remotes
         shared: 'shared@http://localhost:8082/remoteEntry.js',
@@ -58,9 +63,14 @@ module.exports = {
       shared: {
         // react: { singleton: true, eager: true },
         // 'react-dom': { singleton: true, eager: true },
-   react: { singleton: true, requiredVersion: false },
-    "react-dom": { singleton: true, requiredVersion: false },
-    "react-router-dom": { singleton: true, requiredVersion: false },
+  react: { singleton: true, eager: true },
+
+  "@reduxjs/toolkit": { singleton: true, eager: true },
+    react: { singleton: true, requiredVersion: "^18.2.0" },
+  "react-dom": { singleton: true, requiredVersion: "^18.2.0" },
+  "react-router-dom": { singleton: true, requiredVersion: "^6.14.0" },
+
+
       },
     }),
     new rspack.HtmlRspackPlugin({ template: './src/index.html' }),

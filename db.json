@@ -15,9 +15,24 @@
       "password": "Ram@2002",
       "cart": [],
       "orders": []
+    },
+    {
+      "id": "246d",
+      "username": "sam",
+      "email": "sam@gmail.com",
+      "password": "Sam@12345",
+      "cart": [],
+      "orders": []
+    },
+    {
+      "id": "d721",
+      "username": "Kodis",
+      "email": "kodi@gmail.com",
+      "password": "Kodi@2002",
+      "cart": [],
+      "orders": []
     }
   ],
-
   "products": [
     {
       "id": "1",
