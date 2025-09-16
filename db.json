@@ -13,7 +13,44 @@
       "username": "Ram",
       "email": "ram@gmail.com",
       "password": "Ram@2002",
-      "cart": [],
+      "cart": [
+        {
+          "id": "1",
+          "name": "Classic Silver Watch",
+          "rating": 4.5,
+          "brand": "Brand A",
+          "color": "Silver",
+          "gender": "Unisex",
+          "price": 149.99,
+          "offers": "10% off",
+          "description": "Elegant silver watch with a stainless steel band.",
+          "image": "image1.jpg"
+        },
+        {
+          "id": "2",
+          "name": "Luxury Gold Watch",
+          "rating": 4.8,
+          "brand": "Brand B",
+          "color": "Gold",
+          "gender": "Male",
+          "price": 299.99,
+          "offers": "15% off",
+          "description": "Luxurious gold watch with a leather strap.",
+          "image": "image2.jpg"
+        },
+        {
+          "id": "3",
+          "name": "Sporty Blue Watch",
+          "rating": 4.2,
+          "brand": "Brand C",
+          "color": "Blue",
+          "gender": "Female",
+          "price": 99.99,
+          "offers": "5% off",
+          "description": "Sporty watch with a comfortable silicone band.",
+          "image": "image3.jpg"
+        }
+      ],
       "orders": []
     },
     {
@@ -29,6 +66,30 @@
       "username": "Kodis",
       "email": "kodi@gmail.com",
       "password": "Kodi@2002",
+      "cart": [],
+      "orders": []
+    },
+    {
+      "id": "6960",
+      "username": "Barath",
+      "email": "barath@gmail.com",
+      "password": "Barath@2002",
+      "cart": [],
+      "orders": []
+    },
+    {
+      "id": "fefc",
+      "username": "Jai",
+      "email": "Jai@email.com",
+      "password": "1234",
+      "cart": [],
+      "orders": []
+    },
+    {
+      "id": "2add",
+      "username": "Swathi",
+      "email": "swathi@gmail.com",
+      "password": "Swathi@2002",
       "cart": [],
       "orders": []
     }

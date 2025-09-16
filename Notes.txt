@@ -7,3 +7,10 @@ npm install --save-dev cross-env Then config package.json = cross-env
 npx json-server --watch db.json --port 5000 
 
 npm i @reduxjs/toolkit react-redux
+
+
+Use every mf because of shared same version of all mf to exexutes without affecting.
+  "@reduxjs/toolkit": { singleton: true, eager: true },
+    react: { singleton: true, requiredVersion: "^18.2.0" },
+  "react-dom": { singleton: true, requiredVersion: "^18.2.0" },
+  "react-router-dom": { singleton: true, requiredVersion: "^6.14.0" },

@@ -6,12 +6,34 @@ import "./Signup.css";
 
 function Signup() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [validationError, setValidationError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error, loading } = useSelector((state) => state.auth);
 
+  const validateForm = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!emailRegex.test(form.email)) {
+      return "Invalid email format.";
+    }
+    if (!passwordRegex.test(form.password)) {
+      return "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.";
+    }
+    return "";
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const errorMsg = validateForm();
+    if (errorMsg) {
+      setValidationError(errorMsg);
+      return;
+    }
+
+    setValidationError("");
     dispatch(registerUser(form))
       .unwrap()
       .then(() => {
@@ -27,6 +49,7 @@ function Signup() {
     <div className="signup-container">
       <form className="signup-form" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
+        {validationError && <p className="error">{validationError}</p>}
         {error && <p className="error">{error}</p>}
         <input
           type="text"

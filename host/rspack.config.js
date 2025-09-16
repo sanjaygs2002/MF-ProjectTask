@@ -53,17 +53,18 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         "./store": "./src/redux/store.jsx",
+        "./authSlice":"./src/redux/slices/authSlice.jsx",
+        "./productsSlice": "./src/redux/slices/ProductsSlice.jsx",
+        "./cartSlice":"./src/redux/slices/cartSlice.jsx",
       },
 
       remotes: {
-        auth: 'auth@http://localhost:8081/remoteEntry.js', // 👈 FIXED: use remotes
+        auth: 'auth@http://localhost:8081/remoteEntry.js', 
         shared: 'shared@http://localhost:8082/remoteEntry.js',
         product:'product@http://localhost:8083/remoteEntry.js',
+        cart:'cart@http://localhost:8084/remoteEntry.js',
       },
       shared: {
-        // react: { singleton: true, eager: true },
-        // 'react-dom': { singleton: true, eager: true },
-  react: { singleton: true, eager: true },
 
   "@reduxjs/toolkit": { singleton: true, eager: true },
     react: { singleton: true, requiredVersion: "^18.2.0" },

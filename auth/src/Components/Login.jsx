@@ -1,26 +1,39 @@
+// auth/src/components/Login.jsx (remote auth MFE)
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "host/store"; // 👈 adjust path if different
-import { useNavigate } from "react-router-dom";
+import { loginUser } from "host/store"; // <--- correct import (exposed by host)
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, loading } = useSelector((state) => state.auth);
+  const location = useLocation();
+  const { error, loading, user } = useSelector((state) => state.auth || {});
+
+  // read ?redirect=... param
+  const params = new URLSearchParams(location.search);
+  const redirectTo = params.get("redirect") || "/";
+
+  // If already logged-in, go to redirect immediately
+  React.useEffect(() => {
+    if (user) {
+      navigate(redirectTo, { replace: true });
+    }
+  }, [user, navigate, redirectTo]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // dispatch the thunk exported from host/authSlice
     dispatch(loginUser(form))
       .unwrap()
       .then(() => {
-        alert("Login successful!");
-        navigate("/");
+        // on success, go to the requested page
+        navigate(redirectTo, { replace: true });
       })
       .catch(() => {
-        alert("Invalid credentials. Please sign up first.");
-        navigate("/signup");
+        // thunk will set error in state; optionally show toast
       });
   };
 

@@ -6,7 +6,7 @@ export default function Layout({ children }) {
     <div>
       <Navbar />
       <main style={{ minHeight: "80vh", padding: "1rem" }}>
-        {children}
+       {children}
       </main>
      <Footer/>
     </div>
