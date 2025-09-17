@@ -1,13 +1,10 @@
 .footer {
-  width: 100%;              /* span across screen */
-  max-width: 100vw;         /* no horizontal overflow */
   background-color: #232f3e;
   color: white;
   padding: 30px 50px;
   margin-top: 30px;
-  position: relative;       /* for back-to-top positioning */
+  position: relative; /* important for absolute positioning inside */
 }
-
 
 .footer-sections {
   display: grid;

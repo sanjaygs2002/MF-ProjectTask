@@ -11,9 +11,10 @@ export default function Navbar({ onSearch, onFilter }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   let closeTimeout;
+  
 
-  const isProductPage =
-    location.pathname === "/" || location.pathname.startsWith("/products");
+const isProductPage = location.pathname === "/" || location.pathname === "/products";
+
 
   // Close when clicked outside
   useEffect(() => {
@@ -45,25 +46,26 @@ export default function Navbar({ onSearch, onFilter }) {
       </div>
 
       {/* Middle section (search + filter) */}
-      {isProductPage && (
-        <div className="navbar-center">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="🔍 Search products..."
-            onChange={(e) => onSearch && onSearch(e.target.value)}
-          />
-          <select
-            className="filter-select"
-            onChange={(e) => onFilter && onFilter(e.target.value)}
-          >
-            <option value="All">Filter by Gender</option>
-            <option value="Unisex">Unisex</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-        </div>
-      )}
+{isProductPage && (
+  <div className="navbar-center">
+    <input
+      type="text"
+      className="search-input"
+      placeholder="🔍 Search products..."
+      onChange={(e) => onSearch && onSearch(e.target.value)}
+    />
+    <select
+      className="filter-select"
+      onChange={(e) => onFilter && onFilter(e.target.value)}
+    >
+      <option value="All">Filter by Gender</option>
+      <option value="Unisex">Unisex</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+  </div>
+)}
+
 
       {/* Right side */}
       <div className="navbar-right">
