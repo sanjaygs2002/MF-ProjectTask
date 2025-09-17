@@ -5,14 +5,12 @@
   padding: 12px 24px;
   background: #222;
   color: #fff;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.navbar-left .navbar-brand {
-  font-size: 20px;
-  font-weight: bold;
-  color: #fff;
-  text-decoration: none;
-}
 
 .navbar-right {
   display: flex;
@@ -72,4 +70,90 @@
 
 .btn-logout:hover {
   background: #cc0000;
+}
+
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.search-input {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  min-width: 200px;
+}
+
+.filter-select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+
+/* Existing styles unchanged... */
+
+.user-dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: #333;
+  padding: 12px;
+  border-radius: 8px;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  animation: fadeIn 0.2s ease-in-out;
+  z-index: 1001;
+}
+
+.dropdown-menu .user-details {
+  border-bottom: 1px solid #444;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.dropdown-menu .username {
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+}
+
+.dropdown-menu .email {
+  font-size: 12px;
+  color: #bbb;
+}
+
+.dropdown-menu .btn-logout {
+  width: 100%;
+  text-align: center;
+  background: #ff4444;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.dropdown-menu .btn-logout:hover {
+  background: #cc0000;
+}
+
+/* Dropdown animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }

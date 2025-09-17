@@ -101,6 +101,7 @@ module.exports = {
       filename: 'remoteEntry.js',
         remotes: {
         host: "host@http://localhost:8080/remoteEntry.js",
+        
       },
       exposes: {
         "./Layout":"./src/Layout.jsx"

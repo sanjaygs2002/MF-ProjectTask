@@ -101,13 +101,15 @@ module.exports = {
       filename: 'remoteEntry.js',
       remotes: {
         host: "host@http://localhost:8080/remoteEntry.js",
+        shared:"shared@http://localhost:8082/remoteEntry.js",
       },
       exposes: {
         "./ProductList":"./src/Components/ProductList.jsx",
         "./ProductDetail":"./src/Components/ProductDetail.jsx",
+        
       },
       shared: {
-     react: { singleton: true, eager: true },
+     
 
   "@reduxjs/toolkit": { singleton: true, eager: true },
     react: { singleton: true, requiredVersion: "^18.2.0" },

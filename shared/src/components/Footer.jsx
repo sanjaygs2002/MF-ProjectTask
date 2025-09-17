@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/footer.css";
 
 export default function Footer() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.scrollY > 200) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <footer className="footer">
-      <div className="back-to-top" onClick={scrollToTop}>
-        Back to top
-      </div>
-
       <div className="footer-sections">
         <div>
           <h4>Get to Know Us</h4>
@@ -51,6 +62,13 @@ export default function Footer() {
           <p>Help</p>
         </div>
       </div>
+
+      {/* Floating button */}
+      {visible && (
+        <div className="back-to-top" onClick={scrollToTop}>
+          ↑
+        </div>
+      )}
     </footer>
   );
 }

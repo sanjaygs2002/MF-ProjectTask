@@ -3,7 +3,7 @@ import productsReducer from "./slices/ProductsSlice";
 import authReducer from "./slices/authSlice";
 export {fetchProducts,fetchProductById} from "./slices/ProductsSlice";
 export {registerUser,loginUser,logout} from "./slices/authSlice";
-export {addToCard,fetchCart} from "./slices/cartSlice";
+export {addToCard,fetchCart,updateCartQuantity,removeFromCart} from "./slices/cartSlice";
 import cartReducer from"./slices/cartSlice";
 
 

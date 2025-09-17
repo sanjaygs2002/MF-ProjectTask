@@ -1,10 +1,21 @@
-body {
-  font-family: Arial, Helvetica, sans-serif;
+/* Reset + base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.container {
-  font-size: 3rem;
-  margin: auto;
-  max-width: 800px;
-  margin-top: 20px;
+html, body {
+  width: 100%;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f9f9f9;
+  overflow-x: hidden; /* remove horizontal white space */
+}
+
+/* Make app stretch full screen */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
