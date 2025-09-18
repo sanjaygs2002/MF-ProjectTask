@@ -64,7 +64,8 @@
           "price": 299.99,
           "offers": "15% off",
           "description": "Luxurious gold watch with a leather strap.",
-          "image": "image2.jpg"
+          "image": "image2.jpg",
+          "quantity": 1
         },
         {
           "id": "3",
@@ -89,6 +90,19 @@
           "offers": "20% off",
           "description": "Classic black watch with a minimalist design.",
           "image": "image4.jpeg",
+          "quantity": 1
+        },
+        {
+          "id": "6",
+          "name": "Digital Black Watch",
+          "rating": 4.3,
+          "brand": "Brand F",
+          "color": "Black",
+          "gender": "Unisex",
+          "price": 89.99,
+          "offers": "10% off",
+          "description": "Modern digital watch with multiple features.",
+          "image": "image6.jpg",
           "quantity": 1
         }
       ],
