@@ -1,76 +1,177 @@
-import { useEffect } from "react";
+// src/components/CartPage.jsx
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart, updateCartQuantity, removeFromCart } from "host/cartSlice";
-import "./CartPage.css"; // ✅ custom CSS
+import {
+  fetchCart,
+  updateCartQuantity,
+  removeFromCart,
+  openCheckout,
+  closeCheckout,
+  placeOrder,
+} from "host/cartSlice";
+
+import "./CartPage.css";
 
 function CartPage() {
   const dispatch = useDispatch();
+  const { items, checkoutOpen } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
-  const { items, status } = useSelector((state) => state.cart);
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+    city: "",
+    pincode: "",
+  });
 
   useEffect(() => {
-    if (user?.id) {
+    if (user) {
       dispatch(fetchCart(user.id));
     }
   }, [dispatch, user]);
 
-  if (!user) return <p className="cart-msg">Please login to view cart</p>;
-  if (status === "loading") return <p className="cart-msg">Loading cart...</p>;
-
-  const handleIncrease = (item) => {
-    dispatch(updateCartQuantity({ userId: user.id, productId: item.id, quantity: item.quantity + 1 }));
-  };
-
-  const handleDecrease = (item) => {
-    if (item.quantity > 1) {
-      dispatch(updateCartQuantity({ userId: user.id, productId: item.id, quantity: item.quantity - 1 }));
+  const handleQuantityChange = (productId, quantity) => {
+    if (user) {
+      dispatch(updateCartQuantity({ userId: user.id, productId, quantity }));
     }
   };
 
-  const handleRemove = (item) => {
-    dispatch(removeFromCart({ userId: user.id, productId: item.id }));
+  const handleRemove = (productId) => {
+    if (user) {
+      dispatch(removeFromCart({ userId: user.id, productId }));
+    }
   };
+
+  const handleCheckout = () => {
+    dispatch(openCheckout());
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (user) {
+      dispatch(placeOrder({ userId: user.id, userInfo: formData }));
+    }
+  };
+
+  const total = items.reduce((sum, item) => {
+    const price = Number(item.price) || 0;
+    const qty = Number(item.quantity) || 1;
+    return sum + price * qty;
+  }, 0);
 
   return (
     <div className="cart-container">
-      <h2 className="cart-title">🛒 Your Cart</h2>
+      <h2 className="cart-title">Your Cart</h2>
+
       {items.length === 0 ? (
-        <p className="cart-msg">No items in cart</p>
+        <p className="cart-msg">Your cart is empty.</p>
       ) : (
         <>
           <div className="cart-list">
-            {items.map((item, idx) => (
-              <div key={idx} className="cart-item">
+            {items.map((item) => (
+              <div key={item.id} className="cart-item">
                 <img
                   src={`http://localhost:8083/images/${item.image}`}
                   alt={item.name}
                   className="cart-img"
                 />
+
                 <div className="cart-info">
                   <h4>{item.name}</h4>
                   <p className="price">₹{item.price}</p>
-                  <div className="quantity-control">
-                    <button onClick={() => handleDecrease(item)}>-</button>
-                    <span>{item.quantity || 1}</span>
-                    <button onClick={() => handleIncrease(item)}>+</button>
-                  </div>
                 </div>
-                <button className="remove-btn" onClick={() => handleRemove(item)}>❌</button>
+
+                <div className="cart-controls">
+                  <div className="quantity-control">
+                    <button
+                      onClick={() =>
+                        handleQuantityChange(item.id, item.quantity - 1 < 1 ? 1 : item.quantity - 1)
+                      }
+                    >
+                      -
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button
+                      onClick={() =>
+                        handleQuantityChange(item.id, item.quantity + 1)
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                  <button
+                    className="remove-btn"
+                    onClick={() => handleRemove(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
             ))}
           </div>
 
           <div className="cart-summary">
-            <h3>
-              Total: ₹
-              {items.reduce(
-                (total, item) => total + Number(item.price) * (item.quantity || 1),
-                0
-              ).toFixed(2)}
-            </h3>
-            <button className="checkout-btn">Proceed to Checkout</button>
+            <h3>Total: ₹{total.toFixed(2)}</h3>
+            <button className="checkout-btn" onClick={handleCheckout}>
+              Proceed to Checkout
+            </button>
           </div>
         </>
+      )}
+
+      {checkoutOpen && (
+        <div className="popup-overlay">
+          <div className="popup">
+            <h3>Checkout</h3>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Name"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                required
+              />
+              <input
+                type="text"
+                placeholder="Address"
+                value={formData.address}
+                onChange={(e) =>
+                  setFormData({ ...formData, address: e.target.value })
+                }
+                required
+              />
+              <input
+                type="text"
+                placeholder="City"
+                value={formData.city}
+                onChange={(e) =>
+                  setFormData({ ...formData, city: e.target.value })
+                }
+                required
+              />
+              <input
+                type="text"
+                placeholder="Pincode"
+                value={formData.pincode}
+                onChange={(e) =>
+                  setFormData({ ...formData, pincode: e.target.value })
+                }
+                required
+              />
+              <button type="submit" className="checkout-btn confirm">
+                Place Order
+              </button>
+              <button
+                type="button"
+                className="cancel"
+                onClick={() => dispatch(closeCheckout())}
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
       )}
     </div>
   );

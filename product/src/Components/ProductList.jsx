@@ -43,7 +43,28 @@ function ProductList({ search = "", category = "All" }) {
               />
               <h3>{p.name}</h3>
               <p className="price">₹{p.price}</p>
-              <button onClick={() => handleViewDetails(p.id)}>View Details</button>
+              <button
+  onClick={() => handleViewDetails(p.id)}
+  style={{
+    background: "linear-gradient(90deg, #3b82f6, #2563eb)",
+    color: "#fff",
+    padding: "10px 18px",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "600",
+    fontSize: "14px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+    transition: "all 0.3s ease",
+  }}
+  onMouseOver={(e) => (e.currentTarget.style.background = "#1d4ed8")}
+  onMouseOut={(e) =>
+    (e.currentTarget.style.background = "linear-gradient(90deg, #3b82f6, #2563eb)")
+  }
+>
+  View Details
+</button>
+
             </div>
           ))
         )}

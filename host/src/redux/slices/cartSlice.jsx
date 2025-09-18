@@ -1,3 +1,4 @@
+// src/redux/cartSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // ✅ Add product to user’s cart
@@ -7,12 +8,10 @@ export const addToCart = createAsyncThunk(
     const res = await fetch(`http://localhost:5000/users/${userId}`);
     const user = await res.json();
 
-    // check if already exists
     const existingItem = user.cart.find((item) => item.id === product.id);
 
     let updatedCart;
     if (existingItem) {
-      // increase quantity if exists
       updatedCart = user.cart.map((item) =>
         item.id === product.id
           ? { ...item, quantity: item.quantity + 1 }
@@ -79,14 +78,66 @@ export const removeFromCart = createAsyncThunk(
   }
 );
 
+// ✅ Clear cart after placing order
+export const clearCart = createAsyncThunk("cart/clearCart", async (userId) => {
+  await fetch(`http://localhost:5000/users/${userId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ cart: [] }),
+  });
+  return [];
+});
+
+// ✅ Place Order (checkout)
+export const placeOrder = createAsyncThunk(
+  "cart/placeOrder",
+  async ({ userId, userInfo }, { rejectWithValue }) => {
+    try {
+      const res = await fetch(`http://localhost:5000/users/${userId}`);
+      const user = await res.json();
+
+      const newOrder = {
+        id: Date.now(), // unique order id
+        userInfo, // { name, address, city, pincode }
+        items: user.cart,
+        date: new Date().toISOString(),
+        status: "Pending",
+      };
+
+      const updatedOrders = [...(user.orders || []), newOrder];
+
+      await fetch(`http://localhost:5000/users/${userId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orders: updatedOrders,
+          cart: [], // clear cart after placing order
+        }),
+      });
+
+      return newOrder;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: [],
     status: "idle",
     error: null,
+    checkoutOpen: false, // ✅ popup state
   },
-  reducers: {},
+  reducers: {
+    openCheckout: (state) => {
+      state.checkoutOpen = true;
+    },
+    closeCheckout: (state) => {
+      state.checkoutOpen = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // fetchCart
@@ -104,22 +155,31 @@ const cartSlice = createSlice({
 
       // addToCart
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.status = "succeeded";
         state.items = action.payload;
       })
 
       // updateCartQuantity
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
-        state.status = "succeeded";
         state.items = action.payload;
       })
 
       // removeFromCart
       .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.status = "succeeded";
         state.items = action.payload;
+      })
+
+      // clearCart
+      .addCase(clearCart.fulfilled, (state) => {
+        state.items = [];
+      })
+
+      // placeOrder
+      .addCase(placeOrder.fulfilled, (state) => {
+        state.items = [];
+        state.checkoutOpen = false; // ✅ close popup after order
       });
   },
 });
 
+export const { openCheckout, closeCheckout } = cartSlice.actions;
 export default cartSlice.reducer;
