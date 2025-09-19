@@ -5,13 +5,15 @@ export {fetchProducts,fetchProductById} from "./slices/ProductsSlice";
 export {registerUser,loginUser,logout} from "./slices/authSlice";
 export {addToCard,fetchCart,updateCartQuantity,removeFromCart,clearCart,placeOrder} from "./slices/cartSlice";
 import cartReducer from"./slices/cartSlice";
-
+export {fetchOrders,updateOrderStatus,cancelOrder} from "./slices/orderSlice";
+import orderReducer from "./slices/orderSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     products: productsReducer,
     cart:cartReducer,
+    orders:orderReducer,
   },
 });
 

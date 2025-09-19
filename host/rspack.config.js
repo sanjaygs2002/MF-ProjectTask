@@ -56,6 +56,7 @@ module.exports = {
         "./authSlice":"./src/redux/slices/authSlice.jsx",
         "./productsSlice": "./src/redux/slices/ProductsSlice.jsx",
         "./cartSlice":"./src/redux/slices/cartSlice.jsx",
+        "./orderSlice":"./src/redux/slices/orderSlice.jsx",
       },
 
       remotes: {
@@ -63,6 +64,7 @@ module.exports = {
         shared: 'shared@http://localhost:8082/remoteEntry.js',
         product:'product@http://localhost:8083/remoteEntry.js',
         cart:'cart@http://localhost:8084/remoteEntry.js',
+        orders:'orders@http://localhost:8085/remoteEntry.js',
       },
       shared: {
 

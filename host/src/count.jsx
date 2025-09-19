@@ -10,6 +10,6 @@ function count() {
         <button onChange={()=>setState(state+1)}/>
     </div>
   )
-}
+} 
 
 export default count
