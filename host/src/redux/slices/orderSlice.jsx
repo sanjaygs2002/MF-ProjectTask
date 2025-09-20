@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Fetch orders for a user by ID
+// Fetch orders for a user
 export const fetchOrders = createAsyncThunk(
   "orders/fetchOrders",
   async (userId, { rejectWithValue }) => {
@@ -15,9 +15,9 @@ export const fetchOrders = createAsyncThunk(
   }
 );
 
-// Place a new order
-export const placeOrder = createAsyncThunk(
-  "orders/placeOrder",
+// Place order from cart (clears cart after order)
+export const placeOrderFromCart = createAsyncThunk(
+  "orders/placeOrderFromCart",
   async ({ userId, userInfo }, { rejectWithValue }) => {
     try {
       const res = await fetch(`http://localhost:5000/users/${userId}`);
@@ -26,8 +26,8 @@ export const placeOrder = createAsyncThunk(
 
       const newOrder = {
         id: Date.now(),
-        userInfo,
         items: user.cart,
+        userInfo,
         date: new Date().toISOString(),
         status: "Placed",
       };
@@ -40,6 +40,41 @@ export const placeOrder = createAsyncThunk(
         body: JSON.stringify({
           orders: updatedOrders,
           cart: [], // clear cart
+        }),
+      });
+
+      return newOrder;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Place order directly (Buy Now) – does NOT clear cart
+export const placeOrderDirect = createAsyncThunk(
+  "orders/placeOrderDirect",
+  async ({ userId, userInfo, product }, { rejectWithValue }) => {
+    try {
+      const res = await fetch(`http://localhost:5000/users/${userId}`);
+      const user = await res.json();
+      if (!user) throw new Error("User not found");
+
+      const newOrder = {
+        id: Date.now(),
+        items: [product], // only this product
+        userInfo,
+        date: new Date().toISOString(),
+        status: "Placed",
+      };
+
+      const updatedOrders = [...(user.orders || []), newOrder];
+
+      await fetch(`http://localhost:5000/users/${userId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orders: updatedOrders,
+          // DO NOT clear cart
         }),
       });
 
@@ -103,7 +138,10 @@ const orderSlice = createSlice({
         state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(placeOrder.fulfilled, (state, action) => {
+      .addCase(placeOrderFromCart.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+      })
+      .addCase(placeOrderDirect.fulfilled, (state, action) => {
         state.items.push(action.payload);
       })
       .addCase(cancelOrder.fulfilled, (state, action) => {

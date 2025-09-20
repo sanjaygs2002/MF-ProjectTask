@@ -5,7 +5,7 @@ export {fetchProducts,fetchProductById} from "./slices/ProductsSlice";
 export {registerUser,loginUser,logout} from "./slices/authSlice";
 export {addToCard,fetchCart,updateCartQuantity,removeFromCart,clearCart,placeOrder} from "./slices/cartSlice";
 import cartReducer from"./slices/cartSlice";
-export {fetchOrders,updateOrderStatus,cancelOrder} from "./slices/orderSlice";
+export {fetchOrders,updateOrderStatus,cancelOrder,placeOrderDirect,placeOrderFromCart} from "./slices/orderSlice";
 import orderReducer from "./slices/orderSlice";
 
 export const store = configureStore({

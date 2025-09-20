@@ -16,12 +16,16 @@ function CartPage() {
   const dispatch = useDispatch();
   const { items, checkoutOpen } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
+
   const [formData, setFormData] = useState({
     name: "",
     address: "",
     city: "",
     pincode: "",
   });
+
+  // ✅ Track selected items for checkout
+  const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -42,21 +46,44 @@ function CartPage() {
   };
 
   const handleCheckout = () => {
+    if (selectedItems.length === 0) {
+      alert("Please select at least one item to proceed.");
+      return;
+    }
     dispatch(openCheckout());
+  };
+
+  const handleItemSelect = (itemId) => {
+    setSelectedItems((prev) =>
+      prev.includes(itemId)
+        ? prev.filter((id) => id !== itemId)
+        : [...prev, itemId]
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (user) {
-      dispatch(placeOrder({ userId: user.id, userInfo: formData }));
+      const orderItems = items.filter((item) =>
+        selectedItems.includes(item.id)
+      );
+      dispatch(
+        placeOrder({
+          userId: user.id,
+          userInfo: formData,
+          items: orderItems,
+        })
+      );
     }
   };
 
-  const total = items.reduce((sum, item) => {
-    const price = Number(item.price) || 0;
-    const qty = Number(item.quantity) || 1;
-    return sum + price * qty;
-  }, 0);
+  const total = items
+    .filter((item) => selectedItems.includes(item.id))
+    .reduce((sum, item) => {
+      const price = Number(item.offerPrice) || 0;
+      const qty = Number(item.quantity) || 1;
+      return sum + price * qty;
+    }, 0);
 
   return (
     <div className="cart-container">
@@ -69,6 +96,14 @@ function CartPage() {
           <div className="cart-list">
             {items.map((item) => (
               <div key={item.id} className="cart-item">
+                {/* ✅ Select checkbox */}
+                <input
+                  type="checkbox"
+                  checked={selectedItems.includes(item.id)}
+                  onChange={() => handleItemSelect(item.id)}
+                  className="select-checkbox"
+                />
+
                 <img
                   src={`http://localhost:8083/images/${item.image}`}
                   alt={item.name}
@@ -77,14 +112,17 @@ function CartPage() {
 
                 <div className="cart-info">
                   <h4>{item.name}</h4>
-                  <p className="price">₹{item.price}</p>
+                  <p className="price">₹{item.offerPrice}</p>
                 </div>
 
                 <div className="cart-controls">
                   <div className="quantity-control">
                     <button
                       onClick={() =>
-                        handleQuantityChange(item.id, item.quantity - 1 < 1 ? 1 : item.quantity - 1)
+                        handleQuantityChange(
+                          item.id,
+                          item.quantity - 1 < 1 ? 1 : item.quantity - 1
+                        )
                       }
                     >
                       -
@@ -159,6 +197,7 @@ function CartPage() {
                 }
                 required
               />
+              <h4 className="checkout-total">Total: ₹{total.toFixed(2)}</h4>
               <button type="submit" className="checkout-btn confirm">
                 Place Order
               </button>

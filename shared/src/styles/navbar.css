@@ -2,158 +2,137 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
-  background: #222;
-  color: #fff;
-
+  padding: 12px 25px;
+  background: #111;
+  color: white;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
+/* Left Brand */
+.navbar-left .navbar-brand {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #ffcc00;
+}
+.navbar-left .navbar-brand:hover {
+  color: #ffffff;
+}
 
+/* Right: filters + actions */
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 20px; /* spacing between items */
+  gap: 18px;
 }
 
-.navbar a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.navbar a:hover {
-  text-decoration: underline;
-}
-
-.user-info {
+/* Right filters section */
+.navbar-filters {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: #333;
-  padding: 6px 10px;
-  border-radius: 6px;
-}
-
-.user-icon {
-  font-size: 20px;
-}
-
-.user-details {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-.username {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.email {
-  font-size: 12px;
-  color: #ccc;
-}
-
-.btn-logout {
-  background: #ff4444;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease;
-}
-
-.btn-logout:hover {
-  background: #cc0000;
-}
-
-.navbar-center {
-  flex: 1;
-  display: flex;
-  justify-content: center;
   gap: 12px;
 }
 
+/* Search, select, slider */
 .search-input {
   padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
   min-width: 200px;
 }
 
 .filter-select {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
 }
 
+.price-slider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffcc00;
+}
+.price-slider input[type="range"] {
+  accent-color: #ffcc00;
+}
 
-/* Existing styles unchanged... */
+/* Buttons and icons keep same styling */
+.btn-signup {
+  padding: 6px 14px;
+  background: #ffcc00;
+  color: #111;
+  border-radius: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.btn-signup:hover {
+  background: #ffd633;
+}
 
+.icon-btn {
+  position: relative;
+  color: white;
+  text-decoration: none;
+}
+.icon-btn:hover {
+  color: #ffcc00;
+}
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #ff3b3b;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* Dropdown */
 .user-dropdown {
   position: relative;
   cursor: pointer;
 }
-
+.user-icon {
+  font-size: 1.3rem;
+}
 .dropdown-menu {
   position: absolute;
-  right: 0;
   top: 40px;
-  background: #333;
-  padding: 12px;
+  right: 0;
+  background: #222;
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  padding: 10px;
   min-width: 180px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  animation: fadeIn 0.2s ease-in-out;
-  z-index: 1001;
+  z-index: 10;
 }
-
-.dropdown-menu .user-details {
-  border-bottom: 1px solid #444;
-  padding-bottom: 8px;
+.user-details {
   margin-bottom: 8px;
 }
-
-.dropdown-menu .username {
-  font-weight: 600;
-  font-size: 14px;
-  color: #fff;
+.username {
+  font-weight: bold;
+  color: #ffcc00;
 }
-
-.dropdown-menu .email {
-  font-size: 12px;
-  color: #bbb;
+.email {
+  font-size: 0.8rem;
+  color: #aaa;
 }
-
-.dropdown-menu .btn-logout {
+.btn-logout {
   width: 100%;
-  text-align: center;
-  background: #ff4444;
-  border: none;
   padding: 6px;
-  border-radius: 6px;
-  color: #fff;
+  border: none;
+  border-radius: 5px;
+  background: #ff3b3b;
+  color: white;
   cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease;
 }
-
-.dropdown-menu .btn-logout:hover {
-  background: #cc0000;
-}
-
-/* Dropdown animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+.btn-logout:hover {
+  background: #ff6666;
 }

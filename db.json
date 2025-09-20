@@ -92,21 +92,7 @@
       "username": "Ram",
       "email": "ram@gmail.com",
       "password": "Ram@2002",
-      "cart": [
-        {
-          "id": "2",
-          "name": "Luxury Gold Watch",
-          "rating": 4.8,
-          "brand": "Brand B",
-          "color": "Gold",
-          "gender": "Male",
-          "price": 299.99,
-          "offers": "15% off",
-          "description": "Luxurious gold watch with a leather strap.",
-          "image": "image2.jpg",
-          "quantity": 1
-        }
-      ],
+      "cart": [],
       "orders": [
         {
           "id": 1758177417033,
@@ -223,6 +209,223 @@
           ],
           "date": "2025-09-19T09:42:55.472Z",
           "status": "Cancelled"
+        },
+        {
+          "id": 1758370809755,
+          "userInfo": {
+            "name": "Ram",
+            "email": "ram@gmail.com",
+            "address": "Vihajsdbk",
+            "phone": "09270278419",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "color": "Gold",
+              "gender": "Male",
+              "price": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a leather strap.",
+              "image": "image2.jpg",
+              "quantity": 2
+            },
+            {
+              "id": "3",
+              "name": "Sporty Blue Watch",
+              "rating": 4.2,
+              "brand": "Brand C",
+              "category": "Watches",
+              "color": "Blue",
+              "gender": "Female",
+              "originalPrice": 105.25,
+              "offerPrice": 99.99,
+              "offers": "5% off",
+              "description": "Sporty watch with a comfortable silicone band.",
+              "image": "image3.jpg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-20T12:20:09.755Z",
+          "status": "Pending"
+        },
+        {
+          "id": 1758370909719,
+          "userInfo": {
+            "name": "Ram",
+            "email": "ram@gmail.com",
+            "address": "Vihajsdbk",
+            "phone": "9270278419",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a leather strap.",
+              "image": "image2.jpg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-20T12:21:49.719Z",
+          "status": "Pending"
+        },
+        {
+          "id": 1758371520917,
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a leather strap.",
+              "image": "image2.jpg",
+              "quantity": 1,
+              "totalPrice": 299.99
+            }
+          ],
+          "userInfo": {
+            "name": "Ram",
+            "email": "ram@gmail.com",
+            "address": "Vihajsdbk",
+            "phone": "09270278419",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-09-20T12:32:00.917Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": 1758371540770,
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a leather strap.",
+              "image": "image2.jpg",
+              "quantity": 1,
+              "totalPrice": 299.99
+            }
+          ],
+          "userInfo": {
+            "name": "Ram",
+            "email": "ram@gmail.com",
+            "address": "Vihajsdbk",
+            "phone": "09270278419",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-09-20T12:32:20.770Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": 1758382270426,
+          "userInfo": {
+            "name": "Sanjay G G S",
+            "address": "Vinaiyagar",
+            "city": "Coimbatore",
+            "pincode": "642120"
+          },
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a leather strap.",
+              "image": "image2.jpg",
+              "quantity": 2
+            }
+          ],
+          "date": "2025-09-20T15:31:10.426Z",
+          "status": "Pending"
+        },
+        {
+          "id": 1758382396605,
+          "userInfo": {
+            "name": "Sanjay G G S",
+            "address": "Vinaiyagar",
+            "city": "Coimbatore",
+            "pincode": "642120"
+          },
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a leather strap.",
+              "image": "image2.jpg",
+              "quantity": 2
+            }
+          ],
+          "date": "2025-09-20T15:33:16.605Z",
+          "status": "Pending"
+        },
+        {
+          "id": 1758382452303,
+          "items": [
+            {
+              "id": "10",
+              "name": "Casual Sneakers",
+              "rating": 4.3,
+              "brand": "Nike",
+              "category": "Footwear",
+              "color": "White",
+              "gender": "Unisex",
+              "originalPrice": 94.73,
+              "offerPrice": 89.99,
+              "offers": "5% off",
+              "description": "Comfortable sneakers suitable for daily wear.",
+              "image": "images10.jpeg",
+              "quantity": 1,
+              "totalPrice": 89.99
+            }
+          ],
+          "userInfo": {
+            "name": "Ram",
+            "email": "ram@gmail.com",
+            "address": "Vinaiyagar",
+            "phone": "09360618419",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-09-20T15:34:12.303Z",
+          "status": "Cancelled"
         }
       ]
     },
@@ -273,9 +476,11 @@
       "name": "Classic Silver Watch",
       "rating": 4.5,
       "brand": "Brand A",
+      "category": "Watches",
       "color": "Silver",
       "gender": "Unisex",
-      "price": 149.99,
+      "originalPrice": 166.65,
+      "offerPrice": 149.99,
       "offers": "10% off",
       "description": "Elegant silver watch with a stainless steel band.",
       "image": "image1.jpg"
@@ -285,9 +490,11 @@
       "name": "Luxury Gold Watch",
       "rating": 4.8,
       "brand": "Brand B",
+      "category": "Watches",
       "color": "Gold",
       "gender": "Male",
-      "price": 299.99,
+      "originalPrice": 352.93,
+      "offerPrice": 299.99,
       "offers": "15% off",
       "description": "Luxurious gold watch with a leather strap.",
       "image": "image2.jpg"
@@ -297,72 +504,218 @@
       "name": "Sporty Blue Watch",
       "rating": 4.2,
       "brand": "Brand C",
+      "category": "Watches",
       "color": "Blue",
       "gender": "Female",
-      "price": 99.99,
+      "originalPrice": 105.25,
+      "offerPrice": 99.99,
       "offers": "5% off",
       "description": "Sporty watch with a comfortable silicone band.",
       "image": "image3.jpg"
     },
     {
       "id": "4",
-      "name": "Classic Black Watch",
-      "rating": 4.7,
-      "brand": "Brand D",
+      "name": "Wireless Bluetooth Headphones",
+      "rating": 4.6,
+      "brand": "Sony",
+      "category": "Electronics",
       "color": "Black",
-      "gender": "Male",
-      "price": 129.99,
-      "offers": "20% off",
-      "description": "Classic black watch with a minimalist design.",
-      "image": "image4.jpeg"
+      "originalPrice": 235.28,
+      "offerPrice": 199.99,
+      "offers": "15% off",
+      "description": "Noise-cancelling wireless headphones with long battery life.",
+      "image": "images4.jpeg"
     },
     {
       "id": "5",
-      "name": "Elegant Rose Gold Watch",
-      "rating": 4.9,
-      "brand": "Brand E",
-      "color": "Rose Gold",
-      "gender": "Female",
-      "price": 249.99,
-      "offers": "25% off",
-      "description": "Elegant rose gold watch with a mesh band.",
-      "image": "image5.jpg"
+      "name": "Gaming Laptop",
+      "rating": 4.8,
+      "brand": "Asus",
+      "category": "Electronics",
+      "color": "Gray",
+      "originalPrice": 1444.43,
+      "offerPrice": 1299.99,
+      "offers": "10% off",
+      "description": "High-performance gaming laptop with RTX graphics and fast SSD.",
+      "image": "images5.jpeg"
     },
     {
       "id": "6",
-      "name": "Digital Black Watch",
-      "rating": 4.3,
-      "brand": "Brand F",
-      "color": "Black",
-      "gender": "Unisex",
-      "price": 89.99,
-      "offers": "10% off",
-      "description": "Modern digital watch with multiple features.",
-      "image": "image6.jpg"
+      "name": "Smartphone Pro 12",
+      "rating": 4.9,
+      "brand": "Apple",
+      "category": "Electronics",
+      "color": "Silver",
+      "originalPrice": 1249.99,
+      "offerPrice": 1099.99,
+      "offers": "12% off",
+      "description": "Latest smartphone with advanced camera and fast processor.",
+      "image": "images6.jpeg"
     },
     {
       "id": "7",
-      "name": "Vintage Brown Watch",
-      "rating": 4.6,
-      "brand": "Brand G",
-      "color": "Brown",
+      "name": "Slim Fit Jeans",
+      "rating": 4.5,
+      "brand": "Levi's",
+      "category": "Clothing",
+      "color": "Blue",
       "gender": "Male",
-      "price": 199.99,
-      "offers": "30% off",
-      "description": "Vintage watch with a classic leather band.",
-      "image": "image7.jpg"
+      "originalPrice": 74.99,
+      "offerPrice": 59.99,
+      "offers": "20% off",
+      "description": "Stylish slim fit jeans with durable fabric.",
+      "image": "images7.jpeg"
     },
     {
       "id": "8",
-      "name": "Chic White Watch",
-      "rating": 4.4,
-      "brand": "Brand H",
+      "name": "Men’s Leather Jacket",
+      "rating": 4.6,
+      "brand": "Zara",
+      "category": "Clothing",
       "color": "Black",
+      "gender": "Male",
+      "originalPrice": 266.65,
+      "offerPrice": 199.99,
+      "offers": "25% off",
+      "description": "Premium black leather jacket with modern fit.",
+      "image": "images8.jpeg"
+    },
+    {
+      "id": "9",
+      "name": "Floral Summer Dress",
+      "rating": 4.7,
+      "brand": "H&M",
+      "category": "Clothing",
+      "color": "Red",
       "gender": "Female",
-      "price": 109.99,
+      "originalPrice": 79.99,
+      "offerPrice": 59.99,
+      "offers": "25% off",
+      "description": "Lightweight floral dress perfect for summer outings.",
+      "image": "images9.jpeg"
+    },
+    {
+      "id": "10",
+      "name": "Casual Sneakers",
+      "rating": 4.3,
+      "brand": "Nike",
+      "category": "Footwear",
+      "color": "White",
+      "gender": "Unisex",
+      "originalPrice": 94.73,
+      "offerPrice": 89.99,
+      "offers": "5% off",
+      "description": "Comfortable sneakers suitable for daily wear.",
+      "image": "images10.jpeg"
+    },
+    {
+      "id": "11",
+      "name": "Running Shoes",
+      "rating": 4.5,
+      "brand": "Adidas",
+      "category": "Footwear",
+      "color": "Blue",
+      "gender": "Male",
+      "originalPrice": 139.99,
+      "offerPrice": 119.99,
+      "offers": "15% off",
+      "description": "Lightweight running shoes with great cushioning.",
+      "image": "images11.jpeg"
+    },
+    {
+      "id": "12",
+      "name": "Heeled Sandals",
+      "rating": 4.4,
+      "brand": "Aldo",
+      "category": "Footwear",
+      "color": "Beige",
+      "gender": "Female",
+      "originalPrice": 99.99,
+      "offerPrice": 79.99,
       "offers": "20% off",
-      "description": "Chic white watch with a ceramic band.",
-      "image": "image8.jpg"
+      "description": "Elegant heeled sandals perfect for evening wear.",
+      "image": "images12.jpeg"
+    },
+    {
+      "id": "13",
+      "name": "Designer Handbag",
+      "rating": 4.7,
+      "brand": "Gucci",
+      "category": "Accessories",
+      "color": "Brown",
+      "gender": "Female",
+      "originalPrice": 999.99,
+      "offerPrice": 899.99,
+      "offers": "10% off",
+      "description": "Luxury handbag crafted from premium leather.",
+      "image": "images13.jpeg"
+    },
+    {
+      "id": "14",
+      "name": "Aviator Sunglasses",
+      "rating": 4.5,
+      "brand": "Ray-Ban",
+      "category": "Accessories",
+      "color": "Black",
+      "gender": "Unisex",
+      "originalPrice": 199.99,
+      "offerPrice": 149.99,
+      "offers": "25% off",
+      "description": "Classic aviator sunglasses with UV protection.",
+      "image": "images14.jpeg"
+    },
+    {
+      "id": "15",
+      "name": "Leather Wallet",
+      "rating": 4.6,
+      "brand": "Tommy Hilfiger",
+      "category": "Accessories",
+      "color": "Brown",
+      "gender": "Male",
+      "originalPrice": 79.99,
+      "offerPrice": 59.99,
+      "offers": "25% off",
+      "description": "Durable leather wallet with multiple compartments.",
+      "image": "images15.jpeg"
+    },
+    {
+      "id": "16",
+      "name": "Microwave Oven",
+      "rating": 4.5,
+      "brand": "Samsung",
+      "category": "Home Appliances",
+      "color": "Black",
+      "originalPrice": 199.99,
+      "offerPrice": 169.99,
+      "offers": "15% off",
+      "description": "20L microwave oven with grill and auto cook menu.",
+      "image": "images16.jpeg"
+    },
+    {
+      "id": "17",
+      "name": "Refrigerator 260L",
+      "rating": 4.7,
+      "brand": "LG",
+      "category": "Home Appliances",
+      "color": "Silver",
+      "originalPrice": 799.99,
+      "offerPrice": 699.99,
+      "offers": "12% off",
+      "description": "Double door refrigerator with inverter technology.",
+      "image": "images17.jpeg"
+    },
+    {
+      "id": "18",
+      "name": "Front Load Washing Machine",
+      "rating": 4.8,
+      "brand": "Bosch",
+      "category": "Home Appliances",
+      "color": "White",
+      "originalPrice": 699.99,
+      "offerPrice": 599.99,
+      "offers": "14% off",
+      "description": "7kg front load washing machine with multiple wash modes.",
+      "image": "images18.jpeg"
     }
   ]
 }

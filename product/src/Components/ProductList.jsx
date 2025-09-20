@@ -1,12 +1,10 @@
-// ProductList.jsx
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "host/store";
 import { useNavigate } from "react-router-dom";
 import "./ProductList.css";
 
-
-function ProductList({ search = "", category = "All" }) {
+function ProductList({ search = "", category = "All", price = 2000 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { list = [], status } = useSelector((s) => s.products || {});
@@ -19,8 +17,9 @@ function ProductList({ search = "", category = "All" }) {
   const filteredProducts = list.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory =
-      category === "All" || p.gender.toLowerCase() === category.toLowerCase();
-    return matchesSearch && matchesCategory;
+      category === "All" || p.category?.toLowerCase() === category.toLowerCase();
+    const matchesPrice = !price || p.offerPrice <= price; // filter by offer price
+    return matchesSearch && matchesCategory && matchesPrice;
   });
 
   const handleViewDetails = (id) => {
@@ -42,29 +41,16 @@ function ProductList({ search = "", category = "All" }) {
                 className="product-img"
               />
               <h3>{p.name}</h3>
-              <p className="price">₹{p.price}</p>
+              <p className="price">
+                <span className="old-price">₹{p.originalPrice}</span>{" "}
+                <span className="offer-price">₹{p.offerPrice}</span>
+              </p>
               <button
-  onClick={() => handleViewDetails(p.id)}
-  style={{
-    background: "linear-gradient(90deg, #3b82f6, #2563eb)",
-    color: "#fff",
-    padding: "10px 18px",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontWeight: "600",
-    fontSize: "14px",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-    transition: "all 0.3s ease",
-  }}
-  onMouseOver={(e) => (e.currentTarget.style.background = "#1d4ed8")}
-  onMouseOut={(e) =>
-    (e.currentTarget.style.background = "linear-gradient(90deg, #3b82f6, #2563eb)")
-  }
->
-  View Details
-</button>
-
+                onClick={() => handleViewDetails(p.id)}
+                className="view-btn"
+              >
+                View Details
+              </button>
             </div>
           ))
         )}
@@ -72,5 +58,5 @@ function ProductList({ search = "", category = "All" }) {
     </div>
   );
 }
-export default ProductList;
 
+export default ProductList;

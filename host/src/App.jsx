@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider, useSelector } from "react-redux";
@@ -13,67 +13,76 @@ const ProductDetail = React.lazy(() => import("product/ProductDetail"));
 const CartPage = React.lazy(() => import("cart/CartPage"));
 const OrderHistory = React.lazy(() => import("orders/OrderHistory"));
 
-function App() {
+function AppWrapper() {
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All");
+  const [price, setPrice] = useState(2000);
+
+  return (
+    <BrowserRouter>
+      <Layout
+        onSearch={setSearch}
+        onFilter={setCategory}
+        onPriceChange={setPrice}
+      >
+        <App search={search} category={category} price={price} />
+      </Layout>
+    </BrowserRouter>
+  );
+}
+
+function App({ search, category, price }) {
   const user = useSelector((state) => state.auth.user);
 
   return (
-    
-    <BrowserRouter>
-      <Layout>
-        {({ search, category }) => (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route path="/login" element={<AuthLogin />} />
-              <Route path="/signup" element={<AuthSignup />} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/login" element={<AuthLogin />} />
+        <Route path="/signup" element={<AuthSignup />} />
 
-              <Route
-                path="/"
-                element={<ProductList search={search} category={category} />}
-              />
+        <Route
+          path="/"
+          element={<ProductList search={search} category={category} price={price} />}
+        />
 
-              <Route
-                path="/products/:id"
-                element={
-                  <ProtectedRoute>
-                    <ProductDetail />
-                  </ProtectedRoute>
-                }
-              />
+        <Route
+          path="/products/:id"
+          element={
+            <ProtectedRoute>
+              <ProductDetail />
+            </ProtectedRoute>
+          }
+        />
 
-              <Route
-                path="/cart"
-                element={
-                  <ProtectedRoute>
-                    <CartPage />
-                  </ProtectedRoute>
-                }
-              />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          }
+        />
 
-              <Route
-                path="/orders"
-                element={
-                  <ProtectedRoute>
-                    {user && user.id ? (
-                      <OrderHistory userId={user.id} />
-                    ) : (
-                      <p style={{ padding: "20px" }}>
-                        ⚠ Please login to view your orders
-                      </p>
-                    )}
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </Suspense>
-        )}
-      </Layout>
-    </BrowserRouter>
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              {user && user.id ? (
+                <OrderHistory userId={user.id} />
+              ) : (
+                <p style={{ padding: "20px" }}>⚠ Please login to view your orders</p>
+              )}
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </Suspense>
   );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("app"));
 root.render(
   <Provider store={store}>
-    <App />
+    <AppWrapper />
   </Provider>
 );
