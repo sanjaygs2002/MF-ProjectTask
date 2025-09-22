@@ -92,7 +92,38 @@
       "username": "Ram",
       "email": "ram@gmail.com",
       "password": "Ram@2002",
-      "cart": [],
+      "cart": [
+        {
+          "id": "2",
+          "name": "Luxury Gold Watch",
+          "rating": 4.8,
+          "brand": "Brand B",
+          "category": "Watches",
+          "color": "Gold",
+          "gender": "Male",
+          "originalPrice": 352.93,
+          "offerPrice": 299.99,
+          "offers": "15% off",
+          "description": "Luxurious gold watch with a leather strap.",
+          "image": "image2.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "7",
+          "name": "Slim Fit Jeans",
+          "rating": 4.5,
+          "brand": "Levi's",
+          "category": "Clothing",
+          "color": "Blue",
+          "gender": "Male",
+          "originalPrice": 74.99,
+          "offerPrice": 59.99,
+          "offers": "20% off",
+          "description": "Stylish slim fit jeans with durable fabric.",
+          "image": "images7.jpeg",
+          "quantity": 1
+        }
+      ],
       "orders": [
         {
           "id": 1758177417033,
@@ -466,6 +497,16 @@
       "username": "Swathi",
       "email": "swathi@gmail.com",
       "password": "Swathi@2002",
+      "cart": [],
+      "orders": []
+    },
+    {
+      "id": "d97c",
+      "username": "Harish",
+      "email": "harish@gmail.com",
+      "password": "Harish@2002",
+      "phone": "8474874748",
+      "address": "6/90A Udumelpat pethapampatti Tirupur ",
       "cart": [],
       "orders": []
     }

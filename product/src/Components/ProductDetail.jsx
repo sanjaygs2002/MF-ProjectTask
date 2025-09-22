@@ -86,7 +86,9 @@ function ProductDetail() {
           <span className="stars">{renderStars(selected.rating)}</span>
           <span className="rating-value">({selected.rating})</span>
         </div>
-
+        <div className="offers">
+          <p>{selected.offers}</p>
+        </div>
         <div className="price-section">
           <span className="offer-price">₹{selected.offerPrice}</span>
           <span className="original-price">₹{selected.originalPrice}</span>
@@ -102,7 +104,7 @@ function ProductDetail() {
             <span>{selected.color}</span>
           </div>
         )}
-
+        
         <div className="quantity-selector">
           <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>
             -

@@ -47,6 +47,11 @@
   color: #e53935;
 }
 
+.offers {
+  font-weight: bold;
+  color: #0de563;
+}
+
 .original-price {
   text-decoration: line-through;
   color: #888;

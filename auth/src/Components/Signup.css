@@ -21,19 +21,27 @@
   font-size: 24px;
 }
 
-.signup-form input {
+.signup-form input,
+.signup-form textarea {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 16px;
-  transition: border 0.3s ease;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  resize: none; /* keep textarea neat */
 }
 
-.signup-form input:focus {
+.signup-form input:focus,
+.signup-form textarea:focus {
   border-color: #ff9900;
+  box-shadow: 0 0 4px rgba(255, 153, 0, 0.5);
   outline: none;
+}
+
+.signup-form textarea {
+  min-height: 70px;
 }
 
 .signup-form button {
@@ -46,12 +54,13 @@
   font-size: 16px;
   cursor: pointer;
   margin-top: 10px;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .signup-form button:hover {
   background: #f0c14b;
   color: #232f3e;
+  transform: translateY(-2px);
 }
 
 .signup-form .error {
@@ -70,4 +79,9 @@
   color: #ff9900;
   cursor: pointer;
   font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.signup-form .link:hover {
+  color: #f0c14b;
 }

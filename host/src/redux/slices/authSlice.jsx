@@ -27,16 +27,27 @@ export const loginUser = createAsyncThunk(
 // 🔹 Async thunk for register
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
-  async ({ username, email, password }, thunkAPI) => {
+  async ({ username, email, password, phone, address }, thunkAPI) => {
     try {
       const res = await fetch("http://localhost:5000/users");
       const users = await res.json();
 
+      // ✅ Check if user already exists
       if (users.find((u) => u.email === email)) {
         return thunkAPI.rejectWithValue("User already exists");
       }
 
-      const newUser = { username, email, password, cart: [], orders: [] };
+      // ✅ Add phone and address fields
+      const newUser = { 
+        username, 
+        email, 
+        password, 
+        phone, 
+        address, 
+        cart: [], 
+        orders: [] 
+      };
+
       await fetch("http://localhost:5000/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -50,6 +61,7 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
