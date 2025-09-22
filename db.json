@@ -88,379 +88,6 @@
       ]
     },
     {
-      "id": "f4c7",
-      "username": "Ram",
-      "email": "ram@gmail.com",
-      "password": "Ram@2002",
-      "cart": [
-        {
-          "id": "2",
-          "name": "Luxury Gold Watch",
-          "rating": 4.8,
-          "brand": "Brand B",
-          "category": "Watches",
-          "color": "Gold",
-          "gender": "Male",
-          "originalPrice": 352.93,
-          "offerPrice": 299.99,
-          "offers": "15% off",
-          "description": "Luxurious gold watch with a leather strap.",
-          "image": "image2.jpg",
-          "quantity": 1
-        },
-        {
-          "id": "7",
-          "name": "Slim Fit Jeans",
-          "rating": 4.5,
-          "brand": "Levi's",
-          "category": "Clothing",
-          "color": "Blue",
-          "gender": "Male",
-          "originalPrice": 74.99,
-          "offerPrice": 59.99,
-          "offers": "20% off",
-          "description": "Stylish slim fit jeans with durable fabric.",
-          "image": "images7.jpeg",
-          "quantity": 1
-        }
-      ],
-      "orders": [
-        {
-          "id": 1758177417033,
-          "userInfo": {
-            "name": "ram",
-            "address": "Vinaiyagar",
-            "city": "Coimbatore",
-            "pincode": "642120"
-          },
-          "items": [
-            {
-              "id": "2",
-              "name": "Luxury Gold Watch",
-              "rating": 4.8,
-              "brand": "Brand B",
-              "color": "Gold",
-              "gender": "Male",
-              "price": 299.99,
-              "offers": "15% off",
-              "description": "Luxurious gold watch with a leather strap.",
-              "image": "image2.jpg",
-              "quantity": 4
-            },
-            {
-              "id": "3",
-              "name": "Sporty Blue Watch",
-              "rating": 4.2,
-              "brand": "Brand C",
-              "color": "Blue",
-              "gender": "Female",
-              "price": 99.99,
-              "offers": "5% off",
-              "description": "Sporty watch with a comfortable silicone band.",
-              "image": "image3.jpg"
-            },
-            {
-              "id": "4",
-              "name": "Classic Black Watch",
-              "rating": 4.7,
-              "brand": "Brand D",
-              "color": "Black",
-              "gender": "Male",
-              "price": 129.99,
-              "offers": "20% off",
-              "description": "Classic black watch with a minimalist design.",
-              "image": "image4.jpeg",
-              "quantity": 1
-            }
-          ],
-          "date": "2025-09-18T06:36:57.033Z",
-          "status": "Pending"
-        },
-        {
-          "id": 1758262192920,
-          "userInfo": {
-            "name": "Sanjay G G S",
-            "address": "Vinaiyagar",
-            "city": "Coimbatore",
-            "pincode": "642120"
-          },
-          "items": [
-            {
-              "id": "2",
-              "name": "Luxury Gold Watch",
-              "rating": 4.8,
-              "brand": "Brand B",
-              "color": "Gold",
-              "gender": "Male",
-              "price": 299.99,
-              "offers": "15% off",
-              "description": "Luxurious gold watch with a leather strap.",
-              "image": "image2.jpg",
-              "quantity": 1
-            },
-            {
-              "id": "5",
-              "name": "Elegant Rose Gold Watch",
-              "rating": 4.9,
-              "brand": "Brand E",
-              "color": "Rose Gold",
-              "gender": "Female",
-              "price": 249.99,
-              "offers": "25% off",
-              "description": "Elegant rose gold watch with a mesh band.",
-              "image": "image5.jpg",
-              "quantity": 1
-            }
-          ],
-          "date": "2025-09-19T06:09:52.920Z",
-          "status": "Cancelled"
-        },
-        {
-          "id": 1758274975472,
-          "userInfo": {
-            "name": "Sanjay G G S",
-            "address": "Vinaiyagar",
-            "city": "Coimbatore",
-            "pincode": "642120"
-          },
-          "items": [
-            {
-              "id": "3",
-              "name": "Sporty Blue Watch",
-              "rating": 4.2,
-              "brand": "Brand C",
-              "color": "Blue",
-              "gender": "Female",
-              "price": 99.99,
-              "offers": "5% off",
-              "description": "Sporty watch with a comfortable silicone band.",
-              "image": "image3.jpg",
-              "quantity": 1
-            }
-          ],
-          "date": "2025-09-19T09:42:55.472Z",
-          "status": "Cancelled"
-        },
-        {
-          "id": 1758370809755,
-          "userInfo": {
-            "name": "Ram",
-            "email": "ram@gmail.com",
-            "address": "Vihajsdbk",
-            "phone": "09270278419",
-            "payment": "Cash on Delivery"
-          },
-          "items": [
-            {
-              "id": "2",
-              "name": "Luxury Gold Watch",
-              "rating": 4.8,
-              "brand": "Brand B",
-              "color": "Gold",
-              "gender": "Male",
-              "price": 299.99,
-              "offers": "15% off",
-              "description": "Luxurious gold watch with a leather strap.",
-              "image": "image2.jpg",
-              "quantity": 2
-            },
-            {
-              "id": "3",
-              "name": "Sporty Blue Watch",
-              "rating": 4.2,
-              "brand": "Brand C",
-              "category": "Watches",
-              "color": "Blue",
-              "gender": "Female",
-              "originalPrice": 105.25,
-              "offerPrice": 99.99,
-              "offers": "5% off",
-              "description": "Sporty watch with a comfortable silicone band.",
-              "image": "image3.jpg",
-              "quantity": 1
-            }
-          ],
-          "date": "2025-09-20T12:20:09.755Z",
-          "status": "Pending"
-        },
-        {
-          "id": 1758370909719,
-          "userInfo": {
-            "name": "Ram",
-            "email": "ram@gmail.com",
-            "address": "Vihajsdbk",
-            "phone": "9270278419",
-            "payment": "Cash on Delivery"
-          },
-          "items": [
-            {
-              "id": "2",
-              "name": "Luxury Gold Watch",
-              "rating": 4.8,
-              "brand": "Brand B",
-              "category": "Watches",
-              "color": "Gold",
-              "gender": "Male",
-              "originalPrice": 352.93,
-              "offerPrice": 299.99,
-              "offers": "15% off",
-              "description": "Luxurious gold watch with a leather strap.",
-              "image": "image2.jpg",
-              "quantity": 1
-            }
-          ],
-          "date": "2025-09-20T12:21:49.719Z",
-          "status": "Pending"
-        },
-        {
-          "id": 1758371520917,
-          "items": [
-            {
-              "id": "2",
-              "name": "Luxury Gold Watch",
-              "rating": 4.8,
-              "brand": "Brand B",
-              "category": "Watches",
-              "color": "Gold",
-              "gender": "Male",
-              "originalPrice": 352.93,
-              "offerPrice": 299.99,
-              "offers": "15% off",
-              "description": "Luxurious gold watch with a leather strap.",
-              "image": "image2.jpg",
-              "quantity": 1,
-              "totalPrice": 299.99
-            }
-          ],
-          "userInfo": {
-            "name": "Ram",
-            "email": "ram@gmail.com",
-            "address": "Vihajsdbk",
-            "phone": "09270278419",
-            "payment": "Cash on Delivery"
-          },
-          "date": "2025-09-20T12:32:00.917Z",
-          "status": "Cancelled"
-        },
-        {
-          "id": 1758371540770,
-          "items": [
-            {
-              "id": "2",
-              "name": "Luxury Gold Watch",
-              "rating": 4.8,
-              "brand": "Brand B",
-              "category": "Watches",
-              "color": "Gold",
-              "gender": "Male",
-              "originalPrice": 352.93,
-              "offerPrice": 299.99,
-              "offers": "15% off",
-              "description": "Luxurious gold watch with a leather strap.",
-              "image": "image2.jpg",
-              "quantity": 1,
-              "totalPrice": 299.99
-            }
-          ],
-          "userInfo": {
-            "name": "Ram",
-            "email": "ram@gmail.com",
-            "address": "Vihajsdbk",
-            "phone": "09270278419",
-            "payment": "Cash on Delivery"
-          },
-          "date": "2025-09-20T12:32:20.770Z",
-          "status": "Cancelled"
-        },
-        {
-          "id": 1758382270426,
-          "userInfo": {
-            "name": "Sanjay G G S",
-            "address": "Vinaiyagar",
-            "city": "Coimbatore",
-            "pincode": "642120"
-          },
-          "items": [
-            {
-              "id": "2",
-              "name": "Luxury Gold Watch",
-              "rating": 4.8,
-              "brand": "Brand B",
-              "category": "Watches",
-              "color": "Gold",
-              "gender": "Male",
-              "originalPrice": 352.93,
-              "offerPrice": 299.99,
-              "offers": "15% off",
-              "description": "Luxurious gold watch with a leather strap.",
-              "image": "image2.jpg",
-              "quantity": 2
-            }
-          ],
-          "date": "2025-09-20T15:31:10.426Z",
-          "status": "Pending"
-        },
-        {
-          "id": 1758382396605,
-          "userInfo": {
-            "name": "Sanjay G G S",
-            "address": "Vinaiyagar",
-            "city": "Coimbatore",
-            "pincode": "642120"
-          },
-          "items": [
-            {
-              "id": "2",
-              "name": "Luxury Gold Watch",
-              "rating": 4.8,
-              "brand": "Brand B",
-              "category": "Watches",
-              "color": "Gold",
-              "gender": "Male",
-              "originalPrice": 352.93,
-              "offerPrice": 299.99,
-              "offers": "15% off",
-              "description": "Luxurious gold watch with a leather strap.",
-              "image": "image2.jpg",
-              "quantity": 2
-            }
-          ],
-          "date": "2025-09-20T15:33:16.605Z",
-          "status": "Pending"
-        },
-        {
-          "id": 1758382452303,
-          "items": [
-            {
-              "id": "10",
-              "name": "Casual Sneakers",
-              "rating": 4.3,
-              "brand": "Nike",
-              "category": "Footwear",
-              "color": "White",
-              "gender": "Unisex",
-              "originalPrice": 94.73,
-              "offerPrice": 89.99,
-              "offers": "5% off",
-              "description": "Comfortable sneakers suitable for daily wear.",
-              "image": "images10.jpeg",
-              "quantity": 1,
-              "totalPrice": 89.99
-            }
-          ],
-          "userInfo": {
-            "name": "Ram",
-            "email": "ram@gmail.com",
-            "address": "Vinaiyagar",
-            "phone": "09360618419",
-            "payment": "Cash on Delivery"
-          },
-          "date": "2025-09-20T15:34:12.303Z",
-          "status": "Cancelled"
-        }
-      ]
-    },
-    {
       "id": "246d",
       "username": "sam",
       "email": "sam@gmail.com",
@@ -502,13 +129,99 @@
     },
     {
       "id": "d97c",
-      "username": "Harish",
+      "username": "Harish Kumar",
       "email": "harish@gmail.com",
-      "password": "Harish@2002",
       "phone": "8474874748",
-      "address": "6/90A Udumelpat pethapampatti Tirupur ",
+      "address": "6/90A Udumelpat pethapampatti ",
       "cart": [],
-      "orders": []
+      "orders": [
+        {
+          "id": 1758535087421,
+          "userInfo": {
+            "name": "Sanjay G G S",
+            "address": "Vinaiyagar",
+            "city": "Coimbatore",
+            "pincode": "642120"
+          },
+          "items": [
+            {
+              "id": "3",
+              "name": "Sporty Blue Watch",
+              "rating": 4.2,
+              "brand": "Brand C",
+              "category": "Watches",
+              "color": "Blue",
+              "gender": "Female",
+              "originalPrice": 105.25,
+              "offerPrice": 99.99,
+              "offers": "5% off",
+              "description": "Sporty watch with a comfortable silicone band.",
+              "image": "image3.jpg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-22T09:58:07.421Z",
+          "status": "Pending"
+        },
+        {
+          "id": 1758542603223,
+          "items": [
+            {
+              "id": "3",
+              "name": "Sporty Blue Watch",
+              "rating": 4.2,
+              "brand": "Brand C",
+              "category": "Watches",
+              "color": "Blue",
+              "gender": "Female",
+              "originalPrice": 105.25,
+              "offerPrice": 99.99,
+              "offers": "5% off",
+              "description": "Sporty watch with a comfortable silicone band.",
+              "image": "image3.jpg",
+              "quantity": 1,
+              "totalPrice": 99.99
+            }
+          ],
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "Vinaiyagar",
+            "phone": "09360618419",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-09-22T12:03:23.223Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": 1758543219682,
+          "userInfo": {
+            "name": "Sanjay G G S",
+            "address": "Vinaiyagar",
+            "city": "Coimbatore",
+            "pincode": "642120"
+          },
+          "items": [
+            {
+              "id": "1",
+              "name": "Classic Silver Watch",
+              "rating": 4.5,
+              "brand": "Brand A",
+              "category": "Watches",
+              "color": "Silver",
+              "gender": "Unisex",
+              "originalPrice": 166.65,
+              "offerPrice": 149.99,
+              "offers": "10% off",
+              "description": "Elegant silver watch with a stainless steel band.",
+              "image": "image1.jpg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-22T12:13:39.682Z",
+          "status": "Pending"
+        }
+      ]
     }
   ],
   "products": [

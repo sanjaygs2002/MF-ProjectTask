@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "host/authSlice";
 import { ShoppingCart, Package } from "lucide-react"; // icons
@@ -11,6 +11,7 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
   const orders = useSelector((s) => s.orders?.list || []);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [price, setPrice] = useState(2000);
@@ -101,20 +102,30 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
               {orders.length > 0 && <span className="badge">{orders.length}</span>}
             </Link>
 
+            {/* User dropdown */}
             <div
               className="user-dropdown"
               ref={dropdownRef}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              onClick={() => setDropdownOpen((prev) => !prev)}
             >
               <span className="user-icon">👤</span>
+
               {dropdownOpen && (
                 <div className="dropdown-menu">
                   <div className="user-details">
-                    <span className="username">{user.username}</span>
-                    <small className="email">{user.email}</small>
+                    <span className="username">{user.username}</span><br></br>
+                    <small style={{color:"White"}} className="email">{user.email}</small>
                   </div>
+
+                  {/* ✅ Edit Profile option */}
+                  <button
+                    onClick={() => navigate("/edit-profile")}
+                    className="btn-edit-profile"
+                  >
+                    Edit Profile
+                  </button>
+
                   <button
                     onClick={() => dispatch(logout())}
                     className="btn-logout"

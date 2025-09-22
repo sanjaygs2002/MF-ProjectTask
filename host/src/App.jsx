@@ -12,6 +12,8 @@ const ProductList = React.lazy(() => import("product/ProductList"));
 const ProductDetail = React.lazy(() => import("product/ProductDetail"));
 const CartPage = React.lazy(() => import("cart/CartPage"));
 const OrderHistory = React.lazy(() => import("orders/OrderHistory"));
+const EditProfile=React.lazy(()=>import("auth/EditProfile"))
+
 
 function AppWrapper() {
   const [search, setSearch] = useState("");
@@ -39,6 +41,7 @@ function App({ search, category, price }) {
       <Routes>
         <Route path="/login" element={<AuthLogin />} />
         <Route path="/signup" element={<AuthSignup />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
 
         <Route
           path="/"
@@ -48,9 +51,9 @@ function App({ search, category, price }) {
         <Route
           path="/products/:id"
           element={
-            <ProtectedRoute>
+            
               <ProductDetail />
-            </ProtectedRoute>
+            
           }
         />
 

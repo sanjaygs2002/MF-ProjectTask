@@ -66,10 +66,11 @@ module.exports = {
       exposes: {
         './Login': './src/Components/Login.jsx', // 👈 expose Login
         "./Signup":"./src/Components/Signup.jsx",
+        "./EditProfile":"./src/Components/EditProfile.jsx",
         
       },
       shared: {
-    react: { singleton: true, eager: true },
+   
 
   "@reduxjs/toolkit": { singleton: true, eager: true },
     react: { singleton: true, requiredVersion: "^18.2.0" },

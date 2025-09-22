@@ -6,7 +6,7 @@ import "./OrderHistory.css";
 export default function OrderHistory({ userId }) {
   const dispatch = useDispatch();
   const { items: orders, status, error } = useSelector((state) => state.orders);
-
+  
   useEffect(() => {
     if (userId) {
       dispatch(fetchOrders(userId));
@@ -18,16 +18,18 @@ export default function OrderHistory({ userId }) {
   };
 
   const calculateTotal = (items) => {
-  return items
-    .reduce((acc, item) => acc + (parseFloat(item.offerPrice) * (item.quantity || 1)), 0)
-    .toFixed(2);
-};
-
+    return items
+      .reduce(
+        (acc, item) => acc + (parseFloat(item.offerPrice) * (item.quantity || 1)),
+        0
+      )
+      .toFixed(2);
+  };
 
   const canCancel = (orderDate) => {
     const placedTime = new Date(orderDate).getTime();
     const now = Date.now();
-    const diffHours = (now - placedTime) / (1000 * 60 * 60); // convert ms → hours
+    const diffHours = (now - placedTime) / (1000 * 60 * 60);
     return diffHours <= 6;
   };
 
@@ -61,34 +63,31 @@ export default function OrderHistory({ userId }) {
                 <div className="order-item-details">
                   <p>{item.name}</p>
                   <p>Qty: {item.quantity || 1}</p>
-                 <p className="total-price">
-  Total Price: ₹{calculateTotal(order.items)}
-</p>
-
                 </div>
               </div>
             ))}
           </div>
 
+          <p className="total-price">Total Price: ₹{calculateTotal(order.items)}</p>
+
           {/* ✅ Cancel logic */}
           {order.status !== "Cancelled" && (
             <>
               {canCancel(order.date) ? (
-  <div className="tooltip-wrapper">
-    <button
-      className="cancel-btn"
-      onClick={() => handleCancel(order.id)}
-    >
-      Cancel Order
-    </button>
-    <span className="tooltip-text">Cancel order within 6 hours</span>
-  </div>
-) : (
-  <p className="cancel-msg">
-    ⚠️ Order can’t be cancelled after 6 hours.
-  </p>
-)}
-
+                <div className="tooltip-wrapper">
+                  <button
+                    className="cancel-btn"
+                    onClick={() => handleCancel(order.id)}
+                  >
+                    Cancel Order
+                  </button>
+                  <span className="tooltip-text">Cancel order within 6 hours</span>
+                </div>
+              ) : (
+                <p className="cancel-msg">
+                  ⚠️ Order can’t be cancelled after 6 hours.
+                </p>
+              )}
             </>
           )}
         </div>

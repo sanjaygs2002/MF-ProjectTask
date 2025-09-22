@@ -8,7 +8,6 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { list = [], status } = useSelector((s) => s.products || {});
-  const { user } = useSelector((s) => s.auth || {});
 
   useEffect(() => {
     if (status === "idle") dispatch(fetchProducts());
@@ -18,13 +17,13 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory =
       category === "All" || p.category?.toLowerCase() === category.toLowerCase();
-    const matchesPrice = !price || p.offerPrice <= price; // filter by offer price
+    const matchesPrice = !price || p.offerPrice <= price;
     return matchesSearch && matchesCategory && matchesPrice;
   });
 
   const handleViewDetails = (id) => {
-    if (!user) navigate(`/login?redirect=/products/${id}`);
-    else navigate(`/products/${id}`);
+    // ✅ Always navigate without login check
+    navigate(`/products/${id}`);
   };
 
   return (

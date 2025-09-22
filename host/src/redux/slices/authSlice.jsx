@@ -62,6 +62,31 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+// host/src/redux/slices/authSlice.js
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (updatedUser, thunkAPI) => {
+    try {
+      const res = await fetch(`http://localhost:5000/users/${updatedUser.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (!res.ok) throw new Error("Failed to update user");
+
+      const data = await res.json();
+
+      // ✅ update localStorage
+      localStorage.setItem("user", JSON.stringify(data));
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue("Update failed");
+    }
+  }
+);
+
+
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -108,6 +133,18 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
+
+      // in extraReducers
+builder
+  .addCase(updateUser.fulfilled, (state, action) => {
+    state.loading = false;
+    state.user = action.payload;
+  })
+  .addCase(updateUser.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  });
+
   },
 });
 
