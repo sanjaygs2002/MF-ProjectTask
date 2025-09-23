@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "host/store";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +9,31 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
   const navigate = useNavigate();
   const { list = [], status } = useSelector((s) => s.products || {});
 
+  const [showScroll, setShowScroll] = useState(false);
+
+  // Fetch products
   useEffect(() => {
     if (status === "idle") dispatch(fetchProducts());
   }, [dispatch, status]);
 
+  // Scroll button logic
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScroll(true);
+      } else {
+        setShowScroll(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Filtering products
   const filteredProducts = list.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory =
@@ -22,7 +43,6 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
   });
 
   const handleViewDetails = (id) => {
-    // ✅ Always navigate without login check
     navigate(`/products/${id}`);
   };
 
@@ -54,6 +74,13 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
           ))
         )}
       </div>
+
+      {/* Scroll-to-top button */}
+      {showScroll && (
+        <button className="scroll-top-btn" onClick={scrollToTop}>
+          ↑
+        </button>
+      )}
     </div>
   );
 }

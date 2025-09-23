@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "host/authSlice";
 import { useNavigate } from "react-router-dom";
+import "./EditProfile.css";
 
 export default function EditProfile() {
   const user = useSelector((state) => state.auth.user);
@@ -38,10 +39,10 @@ export default function EditProfile() {
       return;
     }
 
-    // ✅ Preserve password, cart, and orders when updating
+    // Preserve existing data like password, cart, orders
     const updatedUser = {
-      ...user,          // keep everything (password, cart, orders)
-      ...formData,      // override with new values from form
+      ...user,
+      ...formData,
     };
 
     dispatch(updateUser(updatedUser));
@@ -52,7 +53,7 @@ export default function EditProfile() {
   return (
     <div className="edit-profile">
       <h2>Edit Profile</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="profile-form" onSubmit={handleSubmit}>
         <label>
           Username:
           <input
@@ -60,6 +61,7 @@ export default function EditProfile() {
             name="username"
             value={formData.username}
             onChange={handleChange}
+            required
           />
         </label>
 
@@ -70,7 +72,7 @@ export default function EditProfile() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            readOnly // ✅ usually you don’t allow email change
+            readOnly
           />
         </label>
 
@@ -81,6 +83,7 @@ export default function EditProfile() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            required
           />
         </label>
 
@@ -91,10 +94,13 @@ export default function EditProfile() {
             name="address"
             value={formData.address}
             onChange={handleChange}
+            required
           />
         </label>
 
-        <button type="submit">Update Profile</button>
+        <button type="submit" className="btn-save">
+          Update Profile
+        </button>
       </form>
     </div>
   );

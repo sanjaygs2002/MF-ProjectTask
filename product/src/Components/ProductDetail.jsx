@@ -1,14 +1,16 @@
+// ProductDetail.jsx
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "host/cartSlice";
 import { fetchProductById } from "host/productsSlice";
-import { placeOrderDirect } from "host/orderSlice"; // Buy Now logic
+import { placeOrderDirect } from "host/orderSlice";
 import "./ProductDetail.css";
 
 function ProductDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { selected } = useSelector((state) => state.products);
   const { user } = useSelector((state) => state.auth);
 
@@ -67,10 +69,18 @@ function ProductDetail() {
     return stars.join(" ");
   };
 
+  // Exclude fields we already display separately
+  const excludedFields = ["id", "name", "image", "offerPrice", "originalPrice", "offers", "rating", "description"];
+  const dynamicFields = Object.entries(selected).filter(
+    ([key]) => !excludedFields.includes(key)
+  );
+
   return (
     <div className="product-detail-container">
-      {/* Left: Image */}
       <div className="image-section">
+        <button className="back-btn" onClick={() => navigate("/")}>
+          ← Back
+        </button>
         <img
           src={`http://localhost:8083/images/${selected.image}`}
           alt={selected.name}
@@ -78,7 +88,6 @@ function ProductDetail() {
         />
       </div>
 
-      {/* Right: Details */}
       <div className="info-section">
         <h2 className="product-title">{selected.name}</h2>
 
@@ -86,29 +95,18 @@ function ProductDetail() {
           <span className="stars">{renderStars(selected.rating)}</span>
           <span className="rating-value">({selected.rating})</span>
         </div>
+
         <div className="offers">
           <p>{selected.offers}</p>
         </div>
+
         <div className="price-section">
           <span className="offer-price">₹{selected.offerPrice}</span>
           <span className="original-price">₹{selected.originalPrice}</span>
         </div>
 
-        {selected.color && (
-          <div className="color-section">
-            <span>Color:</span>
-            <span
-              className="color-badge"
-              style={{ backgroundColor: selected.color.toLowerCase() }}
-            ></span>
-            <span>{selected.color}</span>
-          </div>
-        )}
-        
         <div className="quantity-selector">
-          <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>
-            -
-          </button>
+          <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
           <span>{quantity}</span>
           <button onClick={() => setQuantity(quantity + 1)}>+</button>
         </div>
@@ -117,6 +115,25 @@ function ProductDetail() {
           <h3>Description</h3>
           <p>{selected.description}</p>
         </div>
+
+        {/* Dynamic fields table */}
+        {dynamicFields.length > 0 && (
+          <div className="dynamic-fields">
+            <h3>Specifications</h3>
+            <table>
+              <tbody>
+                {dynamicFields.map(([key, value]) => (
+                  <tr key={key}>
+                    <td style={{ fontWeight: "bold", textTransform: "capitalize" }}>
+                      {key.replace(/([A-Z])/g, " $1")}
+                    </td>
+                    <td>{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         <div className="action-buttons">
           <button className="btn-add-cart" onClick={handleAddToCart}>
@@ -128,7 +145,6 @@ function ProductDetail() {
         </div>
       </div>
 
-      {/* Checkout Popup */}
       {checkoutOpen && (
         <div className="popup-overlay">
           <div className="popup">
