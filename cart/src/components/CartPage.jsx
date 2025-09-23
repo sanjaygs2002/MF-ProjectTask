@@ -1,4 +1,3 @@
-// src/components/CartPage.jsx
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,10 +17,11 @@ function CartPage() {
   const { user } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    city: "",
-    pincode: "",
+    name: user?.username || "",
+    email: user?.email || "",
+    address: user?.address || "",
+    phone: user?.phone || "",
+    payment: "Cash on Delivery",
   });
 
   // ✅ Track selected items for checkout
@@ -171,6 +171,15 @@ function CartPage() {
                 required
               />
               <input
+                type="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                required
+              />
+              <input
                 type="text"
                 placeholder="Address"
                 value={formData.address}
@@ -181,22 +190,23 @@ function CartPage() {
               />
               <input
                 type="text"
-                placeholder="City"
-                value={formData.city}
+                placeholder="Phone"
+                value={formData.phone}
                 onChange={(e) =>
-                  setFormData({ ...formData, city: e.target.value })
+                  setFormData({ ...formData, phone: e.target.value })
                 }
                 required
               />
-              <input
-                type="text"
-                placeholder="Pincode"
-                value={formData.pincode}
+              <select
+                value={formData.payment}
                 onChange={(e) =>
-                  setFormData({ ...formData, pincode: e.target.value })
+                  setFormData({ ...formData, payment: e.target.value })
                 }
-                required
-              />
+              >
+                <option value="Cash on Delivery">Cash on Delivery</option>
+                <option value="Online Payment">Online Payment</option>
+              </select>
+
               <h4 className="checkout-total">Total: ₹{total.toFixed(2)}</h4>
               <button type="submit" className="checkout-btn confirm">
                 Place Order

@@ -17,8 +17,8 @@ function ProductDetail() {
   const [formData, setFormData] = useState({
     name: user?.username || "",
     email: user?.email || "",
-    address: "",
-    phone: "",
+    address: user?.address || "",
+    phone: user?.phone || "",
     payment: "Cash on Delivery",
   });
 

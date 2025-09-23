@@ -131,6 +131,7 @@
       "id": "d97c",
       "username": "Harish Kumar",
       "email": "harish@gmail.com",
+      "password": "Harish@2002",
       "phone": "8474874748",
       "address": "6/90A Udumelpat pethapampatti ",
       "cart": [],
@@ -219,6 +220,35 @@
             }
           ],
           "date": "2025-09-22T12:13:39.682Z",
+          "status": "Pending"
+        },
+        {
+          "id": 1758603593811,
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874748",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a leather strap.",
+              "image": "image2.jpg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-23T04:59:53.811Z",
           "status": "Pending"
         }
       ]

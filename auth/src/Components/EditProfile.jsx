@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "host/authSlice"; // Redux action
+import { updateUser } from "host/authSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function EditProfile() {
@@ -12,17 +12,16 @@ export default function EditProfile() {
     username: "",
     email: "",
     phone: "",
-    address: ""
+    address: "",
   });
 
-  // Pre-fill the form with existing user data
   useEffect(() => {
     if (user) {
       setFormData({
         username: user.username || "",
         email: user.email || "",
         phone: user.phone || "",
-        address: user.address || ""
+        address: user.address || "",
       });
     }
   }, [user]);
@@ -32,25 +31,23 @@ export default function EditProfile() {
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!user?.id) {
-    alert("User not found!");
-    return;
-  }
+    if (!user?.id) {
+      alert("User not found!");
+      return;
+    }
 
-  // Keep cart and orders intact, include the id
-  const updatedUser = {
-    id: user.id,          // ✅ include id
-    ...formData,
-    cart: user.cart || [],
-    orders: user.orders || [],
+    // ✅ Preserve password, cart, and orders when updating
+    const updatedUser = {
+      ...user,          // keep everything (password, cart, orders)
+      ...formData,      // override with new values from form
+    };
+
+    dispatch(updateUser(updatedUser));
+    alert("Profile updated successfully!");
+    navigate("/");
   };
-
-  dispatch(updateUser(updatedUser));
-  alert("Profile updated successfully!");
-  navigate("/");
-};
 
   return (
     <div className="edit-profile">
@@ -73,6 +70,7 @@ export default function EditProfile() {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            readOnly // ✅ usually you don’t allow email change
           />
         </label>
 
