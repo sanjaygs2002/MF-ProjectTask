@@ -25,13 +25,17 @@ export default function OrderHistory({ userId }) {
       )
       .toFixed(2);
   };
+  
+const canCancel = (orderDate) => {
+  if (!orderDate) return false;
+  const placedTime = new Date(orderDate);
+  if (isNaN(placedTime)) return false;
+  const diffHours = (Date.now() - placedTime.getTime()) / (1000 * 60 * 60);
+  return diffHours <= 6; // 6 hours cancel window
+};
 
-  const canCancel = (orderDate) => {
-    const placedTime = new Date(orderDate).getTime();
-    const now = Date.now();
-    const diffHours = (now - placedTime) / (1000 * 60 * 60);
-    return diffHours <= 6;
-  };
+
+
 
   return (
     <div className="order-history-container">

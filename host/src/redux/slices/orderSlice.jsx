@@ -18,32 +18,26 @@ export const fetchOrders = createAsyncThunk(
 // ✅ Place order from cart (clears cart after order)
 export const placeOrderFromCart = createAsyncThunk(
   "orders/placeOrderFromCart",
-  async ({ userId, userInfo }, { rejectWithValue }) => {
+  async ({ userId, cartItems, userInfo }, { rejectWithValue }) => {
     try {
       const res = await fetch(`http://localhost:5000/users/${userId}`);
       const user = await res.json();
-      if (!user) throw new Error("User not found");
 
-      const newOrder = {
-        id: Date.now().toString(),
-        items: user.cart.map((item) => ({
-          ...item,
-          quantity: item.quantity || 1,
-        })),
-        userInfo,
-        date: new Date().toISOString(),
-        status: "Placed",
-      };
+     const newOrder = {
+  id: Date.now().toString(),
+  items: cartItems,
+  userInfo,
+  date: new Date().toISOString(),
+  status: "Placed",   // ✅ should be "Placed"
+};
+
 
       const updatedOrders = [...(user.orders || []), newOrder];
 
       await fetch(`http://localhost:5000/users/${userId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          orders: updatedOrders,
-          cart: [], // ✅ clear cart after checkout
-        }),
+        body: JSON.stringify({ orders: updatedOrders, cart: [] }), // clear cart
       });
 
       return newOrder;
@@ -54,6 +48,7 @@ export const placeOrderFromCart = createAsyncThunk(
 );
 
 // ✅ Place order directly (Buy Now) – does NOT clear cart
+// ✅ Place order directly (Buy Now) – only saves 1 product
 export const placeOrderDirect = createAsyncThunk(
   "orders/placeOrderDirect",
   async ({ userId, userInfo, product }, { rejectWithValue }) => {
@@ -62,18 +57,14 @@ export const placeOrderDirect = createAsyncThunk(
       const user = await res.json();
       if (!user) throw new Error("User not found");
 
-      const newOrder = {
-        id: Date.now().toString(),
-        items: [
-          {
-            ...product,
-            quantity: product.quantity || 1,
-          },
-        ],
-        userInfo,
-        date: new Date().toISOString(),
-        status: "Placed",
-      };
+  const newOrder = {
+  id: Date.now().toString(),
+  items: [{ ...product, quantity: 1 }],
+  userInfo,
+  date: new Date().toISOString(),
+  status: "Placed",   // ✅ should be "Placed"
+};
+
 
       const updatedOrders = [...(user.orders || []), newOrder];
 
@@ -89,6 +80,7 @@ export const placeOrderDirect = createAsyncThunk(
     }
   }
 );
+;
 
 // ✅ Cancel order (within 6 hours)
 export const cancelOrder = createAsyncThunk(
@@ -101,8 +93,10 @@ export const cancelOrder = createAsyncThunk(
       const now = new Date();
       const updatedOrders = (user.orders || []).map((order) => {
         if (order.id === orderId) {
-          const diffHours = (now - new Date(order.date)) / (1000 * 60 * 60);
-          if (diffHours <= 6 && order.status === "Placed") {
+          const placedTime = new Date(order.date);
+          const diffHours = (now - placedTime) / (1000 * 60 * 60);
+
+          if (!isNaN(placedTime) && diffHours <= 6 && order.status === "Placed") {
             return { ...order, status: "Cancelled" };
           }
         }
@@ -121,6 +115,7 @@ export const cancelOrder = createAsyncThunk(
     }
   }
 );
+
 
 const orderSlice = createSlice({
   name: "orders",
