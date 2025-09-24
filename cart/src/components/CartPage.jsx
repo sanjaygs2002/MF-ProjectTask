@@ -27,27 +27,37 @@ function CartPage() {
   // ✅ Track selected items for checkout
   const [selectedItems, setSelectedItems] = useState([]);
 
+  // ✅ Toast Notification
+  const [notification, setNotification] = useState(null);
+
   useEffect(() => {
     if (user) {
       dispatch(fetchCart(user.id));
     }
   }, [dispatch, user]);
 
+  const showNotification = (message) => {
+    setNotification(message);
+    setTimeout(() => setNotification(null), 3000);
+  };
+
   const handleQuantityChange = (productId, quantity) => {
     if (user) {
       dispatch(updateCartQuantity({ userId: user.id, productId, quantity }));
+      showNotification("Cart updated successfully!");
     }
   };
 
   const handleRemove = (productId) => {
     if (user) {
       dispatch(removeFromCart({ userId: user.id, productId }));
+      showNotification("Item removed from cart!");
     }
   };
 
   const handleCheckout = () => {
     if (selectedItems.length === 0) {
-      alert("Please select at least one item to proceed.");
+      showNotification("⚠️ Please select at least one item to proceed.");
       return;
     }
     dispatch(openCheckout());
@@ -74,6 +84,9 @@ function CartPage() {
           items: orderItems,
         })
       );
+      showNotification("✅ Order placed successfully!");
+      dispatch(closeCheckout());
+      setSelectedItems([]);
     }
   };
 
@@ -88,6 +101,9 @@ function CartPage() {
   return (
     <div className="cart-container">
       <h2 className="cart-title">Your Cart</h2>
+
+      {/* ✅ Notification Toast */}
+      {notification && <div className="notification-box">{notification}</div>}
 
       {items.length === 0 ? (
         <p className="cart-msg">Your cart is empty.</p>
