@@ -281,3 +281,40 @@
     left: auto;
   }
 }
+
+/* Notification box */
+.notification-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #d1e7dd;
+  color: #0f5132;
+  border: 2px solid #198754;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: slideIn 0.4s ease, fadeOut 0.5s ease 2.5s forwards;
+  z-index: 2000;
+}
+
+/* Slide in animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+

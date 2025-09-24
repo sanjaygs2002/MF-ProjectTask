@@ -91,17 +91,19 @@ export const cancelOrder = createAsyncThunk(
       const user = await res.json();
 
       const now = new Date();
-      const updatedOrders = (user.orders || []).map((order) => {
-        if (order.id === orderId) {
-          const placedTime = new Date(order.date);
-          const diffHours = (now - placedTime) / (1000 * 60 * 60);
+    const updatedOrders = (user.orders || []).map((order) => {
+  if (order.id === orderId) {
+    const diffHours = (now - new Date(order.date)) / (1000 * 60 * 60);
+    if (
+      diffHours <= 6 &&
+      (order.status === "Placed" || order.status === "Pending")
+    ) {
+      return { ...order, status: "Cancelled" };
+    }
+  }
+  return order;
+});
 
-          if (!isNaN(placedTime) && diffHours <= 6 && order.status === "Placed") {
-            return { ...order, status: "Cancelled" };
-          }
-        }
-        return order;
-      });
 
       await fetch(`http://localhost:5000/users/${userId}`, {
         method: "PATCH",

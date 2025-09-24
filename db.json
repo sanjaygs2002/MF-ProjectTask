@@ -134,7 +134,28 @@
       "password": "Harish@2002",
       "phone": "8474874748",
       "address": "6/90A Udumelpat pethapampatti ",
-      "cart": [],
+      "cart": [
+        {
+          "id": "3",
+          "name": "Sporty Blue Watch",
+          "rating": 4.2,
+          "brand": "Brand C",
+          "category": "Watches",
+          "color": "Blue",
+          "gender": "Female",
+          "material": "Silicone Band",
+          "movementType": "Quartz",
+          "displayType": "Digital",
+          "waterResistance": "Workout and rain safe",
+          "batteryLife": "Up to 18 months",
+          "originalPrice": 105.25,
+          "offerPrice": 99.99,
+          "offers": "5% off",
+          "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
+          "image": "image3.jpg",
+          "quantity": 1
+        }
+      ],
       "orders": [
         {
           "id": 1758535087421,
@@ -416,6 +437,273 @@
             }
           ],
           "date": "2025-09-23T10:41:39.844Z",
+          "status": "Pending"
+        },
+        {
+          "id": 1758687783530,
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "material": "Gold-tone casing with leather strap",
+              "movementType": "Automatic",
+              "displayType": "Analog",
+              "waterResistance": "Light rain and hand wash safe",
+              "batteryLife": "Self-winding",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+              "image": "image2.jpg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-24T04:23:03.530Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": "1758687933888",
+          "items": [
+            {
+              "id": "18",
+              "name": "Front Load Washing Machine",
+              "rating": 4.8,
+              "brand": "Bosch",
+              "category": "Home Appliances",
+              "color": "White",
+              "capacity": "7 kg",
+              "type": "Front Load",
+              "features": "Multiple Wash Modes, Inverter Motor",
+              "energyRating": "5 Star",
+              "originalPrice": 699.99,
+              "offerPrice": 599.99,
+              "offers": "14% off",
+              "description": "7kg front load washing machine with multiple wash modes and inverter motor for quiet and efficient cleaning.",
+              "image": "images18.jpeg",
+              "quantity": 1,
+              "totalPrice": 599.99
+            }
+          ],
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874748",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-09-24T04:25:33.889Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": "1758687951139",
+          "items": [
+            {
+              "id": "18",
+              "name": "Front Load Washing Machine",
+              "rating": 4.8,
+              "brand": "Bosch",
+              "category": "Home Appliances",
+              "color": "White",
+              "capacity": "7 kg",
+              "type": "Front Load",
+              "features": "Multiple Wash Modes, Inverter Motor",
+              "energyRating": "5 Star",
+              "originalPrice": 699.99,
+              "offerPrice": 599.99,
+              "offers": "14% off",
+              "description": "7kg front load washing machine with multiple wash modes and inverter motor for quiet and efficient cleaning.",
+              "image": "images18.jpeg",
+              "quantity": 1,
+              "totalPrice": 599.99
+            }
+          ],
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874748",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-09-24T04:25:51.139Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": 1758688367952,
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874748",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "17",
+              "name": "Refrigerator 260L",
+              "rating": 4.7,
+              "brand": "LG",
+              "category": "Home Appliances",
+              "color": "Silver",
+              "capacity": "260 Liters",
+              "type": "Double Door",
+              "technology": "Inverter Compressor",
+              "energyRating": "4 Star",
+              "originalPrice": 799.99,
+              "offerPrice": 699.99,
+              "offers": "12% off",
+              "description": "Double door refrigerator with inverter technology for energy efficiency and consistent cooling. Spacious and stylish for modern kitchens.",
+              "image": "images17.jpeg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-24T04:32:47.952Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": "1758688383656",
+          "items": [
+            {
+              "id": "18",
+              "name": "Front Load Washing Machine",
+              "rating": 4.8,
+              "brand": "Bosch",
+              "category": "Home Appliances",
+              "color": "White",
+              "capacity": "7 kg",
+              "type": "Front Load",
+              "features": "Multiple Wash Modes, Inverter Motor",
+              "energyRating": "5 Star",
+              "originalPrice": 699.99,
+              "offerPrice": 599.99,
+              "offers": "14% off",
+              "description": "7kg front load washing machine with multiple wash modes and inverter motor for quiet and efficient cleaning.",
+              "image": "images18.jpeg",
+              "quantity": 1,
+              "totalPrice": 599.99
+            }
+          ],
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874748",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-09-24T04:33:03.656Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": "1758688435249",
+          "items": [
+            {
+              "id": "7",
+              "name": "Slim Fit Jeans",
+              "rating": 4.5,
+              "brand": "Levi's",
+              "category": "Clothing",
+              "color": "Blue",
+              "gender": "Male",
+              "material": "Cotton Denim",
+              "fit": "Slim",
+              "wash": "Mid-wash",
+              "originalPrice": 74.99,
+              "offerPrice": 59.99,
+              "offers": "20% off",
+              "description": "Stylish slim fit jeans with durable fabric and classic mid-wash finish. Designed for comfort and everyday wear.",
+              "image": "images7.jpeg",
+              "quantity": 1,
+              "totalPrice": 59.99
+            }
+          ],
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874748",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-09-24T04:33:55.249Z",
+          "status": "Placed"
+        },
+        {
+          "id": "1758689165796",
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "material": "Gold-tone casing with leather strap",
+              "movementType": "Automatic",
+              "displayType": "Analog",
+              "waterResistance": "Light rain and hand wash safe",
+              "batteryLife": "Self-winding",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+              "image": "image2.jpg",
+              "quantity": 1,
+              "totalPrice": 299.99
+            }
+          ],
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874748",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-09-24T04:46:05.796Z",
+          "status": "Placed"
+        },
+        {
+          "id": 1758689187199,
+          "userInfo": {
+            "name": "Harish Kumar",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874748",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "material": "Gold-tone casing with leather strap",
+              "movementType": "Automatic",
+              "displayType": "Analog",
+              "waterResistance": "Light rain and hand wash safe",
+              "batteryLife": "Self-winding",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+              "image": "image2.jpg",
+              "quantity": 2
+            }
+          ],
+          "date": "2025-09-24T04:46:27.199Z",
           "status": "Pending"
         }
       ]

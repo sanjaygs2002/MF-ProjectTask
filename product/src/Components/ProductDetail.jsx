@@ -16,6 +16,8 @@ function ProductDetail() {
 
   const [quantity, setQuantity] = useState(1);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [notification, setNotification] = useState(null);
+
   const [formData, setFormData] = useState({
     name: user?.username || "",
     email: user?.email || "",
@@ -32,10 +34,15 @@ function ProductDetail() {
 
   const totalPrice = (selected.offerPrice || selected.price) * quantity;
 
+  const showNotification = (message) => {
+    setNotification(message);
+    setTimeout(() => setNotification(null), 3000); // hide after 3s
+  };
+
   const handleAddToCart = () => {
     if (!user) return alert("Please login to add items to cart");
     dispatch(addToCart({ userId: user.id, product: { ...selected, quantity } }));
-    alert("Product added to cart!");
+    showNotification("✅ Product successfully added to cart!");
   };
 
   const handleBuyNow = () => {
@@ -56,7 +63,7 @@ function ProductDetail() {
     );
 
     setCheckoutOpen(false);
-    alert("Order placed successfully!");
+    showNotification("🎉 Order placed successfully!");
   };
 
   const renderStars = (rating) => {
@@ -77,6 +84,9 @@ function ProductDetail() {
 
   return (
     <div className="product-detail-container">
+      {/* ✅ Toast Notification */}
+      {notification && <div className="notification-box">{notification}</div>}
+
       <div className="image-section">
         <button className="back-btn" onClick={() => navigate("/")}>
           ← Back
