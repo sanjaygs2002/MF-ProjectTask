@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Layout from "./Layout";
 
-// Mock child component
+
 const ChildComponent = ({ search, category, price }) => (
   <div>
     <p>Search: {search}</p>
@@ -10,7 +10,7 @@ const ChildComponent = ({ search, category, price }) => (
   </div>
 );
 
-// Mock Navbar and Footer
+
 jest.mock("./components/Navbar", () => (props) => (
   <div>
     <button onClick={() => props.onSearch("watch")}>Search</button>
@@ -49,15 +49,16 @@ describe("Layout Component", () => {
       </Layout>
     );
 
-    // Simulate button clicks in Navbar mock
+    
     fireEvent.click(screen.getByText("Search"));
     fireEvent.click(screen.getByText("Filter"));
     fireEvent.click(screen.getByText("Price"));
 
-    // Check if the callbacks were called
+    
     expect(onSearchMock).toHaveBeenCalledWith("watch");
     expect(onFilterMock).toHaveBeenCalledWith("Men");
     expect(onPriceChangeMock).toHaveBeenCalledWith(1500);
+    
 
     // Check if children render updated values
     expect(screen.getByText("Search: watch")).toBeInTheDocument();

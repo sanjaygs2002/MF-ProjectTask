@@ -44,8 +44,7 @@ module.exports = {
 
 npm install --save-dev @babel/core @babel/preset-env @babel/preset-react @babel/plugin-transform-runtime
 npm install --save @babel/runtime
-
- 
+npm install --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
 
 
 
