@@ -129,12 +129,70 @@
     },
     {
       "id": "d97c",
-      "username": "Harish Kumar",
+      "username": "Harish",
       "email": "harish@gmail.com",
       "password": "Harish@2002",
-      "phone": "8474874748",
+      "phone": "8474874740",
       "address": "6/90A Udumelpat pethapampatti ",
-      "cart": [],
+      "cart": [
+        {
+          "id": "1",
+          "name": "Classic Silver Watch",
+          "rating": 4.5,
+          "brand": "Brand A",
+          "category": "Watches",
+          "color": "Silver",
+          "gender": "Unisex",
+          "material": "Stainless Steel",
+          "movementType": "Quartz",
+          "displayType": "Analog",
+          "waterResistance": "Splash-proof",
+          "batteryLife": "Up to 2 years",
+          "originalPrice": 166.65,
+          "offerPrice": 149.99,
+          "offers": "10% off",
+          "description": "Elegant silver watch with a stainless steel band, featuring a minimalist analog dial and quartz movement. Ideal for both casual and formal occasions.",
+          "image": "image1.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "2",
+          "name": "Luxury Gold Watch",
+          "rating": 4.8,
+          "brand": "Brand B",
+          "category": "Watches",
+          "color": "Gold",
+          "gender": "Male",
+          "material": "Gold-tone casing with leather strap",
+          "movementType": "Automatic",
+          "displayType": "Analog",
+          "waterResistance": "Light rain and hand wash safe",
+          "batteryLife": "Self-winding",
+          "originalPrice": 352.93,
+          "offerPrice": 299.99,
+          "offers": "15% off",
+          "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+          "image": "image2.jpg",
+          "quantity": 4
+        },
+        {
+          "id": "11",
+          "name": "Running Shoes",
+          "rating": 4.5,
+          "brand": "Adidas",
+          "category": "Footwear",
+          "color": "Blue",
+          "gender": "Male",
+          "material": "Mesh Upper",
+          "sole": "EVA Foam",
+          "originalPrice": 139.99,
+          "offerPrice": 119.99,
+          "offers": "15% off",
+          "description": "Lightweight running shoes with great cushioning and breathable mesh. Designed for performance and comfort.",
+          "image": "images11.jpeg",
+          "quantity": 1
+        }
+      ],
       "orders": [
         {
           "id": 1758535087421,
@@ -718,8 +776,227 @@
           ],
           "date": "2025-09-24T05:02:33.886Z",
           "status": "Pending"
+        },
+        {
+          "id": 1759128075182,
+          "userInfo": {
+            "name": "Harish",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "3",
+              "name": "Sporty Blue Watch",
+              "rating": 4.2,
+              "brand": "Brand C",
+              "category": "Watches",
+              "color": "Blue",
+              "gender": "Female",
+              "material": "Silicone Band",
+              "movementType": "Quartz",
+              "displayType": "Digital",
+              "waterResistance": "Workout and rain safe",
+              "batteryLife": "Up to 18 months",
+              "originalPrice": 105.25,
+              "offerPrice": 99.99,
+              "offers": "5% off",
+              "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
+              "image": "image3.jpg",
+              "quantity": 1
+            },
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "material": "Gold-tone casing with leather strap",
+              "movementType": "Automatic",
+              "displayType": "Analog",
+              "waterResistance": "Light rain and hand wash safe",
+              "batteryLife": "Self-winding",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+              "image": "image2.jpg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-29T06:41:15.182Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": 1759128171914,
+          "userInfo": {
+            "name": "Harish",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "3",
+              "name": "Sporty Blue Watch",
+              "rating": 4.2,
+              "brand": "Brand C",
+              "category": "Watches",
+              "color": "Blue",
+              "gender": "Female",
+              "material": "Silicone Band",
+              "movementType": "Quartz",
+              "displayType": "Digital",
+              "waterResistance": "Workout and rain safe",
+              "batteryLife": "Up to 18 months",
+              "originalPrice": 105.25,
+              "offerPrice": 99.99,
+              "offers": "5% off",
+              "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
+              "image": "image3.jpg",
+              "quantity": 1
+            },
+            {
+              "id": "18",
+              "name": "Front Load Washing Machine",
+              "rating": 4.8,
+              "brand": "Bosch",
+              "category": "Home Appliances",
+              "color": "White",
+              "capacity": "7 kg",
+              "type": "Front Load",
+              "features": "Multiple Wash Modes, Inverter Motor",
+              "energyRating": "5 Star",
+              "originalPrice": 699.99,
+              "offerPrice": 599.99,
+              "offers": "14% off",
+              "description": "7kg front load washing machine with multiple wash modes and inverter motor for quiet and efficient cleaning.",
+              "image": "images18.jpeg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-29T06:42:51.914Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": 1759128399990,
+          "userInfo": {
+            "name": "Harish",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "6",
+              "name": "Smartphone Pro 12",
+              "rating": 4.9,
+              "brand": "Apple",
+              "category": "Electronics",
+              "color": "Silver",
+              "storage": "256GB",
+              "ram": "8GB",
+              "camera": "Triple 12MP system",
+              "battery": "3200mAh",
+              "charging": "MagSafe Wireless Charging",
+              "originalPrice": 1249.99,
+              "offerPrice": 1099.99,
+              "offers": "12% off",
+              "description": "Latest smartphone with advanced camera, fast processor, and sleek design. Features include Face ID, 5G connectivity, and iOS 17.",
+              "image": "images6.jpeg",
+              "quantity": 1
+            },
+            {
+              "id": "8",
+              "name": "Men’s Leather Jacket",
+              "rating": 4.6,
+              "brand": "Zara",
+              "category": "Clothing",
+              "color": "Black",
+              "gender": "Male",
+              "material": "Genuine Leather",
+              "fit": "Modern Fit",
+              "lining": "Polyester",
+              "originalPrice": 266.65,
+              "offerPrice": 199.99,
+              "offers": "25% off",
+              "description": "Premium black leather jacket with modern fit and soft inner lining. Ideal for cool weather and stylish outings.",
+              "image": "images8.jpeg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-29T06:46:39.990Z",
+          "status": "Pending"
+        },
+        {
+          "id": 1759128621264,
+          "userInfo": {
+            "name": "Harish",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "6",
+              "name": "Smartphone Pro 12",
+              "rating": 4.9,
+              "brand": "Apple",
+              "category": "Electronics",
+              "color": "Silver",
+              "storage": "256GB",
+              "ram": "8GB",
+              "camera": "Triple 12MP system",
+              "battery": "3200mAh",
+              "charging": "MagSafe Wireless Charging",
+              "originalPrice": 1249.99,
+              "offerPrice": 1099.99,
+              "offers": "12% off",
+              "description": "Latest smartphone with advanced camera, fast processor, and sleek design. Features include Face ID, 5G connectivity, and iOS 17.",
+              "image": "images6.jpeg",
+              "quantity": 1
+            },
+            {
+              "id": "5",
+              "name": "Gaming Laptop",
+              "rating": 4.8,
+              "brand": "Asus",
+              "category": "Electronics",
+              "color": "Gray",
+              "processor": "Intel Core i9",
+              "graphics": "NVIDIA RTX 4070",
+              "storage": "1TB SSD",
+              "ram": "16GB DDR5",
+              "display": "15.6\" FHD 144Hz",
+              "originalPrice": 1444.43,
+              "offerPrice": 1299.99,
+              "offers": "10% off",
+              "description": "High-performance gaming laptop with RTX graphics, fast SSD, and advanced cooling. Built for immersive gameplay and heavy multitasking.",
+              "image": "images5.jpeg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-09-29T06:50:21.264Z",
+          "status": "Pending"
         }
       ]
+    },
+    {
+      "id": "ca29",
+      "username": "Harish",
+      "email": "harish12@gmail.v",
+      "password": "Harsh@1234",
+      "phone": "9360618419",
+      "address": "Vinaiyagar",
+      "cart": [],
+      "orders": []
     }
   ],
   "products": [
@@ -782,7 +1059,7 @@
     },
     {
       "id": "4",
-      "name": "Wireless Bluetooth Headphones",
+      "name": "Wireless Bluetooth",
       "rating": 4.6,
       "brand": "Sony",
       "category": "Electronics",

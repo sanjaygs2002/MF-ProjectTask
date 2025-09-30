@@ -49,7 +49,7 @@ module.exports = {
   },
   plugins: [
     new rspack.container.ModuleFederationPlugin({
-      name: 'host',
+      name: 'host', // shell
       filename: "remoteEntry.js",
       exposes: {
         "./store": "./src/redux/store.jsx",

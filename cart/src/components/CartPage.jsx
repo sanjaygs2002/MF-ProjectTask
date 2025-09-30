@@ -1,3 +1,4 @@
+// src/components/CartPage.jsx
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -24,11 +25,14 @@ function CartPage() {
     payment: "Cash on Delivery",
   });
 
-  // ✅ Track selected items for checkout
+  // ✅ Track selected items
   const [selectedItems, setSelectedItems] = useState([]);
 
   // ✅ Toast Notification
   const [notification, setNotification] = useState(null);
+
+  // Form Validation
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (user) {
@@ -36,16 +40,14 @@ function CartPage() {
     }
   }, [dispatch, user]);
 
+  useEffect(() => {
+    // Update selectedItems if cart changes (default all selected)
+    setSelectedItems(items.map((item) => item.id));
+  }, [items]);
+
   const showNotification = (message) => {
     setNotification(message);
     setTimeout(() => setNotification(null), 3000);
-  };
-
-  const handleQuantityChange = (productId, quantity) => {
-    if (user) {
-      dispatch(updateCartQuantity({ userId: user.id, productId, quantity }));
-      showNotification("Cart updated successfully!");
-    }
   };
 
   const handleRemove = (productId) => {
@@ -63,6 +65,7 @@ function CartPage() {
     dispatch(openCheckout());
   };
 
+  // ✅ Individual selection
   const handleItemSelect = (itemId) => {
     setSelectedItems((prev) =>
       prev.includes(itemId)
@@ -71,24 +74,102 @@ function CartPage() {
     );
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validateField = (name, value) => {
+  switch (name) {
+    case "name":
+      if (!value.trim()) return "Name is required.";
+      break;
+    case "email":
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+        return "Invalid email format.";
+      break;
+    case "address":
+      if (!value.trim()) return "Address is required.";
+      break;
+    case "phone":
+      if (!/^[0-9]{10}$/.test(value))
+        return "Phone number must be 10 digits.";
+      break;
+    case "payment":
+      if (!value.trim()) return "Select a payment method.";
+      break;
+    default:
+      return "";
+  }
+  return "";
+};
+
+  const handleQuantityChange = (productId, quantity) => {
     if (user) {
-      const orderItems = items.filter((item) =>
-        selectedItems.includes(item.id)
-      );
-      dispatch(
-        placeOrder({
-          userId: user.id,
-          userInfo: formData,
-          items: orderItems,
-        })
-      );
-      showNotification("✅ Order placed successfully!");
-      dispatch(closeCheckout());
+      if (quantity < 1) {
+        // Remove item if quantity goes below 1
+        dispatch(removeFromCart({ userId: user.id, productId }));
+        showNotification("Item removed from cart!");
+      } else {
+        dispatch(updateCartQuantity({ userId: user.id, productId, quantity }));
+        showNotification("Cart updated successfully!");
+      }
+    }
+  };
+
+  // ✅ Select All
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      setSelectedItems(items.map((item) => item.id));
+    } else {
       setSelectedItems([]);
     }
   };
+
+  // ✅ FIX: allSelected must be defined BEFORE return
+  const allSelected = items.length > 0 && selectedItems.length === items.length;
+
+  const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData({ ...formData, [name]: value });
+
+  // live validation
+  setErrors({ ...errors, [name]: validateField(name, value) });
+};
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  // validate all fields before submit
+  const newErrors = {};
+  Object.keys(formData).forEach((key) => {
+    const msg = validateField(key, formData[key]);
+    if (msg) newErrors[key] = msg;
+  });
+
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
+  }
+
+  if (user) {
+    const orderItems = items.filter((item) =>
+      selectedItems.includes(item.id)
+    );
+
+    dispatch(
+      placeOrder({
+        userId: user.id,
+        userInfo: formData,
+        items: orderItems,
+      })
+    );
+
+    // remove placed items
+    orderItems.forEach((item) =>
+      dispatch(removeFromCart({ userId: user.id, productId: item.id }))
+    );
+
+    showNotification("✅ Order placed successfully!");
+    dispatch(closeCheckout());
+    setSelectedItems([]);
+  }
+};
 
   const total = items
     .filter((item) => selectedItems.includes(item.id))
@@ -109,6 +190,17 @@ function CartPage() {
         <p className="cart-msg">Your cart is empty.</p>
       ) : (
         <>
+          {/* ✅ Select All */}
+          <div className="select-all-container">
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={handleSelectAll}
+              className="select-checkbox"
+            />
+            <label>Select All</label>
+          </div>
+
           <div className="cart-list">
             {items.map((item) => (
               <div key={item.id} className="cart-item">
@@ -135,10 +227,7 @@ function CartPage() {
                   <div className="quantity-control">
                     <button
                       onClick={() =>
-                        handleQuantityChange(
-                          item.id,
-                          item.quantity - 1 < 1 ? 1 : item.quantity - 1
-                        )
+                        handleQuantityChange(item.id, item.quantity - 1)
                       }
                     >
                       -
@@ -152,6 +241,7 @@ function CartPage() {
                       +
                     </button>
                   </div>
+
                   <button
                     className="remove-btn"
                     onClick={() => handleRemove(item.id)}
@@ -177,64 +267,66 @@ function CartPage() {
           <div className="popup">
             <h3>Checkout</h3>
             <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                required
-              />
-              <input
-                type="text"
-                placeholder="Address"
-                value={formData.address}
-                onChange={(e) =>
-                  setFormData({ ...formData, address: e.target.value })
-                }
-                required
-              />
-              <input
-                type="text"
-                placeholder="Phone"
-                value={formData.phone}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-                required
-              />
-              <select
-                value={formData.payment}
-                onChange={(e) =>
-                  setFormData({ ...formData, payment: e.target.value })
-                }
-              >
-                <option value="Cash on Delivery">Cash on Delivery</option>
-                <option value="Online Payment">Online Payment</option>
-              </select>
+  <input
+    type="text"
+    name="name"
+    placeholder="Name"
+    value={formData.name}
+    onChange={handleChange}
+  />
+  {errors.name && <span className="field-error">{errors.name}</span>}
 
-              <h4 className="checkout-total">Total: ₹{total.toFixed(2)}</h4>
-              <button type="submit" className="checkout-btn confirm">
-                Place Order
-              </button>
-              <button
-                type="button"
-                className="cancel"
-                onClick={() => dispatch(closeCheckout())}
-              >
-                Cancel
-              </button>
-            </form>
+  <input
+    type="email"
+    name="email"
+    placeholder="Email"
+    value={formData.email}
+    onChange={handleChange}
+  />
+  {errors.email && <span className="field-error">{errors.email}</span>}
+
+  <input
+    type="text"
+    name="address"
+    placeholder="Address"
+    value={formData.address}
+    onChange={handleChange}
+  />
+  {errors.address && <span className="field-error">{errors.address}</span>}
+
+  <input
+    type="text"
+    name="phone"
+    placeholder="Phone"
+    value={formData.phone}
+    onChange={handleChange}
+  />
+  {errors.phone && <span className="field-error">{errors.phone}</span>}
+
+  <select
+    name="payment"
+    value={formData.payment}
+    onChange={handleChange}
+  >
+    <option value="">-- Select Payment Method --</option>
+    <option value="Cash on Delivery">Cash on Delivery</option>
+    <option value="Online Payment">Online Payment</option>
+  </select>
+  {errors.payment && <span className="field-error">{errors.payment}</span>}
+
+  <h4 className="checkout-total">Total: ₹{total.toFixed(2)}</h4>
+  <button type="submit" className="checkout-btn confirm">
+    Place Order
+  </button>
+  <button
+    type="button"
+    className="cancel"
+    onClick={() => dispatch(closeCheckout())}
+  >
+    Cancel
+  </button>
+</form>
+
           </div>
         </div>
       )}

@@ -47,6 +47,15 @@ npm install --save @babel/runtime
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
 
 
+Changes:
+Login page reduce footer section -------------------
+Edit Page  -----------------------------------------
+cart, orderhistory hover part ----------------------
+product page add to buy button ---------------------
+cart page select all button ----------------
+Rename host to Shell --------------------------------------
+
+
 
 
 

@@ -16,6 +16,8 @@ export default function EditProfile() {
     address: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
     if (user) {
       setFormData({
@@ -29,17 +31,46 @@ export default function EditProfile() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" }); // clear error on change
+  };
+
+  const validate = () => {
+    let newErrors = {};
+
+    if (!formData.username.trim()) {
+      newErrors.username = "Username is required";
+    }
+
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Invalid email format";
+    }
+
+    if (!formData.phone) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      newErrors.phone = "Phone number must be 10 digits";
+    }
+
+    if (!formData.address.trim()) {
+      newErrors.address = "Address is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!validate()) return;
 
     if (!user?.id) {
       alert("User not found!");
       return;
     }
 
-    // Preserve existing data like password, cart, orders
     const updatedUser = {
       ...user,
       ...formData,
@@ -61,8 +92,8 @@ export default function EditProfile() {
             name="username"
             value={formData.username}
             onChange={handleChange}
-            required
           />
+          {errors.username && <p className="error">{errors.username}</p>}
         </label>
 
         <label>
@@ -74,6 +105,7 @@ export default function EditProfile() {
             onChange={handleChange}
             readOnly
           />
+          {errors.email && <p className="error">{errors.email}</p>}
         </label>
 
         <label>
@@ -83,8 +115,8 @@ export default function EditProfile() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            required
           />
+          {errors.phone && <p className="error">{errors.phone}</p>}
         </label>
 
         <label>
@@ -94,8 +126,8 @@ export default function EditProfile() {
             name="address"
             value={formData.address}
             onChange={handleChange}
-            required
           />
+          {errors.address && <p className="error">{errors.address}</p>}
         </label>
 
         <button type="submit" className="btn-save">

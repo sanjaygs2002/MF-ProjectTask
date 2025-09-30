@@ -54,3 +54,10 @@
 .btn-save:hover {
   background: #0056b3;
 }
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 5px;
+}
+

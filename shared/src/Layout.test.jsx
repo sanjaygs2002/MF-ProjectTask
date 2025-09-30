@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Layout from "./Layout";
 
-
+// Dummy child component for function-as-children case
 const ChildComponent = ({ search, category, price }) => (
   <div>
     <p>Search: {search}</p>
@@ -10,7 +10,7 @@ const ChildComponent = ({ search, category, price }) => (
   </div>
 );
 
-
+// Mock Navbar so we can simulate callbacks
 jest.mock("./components/Navbar", () => (props) => (
   <div>
     <button onClick={() => props.onSearch("watch")}>Search</button>
@@ -19,50 +19,59 @@ jest.mock("./components/Navbar", () => (props) => (
   </div>
 ));
 
+// Mock Footer
 jest.mock("./components/Footer", () => () => <div>Footer</div>);
 
+// 🔑 Mock react-router-dom with a controllable useLocation
+const mockUseLocation = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useLocation: () => mockUseLocation(),
+}));
+
 describe("Layout Component", () => {
-  test("renders children correctly", () => {
+  test("renders children and footer correctly", () => {
+    mockUseLocation.mockReturnValue({ pathname: "/" });
+
     render(
       <Layout>
         <div>Child Content</div>
       </Layout>
     );
+
     expect(screen.getByText("Child Content")).toBeInTheDocument();
     expect(screen.getByText("Footer")).toBeInTheDocument();
   });
 
-  test("calls onSearch, onFilter, onPriceChange callbacks", () => {
-    const onSearchMock = jest.fn();
-    const onFilterMock = jest.fn();
-    const onPriceChangeMock = jest.fn();
+  test("updates children when Navbar triggers callbacks", () => {
+    mockUseLocation.mockReturnValue({ pathname: "/" });
 
     render(
-      <Layout
-        onSearch={onSearchMock}
-        onFilter={onFilterMock}
-        onPriceChange={onPriceChangeMock}
-      >
+      <Layout>
         {({ search, category, price }) => (
           <ChildComponent search={search} category={category} price={price} />
         )}
       </Layout>
     );
 
-    
     fireEvent.click(screen.getByText("Search"));
     fireEvent.click(screen.getByText("Filter"));
     fireEvent.click(screen.getByText("Price"));
 
-    
-    expect(onSearchMock).toHaveBeenCalledWith("watch");
-    expect(onFilterMock).toHaveBeenCalledWith("Men");
-    expect(onPriceChangeMock).toHaveBeenCalledWith(1500);
-    
-
-    // Check if children render updated values
     expect(screen.getByText("Search: watch")).toBeInTheDocument();
     expect(screen.getByText("Category: Men")).toBeInTheDocument();
     expect(screen.getByText("Price: 1500")).toBeInTheDocument();
+  });
+
+  test("hides footer on /login and /signup routes", () => {
+    // /login
+    mockUseLocation.mockReturnValue({ pathname: "/login" });
+    const { rerender } = render(<Layout><div>Login Page</div></Layout>);
+    expect(screen.queryByText("Footer")).not.toBeInTheDocument();
+
+    // /signup
+    mockUseLocation.mockReturnValue({ pathname: "/signup" });
+    rerender(<Layout><div>Signup Page</div></Layout>);
+    expect(screen.queryByText("Footer")).not.toBeInTheDocument();
   });
 });

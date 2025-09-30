@@ -1,3 +1,4 @@
+/* ProductList.css */
 .product-page {
   padding: 20px;
   background: #f5f6f8;
@@ -17,12 +18,12 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
   text-align: center;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
+  cursor: default;
   border: 1px solid transparent;
 }
 
 .product-card:hover {
-  transform: translateY(-8px) scale(1.04);
+  transform: translateY(-8px) scale(1.03);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
   border-color: #007bff;
 }
@@ -58,22 +59,87 @@
   font-size: 20px;
 }
 
-.view-btn {
-  background: linear-gradient(90deg, #3b82f6, #2563eb);
-  color: #fff;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+/* Keep action area height fixed */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  min-height: 45px; /* Reserve consistent height */
 }
 
-.view-btn:hover {
+/* Add to Cart & Buy Now buttons */
+.btn-add-cart,
+.btn-buy {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 45px; /* Fixed height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-add-cart {
+  background: #6c757d;
+  color: #fff;
+}
+
+.btn-add-cart:hover {
+  background: #495057;
+}
+
+.btn-buy {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: #fff;
+}
+
+.btn-buy:hover {
   background: #1d4ed8;
 }
+
+/* Quantity Selector stable layout */
+.quantity-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  height: 45px; /* same as buttons */
+}
+
+.quantity-selector button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ccc;
+  background: #f0f0f0;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-selector button:hover {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.quantity-selector span {
+  font-weight: 600;
+  font-size: 16px;
+  width: 28px;
+  text-align: center;
+}
+
 
 /* Scroll-to-top button */
 .scroll-top-btn {
@@ -97,4 +163,90 @@
 .scroll-top-btn:hover {
   background: #007bff;
   transform: scale(1.15);
+}
+
+/* Notification toast */
+.notification-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #007bff;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 3000;
+  font-weight: 600;
+}
+
+/* Checkout Popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2500;
+}
+
+.popup {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.popup h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.popup form input,
+.popup form select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.popup form .error {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.popup form button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.popup form .checkout-btn.confirm {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.popup form .checkout-btn.confirm:hover {
+  background: #2563eb;
+}
+
+.popup form .cancel {
+  background: #6c757d;
+  color: #fff;
+}
+
+.popup form .cancel:hover {
+  background: #495057;
 }

@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 25px;
-  background: #111;
+  background: #1b132d;
   color: white;
   position: sticky;
   top: 0;
@@ -135,4 +135,66 @@
 }
 .btn-logout:hover {
   background: #ff6666;
+}
+
+/* Tooltip for Cart/Orders */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-container .tooltip {
+  visibility: hidden;
+  opacity: 0;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 20;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Make user-details clickable */
+.user-details.clickable {
+  cursor: pointer;
+}
+.user-details.clickable:hover {
+  background-color: #333;
+  border-radius: 5px;
+}
+
+
+/* Hover message for Cart/Orders */
+.hover-message {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background: #222;
+  color: #ffcc00;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  z-index: 20;
+}
+
+/* Make user-details clickable */
+.user-details.clickable {
+  cursor: pointer;
+}
+.user-details.clickable:hover {
+  background-color: #333;
+  border-radius: 5px;
 }

@@ -1,11 +1,26 @@
-/* .layout-container {
+.layout-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #f8f9fa;
+  position: relative;
 }
 
-.layout-content {
+/* Main content scrollable */
+.layout-main {
   flex: 1;
-  padding: 20px;
-} */
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+/* Footer styling */
+.layout-container footer {
+  flex-shrink: 0;
+  background: #232f3e;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  width: 100%;
+}
+
+
+

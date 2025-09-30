@@ -21,10 +21,14 @@
   font-size: 24px;
 }
 
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
 .login-form input {
   width: 100%;
   padding: 12px;
-  margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 16px;
@@ -34,6 +38,13 @@
 .login-form input:focus {
   border-color: #ff9900;
   outline: none;
+}
+
+.field-error {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
 }
 
 .login-form button {
@@ -54,12 +65,6 @@
   color: #232f3e;
 }
 
-.login-form .error {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
 .login-form p {
   margin-top: 15px;
   font-size: 14px;
@@ -71,3 +76,11 @@
   cursor: pointer;
   font-weight: bold;
 }
+
+.backend-error {
+  color: red;
+  font-size: 14px;
+  margin: 8px 0;
+  text-align: center;
+}
+

@@ -5,4 +5,9 @@ export default {
   },
   moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
+
+  // 👇 add this
+  moduleNameMapper: {
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+  },
 };

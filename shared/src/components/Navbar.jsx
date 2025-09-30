@@ -14,6 +14,8 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
   const navigate = useNavigate();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [cartHover, setCartHover] = useState(false);
+  const [ordersHover, setOrdersHover] = useState(false);
   const [price, setPrice] = useState(2000);
   const dropdownRef = useRef(null);
   let closeTimeout;
@@ -28,7 +30,8 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleMouseEnter = () => {
@@ -50,7 +53,9 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
     <nav className="navbar">
       {/* Left: Brand */}
       <div className="navbar-left">
-        <Link to="/" className="navbar-brand">🛒 E-Commerce</Link>
+        <Link to="/" className="navbar-brand">
+          🛒 E-Commerce
+        </Link>
       </div>
 
       {/* Right: search + filter + user/cart/orders */}
@@ -60,7 +65,7 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
             <input
               type="text"
               className="search-input"
-              placeholder="🔍 Search products..."
+              placeholder="Search products...              🔍"
               onChange={(e) => onSearch && onSearch(e.target.value)}
             />
             <select
@@ -90,17 +95,40 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
         )}
 
         {!user ? (
-          <Link to="/login" className="btn-signup">Sign In</Link>
+          <Link to="/login" className="btn-signup">
+            Sign In
+          </Link>
         ) : (
           <>
-            <Link to="/cart" className="icon-btn">
-              <ShoppingCart size={22} />
-              {cartItems.length > 0 && <span className="badge">{cartItems.length}</span>}
-            </Link>
-            <Link to="/orders" className="icon-btn">
-              <Package size={22} />
-              {orders.length > 0 && <span className="badge">{orders.length}</span>}
-            </Link>
+            {/* Cart Icon with hover message */}
+            <div
+              className="icon-btn"
+              onMouseEnter={() => setCartHover(true)}
+              onMouseLeave={() => setCartHover(false)}
+            >
+              <Link to="/cart">
+                <ShoppingCart size={22} />
+                {cartItems.length > 0 && (
+                  <span className="badge">{cartItems.length}</span>
+                )}
+              </Link>
+              {cartHover && <div className="hover-message">Your Cart</div>}
+            </div>
+
+            {/* Orders Icon with hover message */}
+            <div
+              className="icon-btn"
+              onMouseEnter={() => setOrdersHover(true)}
+              onMouseLeave={() => setOrdersHover(false)}
+            >
+              <Link to="/orders">
+                <Package size={22} />
+                {orders.length > 0 && (
+                  <span className="badge">{orders.length}</span>
+                )}
+              </Link>
+              {ordersHover && <div className="hover-message">Your Orders</div>}
+            </div>
 
             {/* User dropdown */}
             <div
@@ -113,18 +141,14 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
 
               {dropdownOpen && (
                 <div className="dropdown-menu">
-                  <div className="user-details">
-                    <span className="username">{user.username}</span><br></br>
-                    <small style={{color:"White"}} className="email">{user.email}</small>
-                  </div>
-
-                  {/* ✅ Edit Profile option */}
-                  <button
+                  <div
+                    className="user-details clickable"
                     onClick={() => navigate("/edit-profile")}
-                    className="btn-edit-profile"
                   >
-                    Edit Profile
-                  </button>
+                    <span className="username">{user.username}</span>
+                    <br />
+                    <small className="email">{user.email}</small>
+                  </div>
 
                   <button
                     onClick={() => dispatch(logout())}
@@ -141,3 +165,4 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
     </nav>
   );
 }
+

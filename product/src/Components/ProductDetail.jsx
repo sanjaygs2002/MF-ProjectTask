@@ -17,6 +17,7 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [notification, setNotification] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     name: user?.username || "",
@@ -34,6 +35,48 @@ function ProductDetail() {
 
   const totalPrice = (selected.offerPrice || selected.price) * quantity;
 
+const validateForm = () => {
+  let newErrors = {};
+
+  if (!formData.name.trim()) {
+    newErrors.name = "Name is required";
+  }
+  if (!formData.email) {
+    newErrors.email = "Email is required";
+  } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    newErrors.email = "Invalid email format";
+  }
+  if (!formData.address.trim()) {
+    newErrors.address = "Address is required";
+  }
+  if (!formData.phone) {
+    newErrors.phone = "Phone is required";
+  } else if (!/^\d{10}$/.test(formData.phone)) {
+    newErrors.phone = "Phone number must be 10 digits";
+  }
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (!validateForm()) return; // stop if errors exist
+
+  if (!user) return alert("Please login first");
+
+  dispatch(
+    placeOrderDirect({
+      userId: user.id,
+      userInfo: formData,
+      product: { ...selected, quantity, totalPrice },
+    })
+  );
+
+  setCheckoutOpen(false);
+  showNotification("🎉 Order placed successfully!");
+};
+
   const showNotification = (message) => {
     setNotification(message);
     setTimeout(() => setNotification(null), 3000); // hide after 3s
@@ -50,21 +93,9 @@ function ProductDetail() {
     setCheckoutOpen(true);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!user) return alert("Please login first");
 
-    dispatch(
-      placeOrderDirect({
-        userId: user.id,
-        userInfo: formData,
-        product: { ...selected, quantity, totalPrice },
-      })
-    );
 
-    setCheckoutOpen(false);
-    showNotification("🎉 Order placed successfully!");
-  };
+ 
 
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
@@ -155,56 +186,79 @@ function ProductDetail() {
         </div>
       </div>
 
-      {checkoutOpen && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <h3>Checkout</h3>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Address"
-                value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Phone"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                required
-              />
-              <select
-                value={formData.payment}
-                onChange={(e) => setFormData({ ...formData, payment: e.target.value })}
-              >
-                <option value="Cash on Delivery">Cash on Delivery</option>
-                <option value="Online Payment">Online Payment</option>
-              </select>
-              <button type="submit" className="checkout-btn confirm">
-                Place Order
-              </button>
-              <button type="button" className="cancel" onClick={() => setCheckoutOpen(false)}>
-                Cancel
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+    {checkoutOpen && (
+  <div className="popup-overlay">
+    <div className="popup">
+      <h3>Checkout</h3>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Name"
+          value={formData.name}
+          onChange={(e) => {
+            setFormData({ ...formData, name: e.target.value });
+            setErrors({ ...errors, name: "" });
+          }}
+        />
+        {errors.name && <p className="error">{errors.name}</p>}
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={(e) => {
+            setFormData({ ...formData, email: e.target.value });
+            setErrors({ ...errors, email: "" });
+          }}
+        />
+        {errors.email && <p className="error">{errors.email}</p>}
+
+        <input
+          type="text"
+          placeholder="Address"
+          value={formData.address}
+          onChange={(e) => {
+            setFormData({ ...formData, address: e.target.value });
+            setErrors({ ...errors, address: "" });
+          }}
+        />
+        {errors.address && <p className="error">{errors.address}</p>}
+
+        <input
+          type="text"
+          placeholder="Phone"
+          value={formData.phone}
+          onChange={(e) => {
+            setFormData({ ...formData, phone: e.target.value });
+            setErrors({ ...errors, phone: "" });
+          }}
+        />
+        {errors.phone && <p className="error">{errors.phone}</p>}
+
+        <select
+          value={formData.payment}
+          onChange={(e) =>
+            setFormData({ ...formData, payment: e.target.value })
+          }
+        >
+          <option value="Cash on Delivery">Cash on Delivery</option>
+          <option value="Online Payment">Online Payment</option>
+        </select>
+
+        <button type="submit" className="checkout-btn confirm">
+          Place Order
+        </button>
+        <button
+          type="button"
+          className="cancel"
+          onClick={() => setCheckoutOpen(false)}
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+)}
     </div>
   );
 }
