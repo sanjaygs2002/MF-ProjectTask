@@ -1,101 +1,124 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOrders, cancelOrder } from "host/store"; 
+import { fetchOrders, cancelOrder } from "host/store"; // adjust path
+import { FaClipboardList, FaCheckCircle, FaTruck, FaShippingFast, FaBoxOpen, FaTimesCircle } from "react-icons/fa";
 import "./OrderHistory.css";
 
-export default function OrderHistory({ userId }) {
+function OrderHistory() {
   const dispatch = useDispatch();
-  const { items: orders, status, error } = useSelector((state) => state.orders);
-  
+  const orders = useSelector((state) => state.orders.items);
+  const { user } = useSelector((state) => state.auth);
+
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchOrders(userId));
+    if (user?.id) {
+      dispatch(fetchOrders(user.id));
     }
-  }, [userId, dispatch]);
+  }, [dispatch, user]);
 
-  const handleCancel = (orderId) => {
-    dispatch(cancelOrder({ userId, orderId }));
+  const handleCancelOrder = (orderId) => {
+    dispatch(cancelOrder({ userId: user.id, orderId }));
   };
 
-  const calculateTotal = (items) => {
-    return items
-      .reduce(
-        (acc, item) => acc + (parseFloat(item.offerPrice) * (item.quantity || 1)),
-        0
-      )
-      .toFixed(2);
+  const canCancel = (orderDate) => {
+    const diffHours = (Date.now() - new Date(orderDate).getTime()) / (1000 * 60 * 60);
+    return diffHours <= 6;
   };
-  
-const canCancel = (orderDate) => {
-  if (!orderDate) return false;
-  const placedTime = new Date(orderDate);
-  if (isNaN(placedTime)) return false;
-  const diffHours = (Date.now() - placedTime.getTime()) / (1000 * 60 * 60);
-  return diffHours <= 6; // 6 hours cancel window
-};
 
+  const stages = [
+    { name: "Placed", icon: <FaClipboardList /> },
+    { name: "Confirmed", icon: <FaCheckCircle /> },
+    { name: "Shipped", icon: <FaTruck /> },
+    { name: "Out for Delivery", icon: <FaShippingFast /> },
+    { name: "Delivered", icon: <FaBoxOpen /> },
+  ];
 
-
+  const calculateTotal = (items) =>
+    items.reduce((total, item) => total + Number(item.offerPrice || 0) * (item.quantity || 1), 0);
 
   return (
     <div className="order-history-container">
-      <h2>Order History</h2>
+      <h2>Your Orders</h2>
+      {orders.length === 0 ? (
+        <p>No orders placed yet.</p>
+      ) : (
+        orders.map((order) => {
+          const diffHours = (Date.now() - new Date(order.date).getTime()) / (1000 * 60 * 60);
+          return (
+            <div key={order.id} className="order-card">
+              <p><strong>Order ID:</strong> {order.id}</p>
+              <p><strong>Date:</strong> {new Date(order.date).toLocaleString()}</p>
 
-      {status === "loading" && <p>Loading orders...</p>}
-      {status === "failed" && <p className="error">Error: {error}</p>}
-      {status === "succeeded" && orders.length === 0 && <p>No orders found</p>}
-
-      {orders.map((order) => (
-        <div key={order.id} className="order-card">
-          <div className="order-header">
-            <h3>Order #{order.id}</h3>
-            <p>
-              Status:{" "}
-              <span className={order.status.toLowerCase()}>{order.status}</span>
-            </p>
-            <p>Date: {new Date(order.date).toLocaleString()}</p>
-          </div>
-
-          <div className="order-items">
-            {order.items.map((item) => (
-              <div key={item.id} className="order-item">
-                <img
-                  src={`http://localhost:8083/images/${item.image}`}
-                  alt={item.name}
-                  className="order-item-img"
-                />
-                <div className="order-item-details">
-                  <p>{item.name}</p>
-                  <p>Qty: {item.quantity || 1}</p>
-                </div>
+              {/* Horizontal Timeline */}
+              <div className="timeline-container">
+                {stages.map((stage, idx) => {
+                  const isActive = diffHours >= idx * 0.01 && order.status !== "Cancelled";
+                  const isCancelled = order.status === "Cancelled";
+                  return (
+                    <div key={idx} className="timeline-stage">
+                      <div
+                        className={`timeline-box ${isActive ? "active-stage" : ""} ${isCancelled ? "cancelled-stage" : ""}`}
+                        title={isCancelled && idx === 0 ? "Order cancelled within 6 hours" : stage.name}
+                      >
+                        {isCancelled && idx === 0 ? <FaTimesCircle color="#ff4d4f" /> : stage.icon}
+                        <span>{stage.name}</span>
+                      </div>
+                      {idx < stages.length - 1 && (
+                        <div className={`timeline-line ${isActive ? "active-line" : ""} ${isCancelled ? "cancelled-line" : ""}`}></div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
 
-          <p className="total-price">Total Price: ₹{calculateTotal(order.items)}</p>
+              {/* Order items */}
+              <div className="order-items">
+                {order.items.map((item) => (
+                  <div key={item.id || item.name} className="order-item">
+                    <img
+                      src={`http://localhost:8083/images/${item.image}`}
+                      alt={item.name}
+                      className="order-item-img"
+                    />
+                    <div>
+                      <p>{item.name}</p>
+                      <p>
+                        <span style={{ textDecoration: "line-through", color: "#999", marginRight: "5px" }}>
+                          ₹{Number(item.originalPrice || 0)}
+                        </span>
+                        ₹{Number(item.offerPrice || 0)}
+                      </p>
+                      <p>Qty: {item.quantity || 1}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-          {/* ✅ Cancel logic */}
-          {order.status !== "Cancelled" && (
-            <>
-              {canCancel(order.date) ? (
-                <div className="tooltip-wrapper">
-                  <button
-                    className="cancel-btn"
-                    onClick={() => handleCancel(order.id)}
-                  >
-                    Cancel Order
-                  </button>
-                  <span className="tooltip-text">Cancel order within 6 hours</span>
-                </div>
-              ) : (
-                <p className="cancel-msg">
-                  ⚠️ Order can’t be cancelled after 6 hours.
-                </p>
-              )}
-            </>
-          )}
-        </div>
-      ))}
+              <p className="total-price">Total Price: ₹{calculateTotal(order.items).toFixed(2)}</p>
+
+{(order.status === "Placed" || order.status === "Confirmed") && (
+  <button
+    className="cancel-btn"
+    onClick={() => handleCancelOrder(order.id)}
+    disabled={!canCancel(order.date)}
+    title={canCancel(order.date) 
+      ? "Cancel your order" 
+      : "Cancellation period expired (6 hours)"}
+  >
+    Cancel Order
+  </button>
+)}
+
+
+
+
+
+             
+            </div>
+          );
+        })
+      )}
     </div>
   );
 }
+
+export default OrderHistory;

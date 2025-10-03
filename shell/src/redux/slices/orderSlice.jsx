@@ -15,7 +15,7 @@ export const fetchOrders = createAsyncThunk(
   }
 );
 
-// ✅ Place order from cart (clears cart after order)
+// Place order from cart
 export const placeOrderFromCart = createAsyncThunk(
   "orders/placeOrderFromCart",
   async ({ userId, cartItems, userInfo }, { rejectWithValue }) => {
@@ -23,21 +23,20 @@ export const placeOrderFromCart = createAsyncThunk(
       const res = await fetch(`http://localhost:5000/users/${userId}`);
       const user = await res.json();
 
-     const newOrder = {
-  id: Date.now().toString(),
-  items: cartItems,
-  userInfo,
-  date: new Date().toISOString(),
-  status: "Placed",   // ✅ should be "Placed"
-};
-
+      const newOrder = {
+        id: Date.now().toString(),
+        items: cartItems,
+        userInfo,
+        date: new Date().toISOString(),
+        status: "Placed",
+      };
 
       const updatedOrders = [...(user.orders || []), newOrder];
 
       await fetch(`http://localhost:5000/users/${userId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orders: updatedOrders, cart: [] }), // clear cart
+        body: JSON.stringify({ orders: updatedOrders, cart: [] }),
       });
 
       return newOrder;
@@ -47,8 +46,7 @@ export const placeOrderFromCart = createAsyncThunk(
   }
 );
 
-// ✅ Place order directly (Buy Now) – does NOT clear cart
-// ✅ Place order directly (Buy Now) – only saves 1 product
+// Place order directly (Buy Now)
 export const placeOrderDirect = createAsyncThunk(
   "orders/placeOrderDirect",
   async ({ userId, userInfo, product }, { rejectWithValue }) => {
@@ -57,14 +55,13 @@ export const placeOrderDirect = createAsyncThunk(
       const user = await res.json();
       if (!user) throw new Error("User not found");
 
-  const newOrder = {
-  id: Date.now().toString(),
-  items: [{ ...product, quantity: 1 }],
-  userInfo,
-  date: new Date().toISOString(),
-  status: "Placed",   // ✅ should be "Placed"
-};
-
+      const newOrder = {
+        id: Date.now().toString(),
+        items: [{ ...product, quantity: 1 }],
+        userInfo,
+        date: new Date().toISOString(),
+        status: "Placed",
+      };
 
       const updatedOrders = [...(user.orders || []), newOrder];
 
@@ -80,9 +77,8 @@ export const placeOrderDirect = createAsyncThunk(
     }
   }
 );
-;
 
-// ✅ Cancel order (within 6 hours)
+// Cancel order (till Confirmed stage only)
 export const cancelOrder = createAsyncThunk(
   "orders/cancelOrder",
   async ({ userId, orderId }, { rejectWithValue }) => {
@@ -90,20 +86,14 @@ export const cancelOrder = createAsyncThunk(
       const res = await fetch(`http://localhost:5000/users/${userId}`);
       const user = await res.json();
 
-      const now = new Date();
-    const updatedOrders = (user.orders || []).map((order) => {
-  if (order.id === orderId) {
-    const diffHours = (now - new Date(order.date)) / (1000 * 60 * 60);
-    if (
-      diffHours <= 6 &&
-      (order.status === "Placed" || order.status === "Pending")
-    ) {
-      return { ...order, status: "Cancelled" };
-    }
-  }
-  return order;
-});
-
+      const updatedOrders = (user.orders || []).map((order) => {
+        if (order.id === orderId) {
+          if (order.status === "Placed" || order.status === "Confirmed") {
+            return { ...order, status: "Cancelled" };
+          }
+        }
+        return order;
+      });
 
       await fetch(`http://localhost:5000/users/${userId}`, {
         method: "PATCH",
@@ -118,7 +108,6 @@ export const cancelOrder = createAsyncThunk(
   }
 );
 
-
 const orderSlice = createSlice({
   name: "orders",
   initialState: {
@@ -129,9 +118,7 @@ const orderSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOrders.pending, (state) => {
-        state.status = "loading";
-      })
+      .addCase(fetchOrders.pending, (state) => { state.status = "loading"; })
       .addCase(fetchOrders.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.items = action.payload;
@@ -140,15 +127,9 @@ const orderSlice = createSlice({
         state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(placeOrderFromCart.fulfilled, (state, action) => {
-        state.items.push(action.payload);
-      })
-      .addCase(placeOrderDirect.fulfilled, (state, action) => {
-        state.items.push(action.payload);
-      })
-      .addCase(cancelOrder.fulfilled, (state, action) => {
-        state.items = action.payload;
-      });
+      .addCase(placeOrderFromCart.fulfilled, (state, action) => { state.items.push(action.payload); })
+      .addCase(placeOrderDirect.fulfilled, (state, action) => { state.items.push(action.payload); })
+      .addCase(cancelOrder.fulfilled, (state, action) => { state.items = action.payload; });
   },
 });
 

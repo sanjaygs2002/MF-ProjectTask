@@ -8,34 +8,74 @@
 .order-card {
   border: 1px solid #ddd;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border-radius: 10px;
   background: #f9f9f9;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.order-header h3 {
-  margin: 0 0 5px 0;
+/* Horizontal Timeline */
+.timeline-container {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  overflow-x: auto;
+  padding-bottom: 10px;
 }
 
-.order-header p {
-  margin: 2px 0;
+.timeline-stage {
+  display: flex;
+  align-items: center;
 }
 
-.order-header .pending {
-  color: orange;
-}
-.order-header .placed {
-  color: blue;
-}
-.order-header .delivered {
-  color: green;
-}
-.order-header .cancelled {
-  color: red;
-  font-weight: bold;
+.timeline-box {
+  min-width: 80px;
+  height: 80px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  font-size: 12px;
+  text-align: center;
+  color: #555;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }
 
+.timeline-box span {
+  margin-top: 5px;
+}
+
+.active-stage {
+  background: #4caf50;
+  color: #fff;
+}
+
+.cancelled-stage {
+  background: #ffe6e6;
+  color: #ff4d4f;
+}
+
+.timeline-line {
+  width: 40px;
+  height: 4px;
+  background: #ccc;
+  margin: 0 5px;
+  border-radius: 2px;
+}
+
+.active-line {
+  background: #4caf50;
+}
+
+.cancelled-line {
+  background: #ff4d4f;
+}
+
+/* Order items */
 .order-items {
   display: flex;
   flex-direction: column;
@@ -58,21 +98,10 @@
   margin-right: 15px;
 }
 
-.order-item-details p {
-  margin: 2px 0;
-}
-
-.cancel-btn {
-  margin-top: 10px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: #ff4d4f;
-  color: white;
-  cursor: pointer;
+.total-price {
   font-weight: bold;
+  margin-top: 10px;
 }
-
 
 .cancel-btn {
   margin-top: 10px;
@@ -86,66 +115,11 @@
   transition: background 0.3s;
 }
 
-.cancel-btn:hover {
+.cancel-btn:hover:not(:disabled) {
   background-color: #d9363e;
 }
 
-/* ✅ Exclamatory message */
-.cancel-msg {
-  margin-top: 12px;
-  padding: 10px;
-  background: #fff3cd;
-  border: 1px solid #ffeeba;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #856404;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
+.cancel-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
-
-/* Tooltip wrapper */
-.tooltip-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-/* Hide tooltip by default */
-.tooltip-text {
-  visibility: hidden;
-  width: 180px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  font-size: 13px;
-  border-radius: 6px;
-  padding: 6px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%; /* show above the button */
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-
-/* Tooltip arrow */
-.tooltip-text::after {
-  content: "";
-  position: absolute;
-  top: 100%; /* bottom of tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 6px;
-  border-style: solid;
-  border-color: #333 transparent transparent transparent;
-}
-
-/* Show tooltip on hover */
-.tooltip-wrapper:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-

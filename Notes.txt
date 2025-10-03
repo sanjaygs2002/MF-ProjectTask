@@ -56,8 +56,13 @@ cart page select all button ----------------
 Rename host to Shell --------------------------------------
 
 
-
-
+changes:
+order history page ui changes accordian
+form validation on each field
+host point change the logo and name
+coding standards like create folder for constant 
+Using majic numbers 
+https://dev.to/ruben_alapont/magic-numbers-and-magic-strings-its-time-to-talk-about-it-ci2
 
 
 
