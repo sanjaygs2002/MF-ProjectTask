@@ -649,6 +649,16 @@
       "address": "Vinaiyagar",
       "cart": [],
       "orders": []
+    },
+    {
+      "id": "97db",
+      "username": "Deva",
+      "email": "deva@gmail.com",
+      "password": "Deva@2002",
+      "phone": "3636736374",
+      "address": "Udumalpet Tirupur",
+      "cart": [],
+      "orders": []
     }
   ],
   "products": [

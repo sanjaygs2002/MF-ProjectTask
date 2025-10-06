@@ -84,3 +84,8 @@
   text-align: center;
 }
 
+.required {
+  color: red;
+  margin-left: 2px;
+  font-size: 14px;
+}

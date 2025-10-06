@@ -14,27 +14,43 @@ function Signup() {
   });
 
   const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({}); // Track if user has typed in field
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.auth);
 
+  // Validate single field
   const validateField = (name, value) => {
     switch (name) {
       case "username":
-        if (!value.trim()) return "Username cannot be empty.";
+        if (!value.trim()) return "This field is required.";
         break;
       case "email":
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Invalid email format.";
+        if (!value.trim()) return "This field is required.";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+          return "Invalid email format.";
         break;
       case "password":
-        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(value))
-          return "Password must be 8+ chars, include uppercase, lowercase, number & special char.";
-        break;
+      if (!value.trim()) return "This field is required.";
+      if (value.length < 6) return "Password must be at least 6 characters.";
+      if (value.length > 30) return "Password cannot exceed 30 characters.";
+      if (!/(?=.*[a-z])/.test(value))
+        return "Password must include at least one lowercase letter.";
+      if (!/(?=.*[A-Z])/.test(value))
+        return "Password must include at least one uppercase letter.";
+      if (!/(?=.*\d)/.test(value))
+        return "Password must include at least one number.";
+      if (!/(?=.*[@$!%*?&])/.test(value))
+        return "Password must include at least one special character (@$!%*?&).";
+      break;
+
       case "phone":
-        if (!/^[0-9]{10}$/.test(value)) return "Phone number must be 10 digits.";
+        if (!value.trim()) return "This field is required.";
+        if (!/^\d*$/.test(value)) return "Phone number can only contain digits.";
+        if (value.length !== 10) return "Phone number must be 10 digits.";
         break;
       case "address":
-        if (!value.trim()) return "Address cannot be empty.";
+        if (!value.trim()) return "This field is required.";
         break;
       default:
         return "";
@@ -44,13 +60,20 @@ function Signup() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setForm({ ...form, [name]: value });
-    setErrors({ ...errors, [name]: validateField(name, value) });
+    setTouched({ ...touched, [name]: true });
+
+    // Show error only if user has typed in field
+    if (touched[name]) {
+      setErrors({ ...errors, [name]: validateField(name, value) });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validate all fields on submit
     const newErrors = {};
     Object.keys(form).forEach((key) => {
       const errorMsg = validateField(key, form[key]);
@@ -59,6 +82,10 @@ function Signup() {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      // Mark all fields as touched so errors appear
+      const allTouched = {};
+      Object.keys(form).forEach((key) => (allTouched[key] = true));
+      setTouched(allTouched);
       return;
     }
 
@@ -67,7 +94,7 @@ function Signup() {
       .unwrap()
       .then(() => {
         alert("Signup successful!");
-        navigate("/");
+        navigate("/login");
       })
       .catch(() => {
         alert("Signup failed. Try again.");
@@ -80,74 +107,36 @@ function Signup() {
         <h2>Sign Up</h2>
 
         <div className="signup-grid">
-          <div className="form-group">
-            <label>
-              Username <span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              name="username"
-              placeholder="Enter your username"
-              value={form.username}
-              onChange={handleChange}
-            />
-            {errors.username && <span className="field-error">{errors.username}</span>}
-          </div>
-
-          <div className="form-group">
-            <label>
-              Email <span className="required">*</span>
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={form.email}
-              onChange={handleChange}
-            />
-            {errors.email && <span className="field-error">{errors.email}</span>}
-          </div>
-
-          <div className="form-group">
-            <label>
-              Password <span className="required">*</span>
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              value={form.password}
-              onChange={handleChange}
-            />
-            {errors.password && <span className="field-error">{errors.password}</span>}
-          </div>
-
-          <div className="form-group">
-            <label>
-              Phone Number <span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              name="phone"
-              placeholder="Enter your phone number"
-              value={form.phone}
-              onChange={handleChange}
-            />
-            {errors.phone && <span className="field-error">{errors.phone}</span>}
-          </div>
-
-          <div className="form-group" style={{ flex: "1 1 100%" }}>
-            <label>
-              Address <span className="required">*</span>
-            </label>
-            <textarea
-              name="address"
-              placeholder="Enter your address"
-              value={form.address}
-              onChange={handleChange}
-            ></textarea>
-            {errors.address && <span className="field-error">{errors.address}</span>}
-          </div>
+          {["username", "email", "password", "phone", "address"].map((field) => (
+            <div
+              key={field}
+              className="form-group"
+              style={field === "address" ? { flex: "1 1 100%" } : {}}
+            >
+              <label>
+                {field.charAt(0).toUpperCase() + field.slice(1)}{" "}
+                <span className="required">*</span>
+              </label>
+              {field === "address" ? (
+                <textarea
+                  name={field}
+                  placeholder={`Enter your ${field}`}
+                  value={form[field]}
+                  onChange={handleChange}
+                />
+              ) : (
+                <input
+                  type={field === "password" ? "password" : "text"}
+                  name={field}
+                  placeholder={`Enter your ${field}`}
+                  value={form[field]}
+                  onChange={handleChange}
+                  maxLength={field === "phone" ? 10 : undefined}
+                />
+              )}
+              {errors[field] && <span className="field-error">{errors[field]}</span>}
+            </div>
+          ))}
         </div>
 
         <button type="submit" disabled={loading}>

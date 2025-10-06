@@ -85,29 +85,34 @@ function Login() {
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
 
-        <div className="form-group">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-          />
-          {errors.email && <span className="field-error">{errors.email}</span>}
-        </div>
+       <div className="form-group">
+  <label>
+    Email <span className="required">*</span>
+  </label>
+  <input
+    type="email"
+    name="email"
+   
+    value={form.email}
+    onChange={handleChange}
+  />
+  {errors.email && <span className="field-error">{errors.email}</span>}
+</div>
 
-        <div className="form-group">
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          {errors.password && (
-            <span className="field-error">{errors.password}</span>
-          )}
-        </div>
+<div className="form-group">
+  <label>
+    Password <span className="required">*</span>
+  </label>
+  <input
+    type="password"
+    name="password"
+   
+    value={form.password}
+    onChange={handleChange}
+  />
+  {errors.password && <span className="field-error">{errors.password}</span>}
+</div>
+
 
         {backendError && <div className="backend-error">{backendError}</div>}
 

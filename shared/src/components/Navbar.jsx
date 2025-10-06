@@ -150,12 +150,16 @@ export default function Navbar({ onSearch, onFilter, onPriceChange }) {
                     <small className="email">{user.email}</small>
                   </div>
 
-                  <button
-                    onClick={() => dispatch(logout())}
-                    className="btn-logout"
-                  >
-                    Logout
-                  </button>
+                 <button
+                  onClick={() => {
+                    dispatch(logout());
+                    navigate("/"); // 👈 Redirect to home (product) page after logout
+                  }}
+                  className="btn-logout"
+                >
+                  Logout
+                </button>
+
                 </div>
               )}
             </div>
