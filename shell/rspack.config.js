@@ -76,7 +76,11 @@ module.exports = {
 
       },
     }),
-    new rspack.HtmlRspackPlugin({ template: './src/index.html' }),
+      new rspack.HtmlRspackPlugin({
+      template: path.resolve(__dirname, "./src/index.html"),
+      favicon: path.resolve(__dirname, "./public/favicon-32x32.png"),
+    }),
+ 
     isDev ? new refreshPlugin() : null,
   ].filter(Boolean),
 };

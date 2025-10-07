@@ -324,3 +324,25 @@
   margin-top: 5px;
 }
 
+.notification-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #007bff;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 3000;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeInOut 2.5s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}

@@ -25,10 +25,10 @@ function CartPage() {
     payment: "Cash on Delivery",
   });
 
-  // ✅ Track selected items
+  //  Track selected items
   const [selectedItems, setSelectedItems] = useState([]);
 
-  // ✅ Toast Notification
+  //  Toast Notification
   const [notification, setNotification] = useState(null);
 
   // Form Validation
@@ -65,7 +65,7 @@ function CartPage() {
     dispatch(openCheckout());
   };
 
-  // ✅ Individual selection
+  //  Individual selection
   const handleItemSelect = (itemId) => {
     setSelectedItems((prev) =>
       prev.includes(itemId)
@@ -102,7 +102,7 @@ function CartPage() {
   const handleQuantityChange = (productId, quantity) => {
     if (user) {
       if (quantity < 1) {
-        // Remove item if quantity goes below 1
+       
         dispatch(removeFromCart({ userId: user.id, productId }));
         showNotification("Item removed from cart!");
       } else {
@@ -112,7 +112,7 @@ function CartPage() {
     }
   };
 
-  // ✅ Select All
+  //  Select All
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       setSelectedItems(items.map((item) => item.id));
@@ -121,7 +121,7 @@ function CartPage() {
     }
   };
 
-  // ✅ FIX: allSelected must be defined BEFORE return
+  
   const allSelected = items.length > 0 && selectedItems.length === items.length;
 
   const handleChange = (e) => {
@@ -183,14 +183,13 @@ const handleSubmit = (e) => {
     <div className="cart-container">
       <h2 className="cart-title">Your Cart</h2>
 
-      {/* ✅ Notification Toast */}
       {notification && <div className="notification-box">{notification}</div>}
 
       {items.length === 0 ? (
         <p className="cart-msg">Your cart is empty.</p>
       ) : (
         <>
-          {/* ✅ Select All */}
+        
           <div className="select-all-container">
             <input
               type="checkbox"
@@ -204,7 +203,7 @@ const handleSubmit = (e) => {
           <div className="cart-list">
             {items.map((item) => (
               <div key={item.id} className="cart-item">
-                {/* ✅ Select checkbox */}
+                
                 <input
                   type="checkbox"
                   checked={selectedItems.includes(item.id)}

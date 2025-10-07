@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders, cancelOrder } from "host/store";
 import {
@@ -11,7 +11,21 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
+import {
+  CANCEL_HOURS_LIMIT,
+  ORDER_STATUS,
+  TIMELINE_STAGES,DEFAULT_QUANTITY, DEFAULT_PRICE,
+} from "../constant/OrderHistoryConst";
 import "./OrderHistory.css";
+
+
+const ICON_MAP = {
+  FaClipboardList: <FaClipboardList />,
+  FaCheckCircle: <FaCheckCircle />,
+  FaTruck: <FaTruck />,
+  FaShippingFast: <FaShippingFast />,
+  FaBoxOpen: <FaBoxOpen />,
+};
 
 function OrderHistory() {
   const dispatch = useDispatch();
@@ -31,19 +45,17 @@ function OrderHistory() {
 
   const canCancel = (orderDate) => {
     const diffHours = (Date.now() - new Date(orderDate).getTime()) / (1000 * 60 * 60);
-    return diffHours <= 6;
+    return diffHours <= CANCEL_HOURS_LIMIT;
   };
 
-  const stages = [
-    { name: "Placed", icon: <FaClipboardList /> },
-    { name: "Confirmed", icon: <FaCheckCircle /> },
-    { name: "Shipped", icon: <FaTruck /> },
-    { name: "Out for Delivery", icon: <FaShippingFast /> },
-    { name: "Delivered", icon: <FaBoxOpen /> },
-  ];
-
-  const calculateTotal = (items) =>
-    items.reduce((total, item) => total + Number(item.offerPrice || 0) * (item.quantity || 1), 0);
+ const calculateTotal = (items) =>
+  items.reduce(
+    (total, item) =>
+      total +
+      Number(item.offerPrice ?? DEFAULT_PRICE) *
+        (item.quantity ?? DEFAULT_QUANTITY),
+    0
+  );
 
   const toggleAccordion = (id) => {
     setOpenOrder(openOrder === id ? null : id);
@@ -56,58 +68,54 @@ function OrderHistory() {
         <p>No orders placed yet.</p>
       ) : (
         orders.map((order) => {
-          const diffHours =
-            (Date.now() - new Date(order.date).getTime()) / (1000 * 60 * 60);
+          const diffHours = (Date.now() - new Date(order.date).getTime()) / (1000 * 60 * 60);
           const isOpen = openOrder === order.id;
+          const orderStatus = order.status;
 
           return (
             <div key={order.id} className="order-accordion">
-              {/* Accordion Header */}
+           
               <div className="accordion-header" onClick={() => toggleAccordion(order.id)}>
                 <div>
                   <strong>Order ID:</strong> {order.id}
-                  <p className="order-date">
-                    {new Date(order.date).toLocaleString()}
-                  </p>
+                  <p className="order-date">{new Date(order.date).toLocaleString()}</p>
                 </div>
-                <div className="accordion-icon">
-                  {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-                </div>
+                <div className="accordion-icon">{isOpen ? <FaChevronUp /> : <FaChevronDown />}</div>
               </div>
 
-              {/* Accordion Body */}
+           
               {isOpen && (
                 <div className="accordion-body">
-                  {/* Timeline */}
+                 
                   <div className="timeline-container">
-                    {stages.map((stage, idx) => {
-                      const isActive =
-                        diffHours >= idx * 0.01 && order.status !== "Cancelled";
-                      const isCancelled = order.status === "Cancelled";
+                    {TIMELINE_STAGES.map((stage, idx) => {
+                      const isCancelled = orderStatus === ORDER_STATUS.CANCELLED;
+                      const isActive = diffHours >= (idx + 1) * CANCEL_HOURS_LIMIT && !isCancelled;
+
                       return (
                         <div key={idx} className="timeline-stage">
                           <div
-                            className={`timeline-box ${
-                              isActive ? "active-stage" : ""
-                            } ${isCancelled ? "cancelled-stage" : ""}`}
+                            className={`timeline-box ${isActive ? "active-stage" : ""} ${
+                              isCancelled ? "cancelled-stage" : ""
+                            }`}
                             title={
-                              isCancelled && idx === 0
-                                ? "Order cancelled within 6 hours"
-                                : stage.name
+                              diffHours < CANCEL_HOURS_LIMIT
+                                ? `Order is pending. You can cancel within ${CANCEL_HOURS_LIMIT} hours.`
+                                : `${stage.name} stage started after ${(idx + 1) * CANCEL_HOURS_LIMIT} hours.`
                             }
                           >
                             {isCancelled && idx === 0 ? (
                               <FaTimesCircle color="#ff4d4f" />
                             ) : (
-                              stage.icon
+                              ICON_MAP[stage.iconName]
                             )}
                             <span>{stage.name}</span>
                           </div>
-                          {idx < stages.length - 1 && (
+                          {idx < TIMELINE_STAGES.length - 1 && (
                             <div
-                              className={`timeline-line ${
-                                isActive ? "active-line" : ""
-                              } ${isCancelled ? "cancelled-line" : ""}`}
+                              className={`timeline-line ${isActive ? "active-line" : ""} ${
+                                isCancelled ? "cancelled-line" : ""
+                              }`}
                             ></div>
                           )}
                         </div>
@@ -115,7 +123,7 @@ function OrderHistory() {
                     })}
                   </div>
 
-                  {/* Order items */}
+              
                   <div className="order-items">
                     {order.items.map((item) => (
                       <div key={item.id || item.name} className="order-item">
@@ -144,21 +152,14 @@ function OrderHistory() {
                     ))}
                   </div>
 
-                  <p className="total-price">
-                    Total Price: ₹{calculateTotal(order.items).toFixed(2)}
-                  </p>
+                  <p className="total-price">Total Price: ₹{calculateTotal(order.items).toFixed(2)}</p>
 
-                  {(order.status === "Placed" ||
-                    order.status === "Confirmed") && (
+               
+                  {canCancel(order.date) && orderStatus !== ORDER_STATUS.CANCELLED && (
                     <button
                       className="cancel-btn"
+                      title={`You can cancel your order within ${CANCEL_HOURS_LIMIT} hours of placing it.`}
                       onClick={() => handleCancelOrder(order.id)}
-                      disabled={!canCancel(order.date)}
-                      title={
-                        canCancel(order.date)
-                          ? "Cancel your order"
-                          : "Cancellation period expired (6 hours)"
-                      }
                     >
                       Cancel Order
                     </button>

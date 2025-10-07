@@ -81,32 +81,31 @@ export const placeOrderDirect = createAsyncThunk(
 // Cancel order (till Confirmed stage only)
 export const cancelOrder = createAsyncThunk(
   "orders/cancelOrder",
-  async ({ userId, orderId }, { rejectWithValue }) => {
-    try {
-      const res = await fetch(`http://localhost:5000/users/${userId}`);
-      const user = await res.json();
+  async ({ userId, orderId }, thunkAPI) => {
+    // 1️⃣ Fetch the user to get their orders
+    const userRes = await fetch(`http://localhost:5000/users/${userId}`);
+    const userData = await userRes.json();
 
-      const updatedOrders = (user.orders || []).map((order) => {
-        if (order.id === orderId) {
-          if (order.status === "Placed" || order.status === "Confirmed") {
-            return { ...order, status: "Cancelled" };
-          }
-        }
-        return order;
-      });
+    // 2️⃣ Find the order to update
+    const updatedOrders = userData.orders.map((order) =>
+      order.id === orderId ? { ...order, status: "Cancelled" } : order
+    );
 
-      await fetch(`http://localhost:5000/users/${userId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orders: updatedOrders }),
-      });
+    // 3️⃣ Update the user’s orders list
+    const response = await fetch(`http://localhost:5000/users/${userId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orders: updatedOrders }),
+    });
 
-      return updatedOrders;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
+    const updatedUser = await response.json();
+
+    // 4️⃣ Return updated order only for Redux
+    const updatedOrder = updatedUser.orders.find((o) => o.id === orderId);
+    return updatedOrder;
   }
 );
+
 
 const orderSlice = createSlice({
   name: "orders",
@@ -129,7 +128,14 @@ const orderSlice = createSlice({
       })
       .addCase(placeOrderFromCart.fulfilled, (state, action) => { state.items.push(action.payload); })
       .addCase(placeOrderDirect.fulfilled, (state, action) => { state.items.push(action.payload); })
-      .addCase(cancelOrder.fulfilled, (state, action) => { state.items = action.payload; });
+      .addCase(cancelOrder.fulfilled, (state, action) => {
+  const updatedOrder = action.payload;
+  state.items = state.items.map((order) =>
+    order.id === updatedOrder.id ? updatedOrder : order
+  );
+});
+
+
   },
 });
 

@@ -57,10 +57,10 @@ Rename host to Shell --------------------------------------
 
 
 changes:
-order history page ui changes accordian
-form validation on each field
-edit page there logout means nav to product page.
-host point change the logo and name
+order history page ui changes accordian -----
+form validation on each field ---------
+edit page there logout means nav to product page. ----------
+host point change the logo and name ---------
 coding standards like create folder for constant 
 Using majic numbers 
 https://dev.to/ruben_alapont/magic-numbers-and-magic-strings-its-time-to-talk-about-it-ci2
