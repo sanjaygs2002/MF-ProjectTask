@@ -1,10 +1,10 @@
 .edit-profile {
-  max-width: 450px;
+  max-width: 400px;
   margin: 50px auto;
-  padding: 25px;
   background: #fff;
+  padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .edit-profile h2 {
@@ -13,46 +13,18 @@
   color: #333;
 }
 
-.profile-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
 .profile-form label {
-  font-weight: 600;
-  margin-bottom: 5px;
-  display: flex;
-  flex-direction: column;
-  color: #555;
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 500;
 }
 
 .profile-form input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-  transition: border 0.2s ease;
-}
-
-.profile-form input:focus {
-  border-color: #007bff;
-}
-
-.btn-save {
-  padding: 12px;
-  background: #007bff;
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.btn-save:hover {
-  background: #0056b3;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
 }
 
 .error {
@@ -60,4 +32,52 @@
   font-size: 13px;
   margin-top: 5px;
 }
+
+.btn-save {
+  width: 100%;
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-save:hover {
+  background: #0056b3;
+}
+
+
+.toast {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  animation: fadeInOut 2s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
 

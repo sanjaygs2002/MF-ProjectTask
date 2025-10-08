@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Layout from "./Layout";
 
-// Dummy child component for function-as-children case
 const ChildComponent = ({ search, category, price }) => (
   <div>
     <p>Search: {search}</p>
@@ -10,7 +9,6 @@ const ChildComponent = ({ search, category, price }) => (
   </div>
 );
 
-// Mock Navbar so we can simulate callbacks
 jest.mock("./components/Navbar", () => (props) => (
   <div>
     <button onClick={() => props.onSearch("watch")}>Search</button>
@@ -19,10 +17,8 @@ jest.mock("./components/Navbar", () => (props) => (
   </div>
 ));
 
-// Mock Footer
 jest.mock("./components/Footer", () => () => <div>Footer</div>);
 
-// 🔑 Mock react-router-dom with a controllable useLocation
 const mockUseLocation = jest.fn();
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -64,12 +60,11 @@ describe("Layout Component", () => {
   });
 
   test("hides footer on /login and /signup routes", () => {
-    // /login
+   
     mockUseLocation.mockReturnValue({ pathname: "/login" });
     const { rerender } = render(<Layout><div>Login Page</div></Layout>);
     expect(screen.queryByText("Footer")).not.toBeInTheDocument();
 
-    // /signup
     mockUseLocation.mockReturnValue({ pathname: "/signup" });
     rerender(<Layout><div>Signup Page</div></Layout>);
     expect(screen.queryByText("Footer")).not.toBeInTheDocument();

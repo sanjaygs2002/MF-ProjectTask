@@ -41,7 +41,7 @@ function App({ search, category, price }) {
       <Routes>
         <Route path="/login" element={<AuthLogin />} />
         <Route path="/signup" element={<AuthSignup />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/edit-profile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
 
         <Route
           path="/"

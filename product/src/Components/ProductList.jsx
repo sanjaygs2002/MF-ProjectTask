@@ -6,9 +6,22 @@ import { placeOrderDirect } from "host/orderSlice";
 import { useNavigate } from "react-router-dom";
 import "./ProductList.css";
 
-function ProductList({ search = "", category = "All", price = 2000 }) {
+// ✅ Import constants
+import {
+  IMAGE_BASE_URL,
+  NOTIFICATION_TIMEOUT,
+  DEFAULT_CATEGORY,
+  DEFAULT_PRICE,
+  PAYMENT_METHODS,
+  PRODUCT_MESSAGES,
+  VALIDATION_MESSAGES,
+  COLORS,
+} from "../Constant/ProdListConst";
+
+function ProductList({ search = "", category = DEFAULT_CATEGORY, price = DEFAULT_PRICE }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { list = [], status } = useSelector((s) => s.products || {});
   const { user } = useSelector((s) => s.auth);
   const { items: cartItems = [] } = useSelector((s) => s.cart || {});
@@ -22,7 +35,7 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
     email: user?.email || "",
     address: user?.address || "",
     phone: user?.phone || "",
-    payment: "Cash on Delivery",
+    payment: PAYMENT_METHODS.COD,
   });
 
   // Fetch products initially
@@ -30,60 +43,64 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
     if (status === "idle") dispatch(fetchProducts());
   }, [dispatch, status]);
 
-  // ✅ Reusable top-right notification tooltip
-  const showNotification = (msg, color = "#007bff") => {
+  // ✅ Top-right tooltip notification
+  const showNotification = (msg, color = COLORS.PRIMARY) => {
     setNotification({ msg, color });
-    setTimeout(() => setNotification(null), 2500);
+    setTimeout(() => setNotification(null), NOTIFICATION_TIMEOUT);
   };
 
-  // Add to Cart
+  // ✅ Add to Cart
   const handleAddToCart = (product) => {
-    if (!user) return showNotification("⚠️ Please login to add items", "#e63946");
+    if (!user) return showNotification(PRODUCT_MESSAGES.LOGIN_TO_ADD, COLORS.ERROR);
+
     dispatch(addToCart({ userId: user.id, product: { ...product, quantity: 1 } }));
-    showNotification("✅ Product added to cart!");
+    showNotification(PRODUCT_MESSAGES.PRODUCT_ADDED);
   };
 
-  // Quantity Change
+  // ✅ Quantity Change
   const handleQuantityChange = (cartItem, delta) => {
     const newQty = cartItem.quantity + delta;
     if (newQty < 1) {
       dispatch(removeFromCart({ userId: user.id, productId: cartItem.id }));
-      showNotification("🗑️ Product removed from cart", "#e63946");
+      showNotification(PRODUCT_MESSAGES.PRODUCT_REMOVED, COLORS.ERROR);
     } else {
       dispatch(updateCartQuantity({ userId: user.id, productId: cartItem.id, quantity: newQty }));
-      showNotification("🔄 Cart updated!");
+      showNotification(PRODUCT_MESSAGES.CART_UPDATED);
     }
   };
 
-  // Buy Now
+  // ✅ Buy Now
   const handleBuyNow = (product) => {
-    if (!user) return showNotification("⚠️ Please login to buy", "#e63946");
+    if (!user) return showNotification(PRODUCT_MESSAGES.LOGIN_TO_BUY, COLORS.ERROR);
+
     setCheckoutProduct({ ...product, quantity: 1 });
     setCheckoutOpen(true);
   };
 
-  // Form Validation
+  // ✅ Validation
   const validateForm = () => {
     let newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name required";
-    if (!formData.email) newErrors.email = "Email required";
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email";
-    if (!formData.address.trim()) newErrors.address = "Address required";
-    if (!formData.phone) newErrors.phone = "Phone required";
-    else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = "Phone must be 10 digits";
+
+    if (!formData.name.trim()) newErrors.name = VALIDATION_MESSAGES.NAME_REQUIRED;
+    if (!formData.email) newErrors.email = VALIDATION_MESSAGES.EMAIL_REQUIRED;
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = VALIDATION_MESSAGES.EMAIL_INVALID;
+    if (!formData.address.trim()) newErrors.address = VALIDATION_MESSAGES.ADDRESS_REQUIRED;
+    if (!formData.phone) newErrors.phone = VALIDATION_MESSAGES.PHONE_REQUIRED;
+    else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = VALIDATION_MESSAGES.PHONE_INVALID;
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Place Order
+  // ✅ Place Order
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!validateForm()) return;
-    if (!user) return showNotification("⚠️ Please login", "#e63946");
+    if (!user) return showNotification(PRODUCT_MESSAGES.LOGIN_REQUIRED, COLORS.ERROR);
 
     const quantity = checkoutProduct.quantity || 1;
-    const totalPrice =
-      (checkoutProduct.offerPrice || checkoutProduct.originalPrice) * quantity;
+    const totalPrice = (checkoutProduct.offerPrice || checkoutProduct.originalPrice) * quantity;
 
     dispatch(
       placeOrderDirect({
@@ -94,24 +111,23 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
     );
 
     setCheckoutOpen(false);
-    showNotification("🎉 Order placed successfully!");
+    showNotification(PRODUCT_MESSAGES.ORDER_SUCCESS);
   };
 
-  // Filtered product list
+  // ✅ Filtered product list
   const filteredProducts = list.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory =
-      category === "All" || p.category?.toLowerCase() === category.toLowerCase();
+      category === DEFAULT_CATEGORY || p.category?.toLowerCase() === category.toLowerCase();
     const matchesPrice = !price || p.offerPrice <= price;
     return matchesSearch && matchesCategory && matchesPrice;
   });
 
-  const getCartItem = (productId) =>
-    cartItems.find((item) => item.id === productId);
+  const getCartItem = (productId) => cartItems.find((item) => item.id === productId);
 
   return (
     <div className="product-page">
-      {/* ✅ Tooltip notification */}
+      {/* ✅ Tooltip Notification */}
       {notification && (
         <div
           className="notification-box"
@@ -123,7 +139,7 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
 
       <div className="product-container">
         {filteredProducts.length === 0 ? (
-          <p>No products found.</p>
+          <p>{PRODUCT_MESSAGES.NO_PRODUCTS}</p>
         ) : (
           filteredProducts.map((p) => {
             const cartItem = getCartItem(p.id);
@@ -134,7 +150,7 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
                 onClick={() => navigate(`/products/${p.id}`)}
               >
                 <img
-                  src={`http://localhost:8083/images/${p.image}`}
+                  src={`${IMAGE_BASE_URL}${p.image}`}
                   alt={p.name}
                   className="product-img"
                 />
@@ -173,7 +189,7 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
         )}
       </div>
 
-      {/* Checkout Popup */}
+      {/* ✅ Checkout Popup */}
       {checkoutOpen && checkoutProduct && (
         <div className="popup-overlay">
           <div className="popup">
@@ -196,12 +212,10 @@ function ProductList({ search = "", category = "All", price = 2000 }) {
 
               <select
                 value={formData.payment}
-                onChange={(e) =>
-                  setFormData({ ...formData, payment: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, payment: e.target.value })}
               >
-                <option value="Cash on Delivery">Cash on Delivery</option>
-                <option value="Online Payment">Online Payment</option>
+                <option value={PAYMENT_METHODS.COD}>{PAYMENT_METHODS.COD}</option>
+                <option value={PAYMENT_METHODS.ONLINE}>{PAYMENT_METHODS.ONLINE}</option>
               </select>
 
               <h4>

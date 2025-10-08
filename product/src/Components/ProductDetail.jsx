@@ -5,6 +5,16 @@ import { addToCart } from "host/cartSlice";
 import { fetchProductById } from "host/productsSlice";
 import { placeOrderDirect } from "host/orderSlice";
 import "./ProductDetail.css";
+import {
+  NOTIFY_COLOR,
+  MESSAGES,
+  PAYMENT_METHODS,
+  DEFAULT_PAYMENT,
+  FORM_ERRORS,
+  IMAGE_BASE_URL,
+  NOTIFY_DURATION,
+  EXCLUDED_FIELDS,
+} from "../Constant/ProdDetailConst";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -17,13 +27,12 @@ function ProductDetail() {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [notification, setNotification] = useState(null);
   const [errors, setErrors] = useState({});
-
   const [formData, setFormData] = useState({
     name: user?.username || "",
     email: user?.email || "",
     address: user?.address || "",
     phone: user?.phone || "",
-    payment: "Cash on Delivery",
+    payment: DEFAULT_PAYMENT,
   });
 
   useEffect(() => {
@@ -34,23 +43,23 @@ function ProductDetail() {
 
   const totalPrice = (selected.offerPrice || selected.price) * quantity;
 
-  // ✅ Tooltip Notification Logic (replaces alert)
-  const showNotification = (msg, color = "#007bff") => {
+  // ✅ Tooltip Notification Logic
+  const showNotification = (msg, color = NOTIFY_COLOR.INFO) => {
     setNotification({ msg, color });
-    setTimeout(() => setNotification(null), 2500);
+    setTimeout(() => setNotification(null), NOTIFY_DURATION);
   };
 
   const validateForm = () => {
-    let newErrors = {};
+    const newErrors = {};
 
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email) newErrors.email = "Email is required";
+    if (!formData.name.trim()) newErrors.name = FORM_ERRORS.NAME_REQUIRED;
+    if (!formData.email) newErrors.email = FORM_ERRORS.EMAIL_REQUIRED;
     else if (!/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = "Invalid email format";
-    if (!formData.address.trim()) newErrors.address = "Address is required";
-    if (!formData.phone) newErrors.phone = "Phone is required";
+      newErrors.email = FORM_ERRORS.INVALID_EMAIL;
+    if (!formData.address.trim()) newErrors.address = FORM_ERRORS.ADDRESS_REQUIRED;
+    if (!formData.phone) newErrors.phone = FORM_ERRORS.PHONE_REQUIRED;
     else if (!/^\d{10}$/.test(formData.phone))
-      newErrors.phone = "Phone number must be 10 digits";
+      newErrors.phone = FORM_ERRORS.INVALID_PHONE;
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -59,8 +68,7 @@ function ProductDetail() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
-    if (!user) return showNotification("⚠️ Please login first", "#e63946");
+    if (!user) return showNotification(MESSAGES.LOGIN_FIRST, NOTIFY_COLOR.ERROR);
 
     dispatch(
       placeOrderDirect({
@@ -71,17 +79,18 @@ function ProductDetail() {
     );
 
     setCheckoutOpen(false);
-    showNotification("🎉 Order placed successfully!", "#2ecc71");
+    showNotification(MESSAGES.ORDER_PLACED, NOTIFY_COLOR.SUCCESS);
   };
 
   const handleAddToCart = () => {
-    if (!user) return showNotification("⚠️ Please login to add items", "#e63946");
+    if (!user)
+      return showNotification(MESSAGES.LOGIN_TO_ADD, NOTIFY_COLOR.ERROR);
     dispatch(addToCart({ userId: user.id, product: { ...selected, quantity } }));
-    showNotification("✅ Product added to cart!", "#007bff");
+    showNotification(MESSAGES.PRODUCT_ADDED, NOTIFY_COLOR.INFO);
   };
 
   const handleBuyNow = () => {
-    if (!user) return showNotification("⚠️ Please login to buy", "#e63946");
+    if (!user) return showNotification(MESSAGES.LOGIN_TO_BUY, NOTIFY_COLOR.ERROR);
     setCheckoutOpen(true);
   };
 
@@ -95,18 +104,8 @@ function ProductDetail() {
     return stars.join(" ");
   };
 
-  const excludedFields = [
-    "id",
-    "name",
-    "image",
-    "offerPrice",
-    "originalPrice",
-    "offers",
-    "rating",
-    "description",
-  ];
   const dynamicFields = Object.entries(selected).filter(
-    ([key]) => !excludedFields.includes(key)
+    ([key]) => !EXCLUDED_FIELDS.includes(key)
   );
 
   return (
@@ -126,7 +125,7 @@ function ProductDetail() {
           ← Back
         </button>
         <img
-          src={`http://localhost:8083/images/${selected.image}`}
+          src={`${IMAGE_BASE_URL}${selected.image}`}
           alt={selected.name}
           className="product-detail-img"
         />
@@ -217,8 +216,11 @@ function ProductDetail() {
                   setFormData({ ...formData, payment: e.target.value })
                 }
               >
-                <option value="Cash on Delivery">Cash on Delivery</option>
-                <option value="Online Payment">Online Payment</option>
+                {PAYMENT_METHODS.map((method) => (
+                  <option key={method} value={method}>
+                    {method}
+                  </option>
+                ))}
               </select>
 
               <button type="submit" className="checkout-btn confirm">

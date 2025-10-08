@@ -134,63 +134,7 @@
       "password": "Harish@2002",
       "phone": "8474874740",
       "address": "6/90A Udumelpat pethapampatti ",
-      "cart": [
-        {
-          "id": "4",
-          "name": "Wireless Bluetooth",
-          "rating": 4.6,
-          "brand": "Sony",
-          "category": "Electronics",
-          "color": "Black",
-          "connectivity": "Bluetooth 5.2",
-          "batteryLife": "Up to 30 hours",
-          "noiseCancellation": "Active Noise Cancellation",
-          "charging": "USB-C Fast Charging",
-          "originalPrice": 235.28,
-          "offerPrice": 199.99,
-          "offers": "15% off",
-          "description": "Noise-cancelling wireless headphones with long battery life, immersive sound quality, and ergonomic design. Ideal for travel, work, and entertainment.",
-          "image": "images4.jpeg",
-          "quantity": 2
-        },
-        {
-          "id": "12",
-          "name": "Heeled Sandals",
-          "rating": 4.4,
-          "brand": "Aldo",
-          "category": "Footwear",
-          "color": "Beige",
-          "gender": "Female",
-          "material": "Faux Leather",
-          "heelHeight": "3 inches",
-          "originalPrice": 99.99,
-          "offerPrice": 79.99,
-          "offers": "20% off",
-          "description": "Elegant heeled sandals perfect for evening wear. Features a sleek design and comfortable fit.",
-          "image": "images12.jpeg",
-          "quantity": 1
-        },
-        {
-          "id": "2",
-          "name": "Luxury Gold Watch",
-          "rating": 4.8,
-          "brand": "Brand B",
-          "category": "Watches",
-          "color": "Gold",
-          "gender": "Male",
-          "material": "Gold-tone casing with leather strap",
-          "movementType": "Automatic",
-          "displayType": "Analog",
-          "waterResistance": "Light rain and hand wash safe",
-          "batteryLife": "Self-winding",
-          "originalPrice": 352.93,
-          "offerPrice": 299.99,
-          "offers": "15% off",
-          "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
-          "image": "image2.jpg",
-          "quantity": 1
-        }
-      ],
+      "cart": [],
       "orders": [
         {
           "id": 1759467680418,
@@ -774,6 +718,93 @@
           ],
           "date": "2025-10-07T04:28:55.742Z",
           "status": "Cancelled"
+        },
+        {
+          "id": 1759918056085,
+          "userInfo": {
+            "name": "Harish",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "4",
+              "name": "Wireless Bluetooth",
+              "rating": 4.6,
+              "brand": "Sony",
+              "category": "Electronics",
+              "color": "Black",
+              "connectivity": "Bluetooth 5.2",
+              "batteryLife": "Up to 30 hours",
+              "noiseCancellation": "Active Noise Cancellation",
+              "charging": "USB-C Fast Charging",
+              "originalPrice": 235.28,
+              "offerPrice": 199.99,
+              "offers": "15% off",
+              "description": "Noise-cancelling wireless headphones with long battery life, immersive sound quality, and ergonomic design. Ideal for travel, work, and entertainment.",
+              "image": "images4.jpeg",
+              "quantity": 2
+            },
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "material": "Gold-tone casing with leather strap",
+              "movementType": "Automatic",
+              "displayType": "Analog",
+              "waterResistance": "Light rain and hand wash safe",
+              "batteryLife": "Self-winding",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+              "image": "image2.jpg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-10-08T10:07:36.085Z",
+          "status": "Pending"
+        },
+        {
+          "id": "1759918389829",
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "material": "Gold-tone casing with leather strap",
+              "movementType": "Automatic",
+              "displayType": "Analog",
+              "waterResistance": "Light rain and hand wash safe",
+              "batteryLife": "Self-winding",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+              "image": "image2.jpg",
+              "quantity": 1,
+              "totalPrice": 599.98
+            }
+          ],
+          "userInfo": {
+            "name": "Harish",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Online Payment"
+          },
+          "date": "2025-10-08T10:13:09.829Z",
+          "status": "Placed"
         }
       ]
     },

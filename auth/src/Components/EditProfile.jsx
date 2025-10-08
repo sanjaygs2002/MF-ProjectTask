@@ -1,7 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "host/authSlice";
 import { useNavigate } from "react-router-dom";
+import {
+  TOAST_DURATION,
+  HOME_ROUTE,
+  VALIDATION_MESSAGES,
+  EMAIL_REGEX,
+  PHONE_REGEX,
+} from "../Constant/EditProfileConst";
 import "./EditProfile.css";
 
 export default function EditProfile() {
@@ -17,6 +24,7 @@ export default function EditProfile() {
   });
 
   const [errors, setErrors] = useState({});
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -30,31 +38,31 @@ export default function EditProfile() {
   }, [user]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" }); // clear error on change
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const validate = () => {
-    let newErrors = {};
+    const newErrors = {};
 
     if (!formData.username.trim()) {
-      newErrors.username = "Username is required";
+      newErrors.username = VALIDATION_MESSAGES.USERNAME_REQUIRED;
     }
 
     if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+      newErrors.email = VALIDATION_MESSAGES.EMAIL_REQUIRED;
+    } else if (!EMAIL_REGEX.test(formData.email)) {
+      newErrors.email = VALIDATION_MESSAGES.INVALID_EMAIL;
     }
-
     if (!formData.phone) {
-      newErrors.phone = "Phone number is required";
-    } else if (!/^\d{10}$/.test(formData.phone)) {
-      newErrors.phone = "Phone number must be 10 digits";
+      newErrors.phone = VALIDATION_MESSAGES.PHONE_REQUIRED;
+    } else if (!PHONE_REGEX.test(formData.phone)) {
+      newErrors.phone = VALIDATION_MESSAGES.INVALID_PHONE;
     }
 
     if (!formData.address.trim()) {
-      newErrors.address = "Address is required";
+      newErrors.address = VALIDATION_MESSAGES.ADDRESS_REQUIRED;
     }
 
     setErrors(newErrors);
@@ -67,23 +75,33 @@ export default function EditProfile() {
     if (!validate()) return;
 
     if (!user?.id) {
-      alert("User not found!");
+      setErrors({ general: VALIDATION_MESSAGES.USER_NOT_FOUND });
       return;
     }
 
-    const updatedUser = {
-      ...user,
-      ...formData,
-    };
-
+    const updatedUser = { ...user, ...formData };
     dispatch(updateUser(updatedUser));
-    alert("Profile updated successfully!");
-    navigate("/");
+
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      navigate(HOME_ROUTE);
+    }, TOAST_DURATION);
   };
 
   return (
     <div className="edit-profile">
       <h2>Edit Profile</h2>
+
+      {showToast && (
+        <div
+          className="toast"
+        
+        >
+          {VALIDATION_MESSAGES.PROFILE_UPDATED}
+        </div>
+      )}
+
       <form className="profile-form" onSubmit={handleSubmit}>
         <label>
           Username:
@@ -98,13 +116,7 @@ export default function EditProfile() {
 
         <label>
           Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            readOnly
-          />
+          <input type="email" name="email" value={formData.email} readOnly />
           {errors.email && <p className="error">{errors.email}</p>}
         </label>
 
