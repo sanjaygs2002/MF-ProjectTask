@@ -3,18 +3,39 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "host/store";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
+import {
+  EMAIL_REQUIRED,
+  INVALID_EMAIL_FORMAT,
+  PASSWORD_REQUIRED,
+  PASSWORD_MIN_LENGTH,
+  ERROR_INCORRECT_PASSWORD,
+  ERROR_USER_NOT_FOUND,
+  ERROR_LOGIN_FAILED,
+  ERROR_INCORRECT_PASSWORD_UI,
+  ERROR_USER_NOT_REGISTERED,
+  LABEL_LOGIN,
+  LABEL_EMAIL,
+  LABEL_PASSWORD,
+  LABEL_SIGNUP_PROMPT,
+  LABEL_SIGNUP_LINK,
+  LABEL_LOGGING_IN,
+  LABEL_LOGIN_BUTTON,
+  EMAIL_REGEX,
+  MIN_PASSWORD_LENGTH,
+  DEFAULT_REDIRECT,
+} from "../Constant/LoginConst";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-  const [backendError, setBackendError] = useState(""); // New state for login errors
+  const [backendError, setBackendError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { loading, user } = useSelector((state) => state.auth || {});
 
   const params = new URLSearchParams(location.search);
-  const redirectTo = params.get("redirect") || "/";
+  const redirectTo = params.get("redirect") || DEFAULT_REDIRECT;
 
   React.useEffect(() => {
     if (user) {
@@ -24,13 +45,13 @@ function Login() {
 
   const validateField = (name, value) => {
     if (name === "email") {
-      if (!value) return "Email is required.";
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-        return "Invalid email format.";
+      if (!value) return EMAIL_REQUIRED;
+      if (!EMAIL_REGEX.test(value)) return INVALID_EMAIL_FORMAT;
     }
     if (name === "password") {
-      if (!value) return "Password is required.";
-      if (value.length < 6) return "Password must be at least 6 characters.";
+      if (!value) return PASSWORD_REQUIRED;
+      if (value.length < MIN_PASSWORD_LENGTH)
+        return PASSWORD_MIN_LENGTH;
     }
     return "";
   };
@@ -38,16 +59,13 @@ function Login() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-
-    // live validation
     setErrors({ ...errors, [name]: validateField(name, value) });
-    setBackendError(""); // Clear backend error on typing
+    setBackendError("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Frontend validation
     const newErrors = {};
     Object.keys(form).forEach((key) => {
       const msg = validateField(key, form[key]);
@@ -62,20 +80,18 @@ function Login() {
     setErrors({});
     setBackendError("");
 
-    // Dispatch login
     dispatch(loginUser(form))
       .unwrap()
       .then(() => {
         navigate(redirectTo, { replace: true });
       })
       .catch((err) => {
-        // Backend returns an error: check if email exists but password is wrong
-        if (err.message === "Incorrect password") {
-          setBackendError("Incorrect password for this email.");
-        } else if (err.message === "User not found") {
-          setBackendError("Email not registered.");
+        if (err.message === ERROR_INCORRECT_PASSWORD) {
+          setBackendError(ERROR_INCORRECT_PASSWORD_UI);
+        } else if (err.message === ERROR_USER_NOT_FOUND) {
+          setBackendError(ERROR_USER_NOT_REGISTERED);
         } else {
-          setBackendError("Login failed. Please try again.");
+          setBackendError(ERROR_LOGIN_FAILED);
         }
       });
   };
@@ -83,47 +99,46 @@ function Login() {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <h2>{LABEL_LOGIN}</h2>
 
-       <div className="form-group">
-  <label>
-    Email <span className="required">*</span>
-  </label>
-  <input
-    type="email"
-    name="email"
-   
-    value={form.email}
-    onChange={handleChange}
-  />
-  {errors.email && <span className="field-error">{errors.email}</span>}
-</div>
+        <div className="form-group">
+          <label>
+            {LABEL_EMAIL} <span className="required">*</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+          />
+          {errors.email && <span className="field-error">{errors.email}</span>}
+        </div>
 
-<div className="form-group">
-  <label>
-    Password <span className="required">*</span>
-  </label>
-  <input
-    type="password"
-    name="password"
-   
-    value={form.password}
-    onChange={handleChange}
-  />
-  {errors.password && <span className="field-error">{errors.password}</span>}
-</div>
-
+        <div className="form-group">
+          <label>
+            {LABEL_PASSWORD} <span className="required">*</span>
+          </label>
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+          />
+          {errors.password && (
+            <span className="field-error">{errors.password}</span>
+          )}
+        </div>
 
         {backendError && <div className="backend-error">{backendError}</div>}
 
         <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
+          {loading ? LABEL_LOGGING_IN : LABEL_LOGIN_BUTTON}
         </button>
 
         <p>
-          Don’t have an account?{" "}
+          {LABEL_SIGNUP_PROMPT}{" "}
           <span className="link" onClick={() => navigate("/signup")}>
-            Sign Up
+            {LABEL_SIGNUP_LINK}
           </span>
         </p>
       </form>

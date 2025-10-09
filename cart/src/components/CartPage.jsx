@@ -48,8 +48,16 @@ function CartPage() {
   }, [dispatch, user]);
 
   useEffect(() => {
-    setSelectedItems(items.map((item) => item.id));
-  }, [items]);
+  setSelectedItems((prevSelected) => {
+    const itemIds = items.map((item) => item.id);
+    const updatedSelected = [...prevSelected];
+    itemIds.forEach((id) => {
+      if (!updatedSelected.includes(id)) updatedSelected.push(id);
+    });
+    return updatedSelected.filter((id) => itemIds.includes(id));
+  });
+}, [items]);
+
 
   const showNotification = (message) => {
     setNotification(message);
@@ -128,42 +136,43 @@ function CartPage() {
     setErrors({ ...errors, [name]: validateField(name, value) });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const newErrors = {};
-    Object.keys(formData).forEach((key) => {
-      const msg = validateField(key, formData[key]);
-      if (msg) newErrors[key] = msg;
-    });
+  // Validate form fields
+  const newErrors = {};
+  Object.keys(formData).forEach((key) => {
+    const msg = validateField(key, formData[key]);
+    if (msg) newErrors[key] = msg;
+  });
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
+  }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
+  if (!selectedItems.length) {
+    showNotification(CART_MESSAGES.SELECT_ITEM_WARNING);
+    return;
+  }
 
-    if (user) {
-      const orderItems = items.filter((item) =>
-        selectedItems.includes(item.id)
-      );
+  // Place order for selected items only
+  dispatch(
+    placeOrder({
+      userId: user.id,
+      userInfo: formData,
+      selectedItemIds: selectedItems,
+    })
+  ).then(() => {
+    showNotification(CART_MESSAGES.ORDER_SUCCESS);
+    setSelectedItems([]); // reset selected items
+  });
 
-      dispatch(
-        placeOrder({
-          userId: user.id,
-          userInfo: formData,
-          items: orderItems,
-        })
-      );
+  dispatch(closeCheckout());
+};
 
-      orderItems.forEach((item) =>
-        dispatch(removeFromCart({ userId: user.id, productId: item.id }))
-      );
 
-      showNotification(CART_MESSAGES.ORDER_SUCCESS);
-      dispatch(closeCheckout());
-      setSelectedItems([]);
-    }
-  };
+
+
 
   const total = items
     .filter((item) => selectedItems.includes(item.id))

@@ -66,6 +66,11 @@ Using majic numbers
 https://dev.to/ruben_alapont/magic-numbers-and-magic-strings-its-time-to-talk-about-it-ci2
 
 
+changes:
+cart page quantity reset 
+order history time line inital placed at green colour
+scroll at top 
+coding standard for shared component.
 
 
 

@@ -88,30 +88,39 @@ export const clearCart = createAsyncThunk("cart/clearCart", async (userId) => {
   return [];
 });
 
-// ✅ Place Order (checkout)
 export const placeOrder = createAsyncThunk(
   "cart/placeOrder",
-  async ({ userId, userInfo }, { rejectWithValue }) => {
+  async ({ userId, userInfo, selectedItemIds }, { rejectWithValue }) => {
     try {
       const res = await fetch(`http://localhost:5000/users/${userId}`);
       const user = await res.json();
 
+      // Take only selected items for the order
+      const itemsToOrder = user.cart.filter(item =>
+        selectedItemIds.includes(item.id)
+      );
+
       const newOrder = {
-        id: Date.now(), // unique order id
-        userInfo, // { name, address, city, pincode }
-        items: user.cart,
+        id: Date.now(),
+        userInfo,
+        items: itemsToOrder,
         date: new Date().toISOString(),
         status: "Pending",
       };
 
       const updatedOrders = [...(user.orders || []), newOrder];
 
+      // Keep unselected items in the cart
+      const updatedCart = user.cart.filter(
+        item => !selectedItemIds.includes(item.id)
+      );
+
       await fetch(`http://localhost:5000/users/${userId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           orders: updatedOrders,
-          cart: [], // clear cart after placing order
+          cart: updatedCart, // ✅ only remove selected items
         }),
       });
 
@@ -121,6 +130,8 @@ export const placeOrder = createAsyncThunk(
     }
   }
 );
+
+
 
 const cartSlice = createSlice({
   name: "cart",

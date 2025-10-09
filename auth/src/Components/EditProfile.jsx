@@ -39,7 +39,14 @@ export default function EditProfile() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    if (name === "phone") {
+      const onlyDigits = value.replace(/\D/g, ""); 
+      setFormData({ ...formData, [name]: onlyDigits });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+
     setErrors({ ...errors, [name]: "" });
   };
 
@@ -55,6 +62,7 @@ export default function EditProfile() {
     } else if (!EMAIL_REGEX.test(formData.email)) {
       newErrors.email = VALIDATION_MESSAGES.INVALID_EMAIL;
     }
+
     if (!formData.phone) {
       newErrors.phone = VALIDATION_MESSAGES.PHONE_REQUIRED;
     } else if (!PHONE_REGEX.test(formData.phone)) {
@@ -94,10 +102,7 @@ export default function EditProfile() {
       <h2>Edit Profile</h2>
 
       {showToast && (
-        <div
-          className="toast"
-        
-        >
+        <div className="toast">
           {VALIDATION_MESSAGES.PROFILE_UPDATED}
         </div>
       )}
@@ -125,6 +130,7 @@ export default function EditProfile() {
           <input
             type="text"
             name="phone"
+            maxLength="10"
             value={formData.phone}
             onChange={handleChange}
           />

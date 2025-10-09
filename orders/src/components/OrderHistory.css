@@ -156,3 +156,31 @@ h2 {
 .cancel-btn:hover {
   background-color: #d63031;
 }
+
+/* Filter */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+#order-date {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.clear-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ff4444;
+  color: white;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background-color: #d63031;
+}
