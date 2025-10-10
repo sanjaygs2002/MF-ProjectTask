@@ -67,10 +67,10 @@ https://dev.to/ruben_alapont/magic-numbers-and-magic-strings-its-time-to-talk-ab
 
 
 changes:
-cart page quantity reset 
-order history time line inital placed at green colour
+cart page quantity reset    -----------half------------
+order history time line inital placed at green colour -----------------------
 scroll at top 
-coding standard for shared component.
+coding standard for shared component. -------------------------- 
 
 
 

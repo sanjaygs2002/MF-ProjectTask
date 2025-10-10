@@ -164,7 +164,17 @@ const handleSubmit = (e) => {
     })
   ).then(() => {
     showNotification(CART_MESSAGES.ORDER_SUCCESS);
-    setSelectedItems([]); // reset selected items
+
+    // ✅ Reset quantity of purchased items to 1
+    selectedItems.forEach((itemId) => {
+      const item = items.find((i) => i.id === itemId);
+      if (item && item.quantity !== 1) {
+        dispatch(updateCartQuantity({ userId: user.id, productId: itemId, quantity: 1 }));
+      }
+    });
+
+    // ✅ Deselect all items after placing order
+    setSelectedItems([]);
   });
 
   dispatch(closeCheckout());

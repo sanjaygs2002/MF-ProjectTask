@@ -1,48 +1,75 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./Layout.css";
 
 export default function Layout({ children, onSearch, onFilter, onPriceChange }) {
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
-  const [price, setPrice] = useState(2000);
   const location = useLocation();
+  const mainRef = useRef(null);
+  const [showScrollBtn, setShowScrollBtn] = useState(false);
 
-  const handleSearch = (val) => {
-    setSearch(val);
-    onSearch && onSearch(val);
+  const isHomePage = location.pathname === "/";
+  const hideFooter =
+    location.pathname === "/login" || location.pathname === "/signup";
+
+  const scrollToTop = () => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
-  const handleFilter = (val) => {
-    setCategory(val);
-    onFilter && onFilter(val);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (mainRef.current) {
+        setShowScrollBtn(mainRef.current.scrollTop > 200);
+      }
+    };
 
-  const handlePriceChange = (val) => {
-    setPrice(val);
-    onPriceChange && onPriceChange(val);
-  };
+    const scrollContainer = mainRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener("scroll", handleScroll);
+    }
 
-  // Check if page is login or signup
-  const hideFooter = location.pathname === "/login" || location.pathname === "/signup";
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
   return (
     <div className="layout-container">
       <Navbar
-        onSearch={handleSearch}
-        onFilter={handleFilter}
-        onPriceChange={handlePriceChange}
+        onSearch={onSearch}
+        onFilter={onFilter}
+        onPriceChange={onPriceChange}
       />
-      <main className="layout-main">
-        {typeof children === "function"
-          ? children({ search, category, price })
-          : children}
+
+      <main className="layout-main" ref={mainRef}>
+        {children}
       </main>
 
-      {/* Footer only shows if not login/signup */}
       {!hideFooter && <Footer />}
+
+      {isHomePage && showScrollBtn && (
+        <button className="scroll-top-btn" onClick={scrollToTop}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="arrow-icon"
+          >
+            <path d="M18 15l-6-6-6 6" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }

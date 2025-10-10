@@ -123,45 +123,62 @@ function OrderHistory() {
                 {isOpen && (
                   <div className="accordion-body">
                     <div className="timeline-container">
-                      {TIMELINE_STAGES.map((stage, idx) => {
-                        const isCancelled =
-                          orderStatus === ORDER_STATUS.CANCELLED;
-                        const isActive =
-                          diffHours >= (idx + 1) * CANCEL_HOURS_LIMIT &&
-                          !isCancelled;
+  {TIMELINE_STAGES.map((stage, idx) => {
+    const isCancelled = orderStatus === ORDER_STATUS.CANCELLED;
 
-                        return (
-                          <div key={idx} className="timeline-stage">
-                            <div
-                              className={`timeline-box ${
-                                isActive ? "active-stage" : ""
-                              } ${isCancelled ? "cancelled-stage" : ""}`}
-                              title={
-                                diffHours < CANCEL_HOURS_LIMIT
-                                  ? `Order is pending. You can cancel within ${CANCEL_HOURS_LIMIT} hours.`
-                                  : `${stage.name} stage started after ${
-                                      (idx + 1) * CANCEL_HOURS_LIMIT
-                                    } hours.`
-                              }
-                            >
-                              {isCancelled && idx === 0 ? (
-                                <FaTimesCircle color="#ff4d4f" />
-                              ) : (
-                                ICON_MAP[stage.iconName]
-                              )}
-                              <span>{stage.name}</span>
-                            </div>
-                            {idx < TIMELINE_STAGES.length - 1 && (
-                              <div
-                                className={`timeline-line ${
-                                  isActive ? "active-line" : ""
-                                } ${isCancelled ? "cancelled-line" : ""}`}
-                              ></div>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
+    // Determine if this stage should be active (green)
+    let isActive = false;
+
+    if (isCancelled) {
+      isActive = false; // nothing green when cancelled
+    } else {
+      // Stage activation timing (e.g. 2 hours each stage)
+      const stageTime = (idx + 1) * CANCEL_HOURS_LIMIT;
+
+      // First stage (Placed) is always green immediately
+      if (idx === 0) {
+        isActive = true;
+      }
+      // Other stages activate gradually after certain hours
+      else if (diffHours >= stageTime) {
+        isActive = true;
+      }
+    }
+
+    return (
+      <div key={idx} className="timeline-stage">
+        <div
+          className={`timeline-box ${
+            isActive ? "active-stage" : ""
+          } ${isCancelled ? "cancelled-stage" : ""}`}
+          title={
+            isCancelled
+              ? "Order Cancelled"
+              : isActive
+              ? `${stage.name} completed`
+              : `${stage.name} pending`
+          }
+        >
+          {isCancelled && idx === 0 ? (
+            <FaTimesCircle color="#ff4d4f" />
+          ) : (
+            ICON_MAP[stage.iconName]
+          )}
+          <span>{stage.name}</span>
+        </div>
+
+        {idx < TIMELINE_STAGES.length - 1 && (
+          <div
+            className={`timeline-line ${
+              isActive ? "active-line" : ""
+            } ${isCancelled ? "cancelled-line" : ""}`}
+          ></div>
+        )}
+      </div>
+    );
+  })}
+</div>
+
 
                     <div className="order-items">
                       {order.items.map((item) => (
@@ -199,7 +216,7 @@ function OrderHistory() {
                       orderStatus !== ORDER_STATUS.CANCELLED && (
                         <button
                           className="cancel-btn"
-                          title={`You can cancel your order within ${CANCEL_HOURS_LIMIT} hours of placing it.`}
+                          title={`You can cancel your order within ${CANCEL_HOURS_LIMIT} hours of comfirmed it.`}
                           onClick={() => handleCancelOrder(order.id)}
                         >
                           Cancel Order

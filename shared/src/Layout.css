@@ -5,22 +5,40 @@
   position: relative;
 }
 
-/* Main content scrollable */
 .layout-main {
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
-/* Footer styling */
-.layout-container footer {
-  flex-shrink: 0;
-  background: #232f3e;
+/* Scroll-to-top button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #232f3e, #3c4b5c);
   color: white;
-  text-align: center;
-  padding: 15px 0;
-  width: 100%;
+  border: none;
+  cursor: pointer;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+.scroll-top-btn:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(135deg, #37475a, #485769);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
 
-
+.arrow-icon {
+  width: 26px;
+  height: 26px;
+}

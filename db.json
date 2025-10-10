@@ -1342,6 +1342,139 @@
           ],
           "date": "2025-10-09T08:52:43.378Z",
           "status": "Pending"
+        },
+        {
+          "id": "1760071133784",
+          "items": [
+            {
+              "id": "14",
+              "name": "Aviator Sunglasses",
+              "rating": 4.5,
+              "brand": "Ray-Ban",
+              "category": "Accessories",
+              "color": "Black",
+              "gender": "Unisex",
+              "material": "Metal Frame",
+              "lensType": "UV Protection",
+              "frameShape": "Aviator",
+              "originalPrice": 199.99,
+              "offerPrice": 149.99,
+              "offers": "25% off",
+              "description": "Classic aviator sunglasses with UV-protected lenses and sleek metal frame. A timeless accessory for sunny days and stylish outings.",
+              "image": "images14.jpeg",
+              "quantity": 1,
+              "totalPrice": 599.96
+            }
+          ],
+          "userInfo": {
+            "name": "Alice",
+            "email": "alice@gmail.com",
+            "address": "Aspire sys",
+            "phone": "6487478468",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-10-10T04:38:53.784Z",
+          "status": "Placed"
+        },
+        {
+          "id": "1760073956446",
+          "items": [
+            {
+              "id": "11",
+              "name": "Running Shoes",
+              "rating": 4.5,
+              "brand": "Adidas",
+              "category": "Footwear",
+              "color": "Blue",
+              "gender": "Male",
+              "material": "Mesh Upper",
+              "sole": "EVA Foam",
+              "originalPrice": 139.99,
+              "offerPrice": 119.99,
+              "offers": "15% off",
+              "description": "Lightweight running shoes with great cushioning and breathable mesh. Designed for performance and comfort.",
+              "image": "images11.jpeg",
+              "quantity": 1,
+              "totalPrice": 359.96999999999997
+            }
+          ],
+          "userInfo": {
+            "name": "Alice",
+            "email": "alice@gmail.com",
+            "address": "Aspire sys",
+            "phone": "6487478468",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-10-10T05:25:56.446Z",
+          "status": "Placed"
+        },
+        {
+          "id": "1760074759789",
+          "items": [
+            {
+              "id": "5",
+              "name": "Gaming Laptop",
+              "rating": 4.8,
+              "brand": "Asus",
+              "category": "Electronics",
+              "color": "Gray",
+              "processor": "Intel Core i9",
+              "graphics": "NVIDIA RTX 4070",
+              "storage": "1TB SSD",
+              "ram": "16GB DDR5",
+              "display": "15.6\" FHD 144Hz",
+              "originalPrice": 1444.43,
+              "offerPrice": 1299.99,
+              "offers": "10% off",
+              "description": "High-performance gaming laptop with RTX graphics, fast SSD, and advanced cooling. Built for immersive gameplay and heavy multitasking.",
+              "image": "images5.jpeg",
+              "quantity": 1,
+              "totalPrice": 2599.98
+            }
+          ],
+          "userInfo": {
+            "name": "Alice",
+            "email": "alice@gmail.com",
+            "address": "Aspire sys",
+            "phone": "6487478468",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-10-10T05:39:19.789Z",
+          "status": "Cancelled"
+        },
+        {
+          "id": "1760074847592",
+          "items": [
+            {
+              "id": "6",
+              "name": "Smartphone Pro 12",
+              "rating": 4.9,
+              "brand": "Apple",
+              "category": "Electronics",
+              "color": "Silver",
+              "storage": "256GB",
+              "ram": "8GB",
+              "camera": "Triple 12MP system",
+              "battery": "3200mAh",
+              "charging": "MagSafe Wireless Charging",
+              "originalPrice": 1249.99,
+              "offerPrice": 1099.99,
+              "offers": "12% off",
+              "description": "Latest smartphone with advanced camera, fast processor, and sleek design. Features include Face ID, 5G connectivity, and iOS 17.",
+              "image": "images6.jpeg",
+              "quantity": 1,
+              "totalPrice": 2199.98
+            }
+          ],
+          "userInfo": {
+            "name": "Alice",
+            "email": "alice@gmail.com",
+            "address": "Aspire sys",
+            "phone": "6487478468",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-10-10T05:40:47.593Z",
+          "status": "Placed"
         }
       ]
     }
