@@ -853,6 +853,63 @@
           "description": "7kg front load washing machine with multiple wash modes and inverter motor for quiet and efficient cleaning.",
           "image": "images18.jpeg",
           "quantity": 1
+        },
+        {
+          "id": "2",
+          "name": "Luxury Gold Watch",
+          "rating": 4.8,
+          "brand": "Brand B",
+          "category": "Watches",
+          "color": "Gold",
+          "gender": "Male",
+          "material": "Gold-tone casing with leather strap",
+          "movementType": "Automatic",
+          "displayType": "Analog",
+          "waterResistance": "Light rain and hand wash safe",
+          "batteryLife": "Self-winding",
+          "originalPrice": 352.93,
+          "offerPrice": 299.99,
+          "offers": "15% off",
+          "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+          "image": "image2.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "5",
+          "name": "Gaming Laptop",
+          "rating": 4.8,
+          "brand": "Asus",
+          "category": "Electronics",
+          "color": "Gray",
+          "processor": "Intel Core i9",
+          "graphics": "NVIDIA RTX 4070",
+          "storage": "1TB SSD",
+          "ram": "16GB DDR5",
+          "display": "15.6\" FHD 144Hz",
+          "originalPrice": 1444.43,
+          "offerPrice": 1299.99,
+          "offers": "10% off",
+          "description": "High-performance gaming laptop with RTX graphics, fast SSD, and advanced cooling. Built for immersive gameplay and heavy multitasking.",
+          "image": "images5.jpeg",
+          "quantity": 2
+        },
+        {
+          "id": "8",
+          "name": "Men’s Leather Jacket",
+          "rating": 4.6,
+          "brand": "Zara",
+          "category": "Clothing",
+          "color": "Black",
+          "gender": "Male",
+          "material": "Genuine Leather",
+          "fit": "Modern Fit",
+          "lining": "Polyester",
+          "originalPrice": 266.65,
+          "offerPrice": 199.99,
+          "offers": "25% off",
+          "description": "Premium black leather jacket with modern fit and soft inner lining. Ideal for cool weather and stylish outings.",
+          "image": "images8.jpeg",
+          "quantity": 1
         }
       ],
       "orders": [
@@ -1474,6 +1531,39 @@
             "payment": "Cash on Delivery"
           },
           "date": "2025-10-10T05:40:47.593Z",
+          "status": "Placed"
+        },
+        {
+          "id": "1760346070087",
+          "items": [
+            {
+              "id": "7",
+              "name": "Slim Fit Jeans",
+              "rating": 4.5,
+              "brand": "Levi's",
+              "category": "Clothing",
+              "color": "Blue",
+              "gender": "Male",
+              "material": "Cotton Denim",
+              "fit": "Slim",
+              "wash": "Mid-wash",
+              "originalPrice": 74.99,
+              "offerPrice": 59.99,
+              "offers": "20% off",
+              "description": "Stylish slim fit jeans with durable fabric and classic mid-wash finish. Designed for comfort and everyday wear.",
+              "image": "images7.jpeg",
+              "quantity": 1,
+              "totalPrice": 59.99
+            }
+          ],
+          "userInfo": {
+            "name": "Alice",
+            "email": "alice@gmail.com",
+            "address": "Aspire sys",
+            "phone": "6487478468",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-10-13T09:01:10.087Z",
           "status": "Placed"
         }
       ]
