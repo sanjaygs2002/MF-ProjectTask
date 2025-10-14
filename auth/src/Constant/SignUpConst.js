@@ -1,4 +1,6 @@
-export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 export const PHONE_REGEX = /^\d*$/;
 export const PASSWORD_LOWERCASE = /(?=.*[a-z])/;
 export const PASSWORD_UPPERCASE = /(?=.*[A-Z])/;

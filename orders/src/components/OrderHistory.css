@@ -184,3 +184,50 @@ h2 {
 .clear-btn:hover {
   background-color: #d63031;
 }
+
+.print-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.print-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Print Styling */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .order-history-container,
+  .accordion-header,
+  .cancel-btn,
+  .print-btn,
+  .filter-container {
+    display: none !important;
+  }
+
+  .order-summary-print {
+    display: block;
+    padding: 20px;
+    border: 1px solid #000;
+  }
+
+  .order-item-print {
+    margin-bottom: 10px;
+  }
+
+  .total-price-print {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}

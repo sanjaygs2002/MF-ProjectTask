@@ -134,7 +134,28 @@
       "password": "Harish@2002",
       "phone": "8474874740",
       "address": "6/90A Udumelpat pethapampatti ",
-      "cart": [],
+      "cart": [
+        {
+          "id": "3",
+          "name": "Sporty Blue Watch",
+          "rating": 4.2,
+          "brand": "Brand C",
+          "category": "Watches",
+          "color": "Blue",
+          "gender": "Female",
+          "material": "Silicone Band",
+          "movementType": "Quartz",
+          "displayType": "Digital",
+          "waterResistance": "Workout and rain safe",
+          "batteryLife": "Up to 18 months",
+          "originalPrice": 105.25,
+          "offerPrice": 99.99,
+          "offers": "5% off",
+          "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
+          "image": "image3.jpg",
+          "quantity": 1
+        }
+      ],
       "orders": [
         {
           "id": 1759467680418,
@@ -805,6 +826,55 @@
           },
           "date": "2025-10-08T10:13:09.829Z",
           "status": "Placed"
+        },
+        {
+          "id": 1760435637356,
+          "userInfo": {
+            "name": "Harish",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "7",
+              "name": "Slim Fit Jeans",
+              "rating": 4.5,
+              "brand": "Levi's",
+              "category": "Clothing",
+              "color": "Blue",
+              "gender": "Male",
+              "material": "Cotton Denim",
+              "fit": "Slim",
+              "wash": "Mid-wash",
+              "originalPrice": 74.99,
+              "offerPrice": 59.99,
+              "offers": "20% off",
+              "description": "Stylish slim fit jeans with durable fabric and classic mid-wash finish. Designed for comfort and everyday wear.",
+              "image": "images7.jpeg",
+              "quantity": 1
+            },
+            {
+              "id": "11",
+              "name": "Running Shoes",
+              "rating": 4.5,
+              "brand": "Adidas",
+              "category": "Footwear",
+              "color": "Blue",
+              "gender": "Male",
+              "material": "Mesh Upper",
+              "sole": "EVA Foam",
+              "originalPrice": 139.99,
+              "offerPrice": 119.99,
+              "offers": "15% off",
+              "description": "Lightweight running shoes with great cushioning and breathable mesh. Designed for performance and comfort.",
+              "image": "images11.jpeg",
+              "quantity": 1
+            }
+          ],
+          "date": "2025-10-14T09:53:57.356Z",
+          "status": "Cancelled"
         }
       ]
     },
@@ -1567,6 +1637,16 @@
           "status": "Placed"
         }
       ]
+    },
+    {
+      "id": "2ccd",
+      "username": "Deep",
+      "email": "Dee@sece.ac.in",
+      "password": "DeeDee@2002",
+      "phone": "6844873846",
+      "address": "Chennai",
+      "cart": [],
+      "orders": []
     }
   ],
   "products": [

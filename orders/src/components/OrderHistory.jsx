@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders, cancelOrder } from "host/store";
 import {
@@ -10,6 +10,7 @@ import {
   FaTimesCircle,
   FaChevronDown,
   FaChevronUp,
+  FaPrint,
 } from "react-icons/fa";
 import {
   CANCEL_HOURS_LIMIT,
@@ -18,6 +19,7 @@ import {
   DEFAULT_QUANTITY,
   DEFAULT_PRICE,
 } from "../constant/OrderHistoryConst";
+import { useReactToPrint } from "react-to-print";
 import "./OrderHistory.css";
 
 const ICON_MAP = {
@@ -26,14 +28,26 @@ const ICON_MAP = {
   FaTruck: <FaTruck />,
   FaShippingFast: <FaShippingFast />,
   FaBoxOpen: <FaBoxOpen />,
+  FaTimesCircle: <FaTimesCircle />,
 };
 
 function OrderHistory() {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.orders.items);
+  const orders = useSelector((state) => state.orders.items || []);
   const { user } = useSelector((state) => state.auth);
+
   const [openOrder, setOpenOrder] = useState(null);
   const [filterDate, setFilterDate] = useState("");
+
+  // ✅ Keep refs for all order print elements
+  const printRefs = useRef({});
+
+  // ✅ Single print hook (uses contentRef)
+  const printRef = useRef();
+  const handlePrint = useReactToPrint({
+    contentRef: printRef,
+    documentTitle: "Order-Summary",
+  });
 
   useEffect(() => {
     if (user?.id) {
@@ -64,7 +78,6 @@ function OrderHistory() {
     setOpenOrder(openOrder === id ? null : id);
   };
 
-  // Filter orders based on selected date
   const filteredOrders = filterDate
     ? orders.filter(
         (order) =>
@@ -76,7 +89,7 @@ function OrderHistory() {
     <div className="order-history-container">
       <h2>Your Orders</h2>
 
-      {/* Date Filter */}
+      {/* 🔍 Date Filter */}
       <div className="filter-container">
         <label htmlFor="order-date">Filter by Date: </label>
         <input
@@ -103,6 +116,13 @@ function OrderHistory() {
             const isOpen = openOrder === order.id;
             const orderStatus = order.status;
 
+            // ✅ Timeline completion logic
+            const totalStages = TIMELINE_STAGES.length;
+            const stageDuration = CANCEL_HOURS_LIMIT;
+            const isTimelineComplete =
+              diffHours >= totalStages * stageDuration ||
+              orderStatus === ORDER_STATUS.CANCELLED;
+
             return (
               <div key={order.id} className="order-accordion">
                 <div
@@ -122,65 +142,60 @@ function OrderHistory() {
 
                 {isOpen && (
                   <div className="accordion-body">
+                    {/* 🚚 TIMELINE */}
                     <div className="timeline-container">
-  {TIMELINE_STAGES.map((stage, idx) => {
-    const isCancelled = orderStatus === ORDER_STATUS.CANCELLED;
+                      {TIMELINE_STAGES.map((stage, idx) => {
+                        const isCancelled =
+                          orderStatus === ORDER_STATUS.CANCELLED;
+                        let isActive = false;
 
-    // Determine if this stage should be active (green)
-    let isActive = false;
+                        if (isCancelled) {
+                          isActive = false;
+                        } else if (idx === 0) {
+                          isActive = true;
+                        } else {
+                          const stageTime = (idx + 1) * stageDuration;
+                          if (diffHours >= stageTime) isActive = true;
+                        }
 
-    if (isCancelled) {
-      isActive = false; // nothing green when cancelled
-    } else {
-      // Stage activation timing (e.g. 2 hours each stage)
-      const stageTime = (idx + 1) * CANCEL_HOURS_LIMIT;
+                        return (
+                          <div key={idx} className="timeline-stage">
+                            <div
+                              className={`timeline-box ${
+                                isActive ? "active-stage" : ""
+                              } ${isCancelled ? "cancelled-stage" : ""}`}
+                            >
+                              {isCancelled && idx === 0 ? (
+                                <FaTimesCircle color="#ff4d4f" />
+                              ) : (
+                                ICON_MAP[stage.iconName]
+                              )}
+                              <span>{stage.name}</span>
+                            </div>
+                            {idx < TIMELINE_STAGES.length - 1 && (
+                              <div
+                                className={`timeline-line ${
+                                  isActive ? "active-line" : ""
+                                } ${isCancelled ? "cancelled-line" : ""}`}
+                              ></div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
 
-      // First stage (Placed) is always green immediately
-      if (idx === 0) {
-        isActive = true;
-      }
-      // Other stages activate gradually after certain hours
-      else if (diffHours >= stageTime) {
-        isActive = true;
-      }
-    }
-
-    return (
-      <div key={idx} className="timeline-stage">
-        <div
-          className={`timeline-box ${
-            isActive ? "active-stage" : ""
-          } ${isCancelled ? "cancelled-stage" : ""}`}
-          title={
-            isCancelled
-              ? "Order Cancelled"
-              : isActive
-              ? `${stage.name} completed`
-              : `${stage.name} pending`
-          }
-        >
-          {isCancelled && idx === 0 ? (
-            <FaTimesCircle color="#ff4d4f" />
-          ) : (
-            ICON_MAP[stage.iconName]
-          )}
-          <span>{stage.name}</span>
-        </div>
-
-        {idx < TIMELINE_STAGES.length - 1 && (
-          <div
-            className={`timeline-line ${
-              isActive ? "active-line" : ""
-            } ${isCancelled ? "cancelled-line" : ""}`}
-          ></div>
-        )}
-      </div>
-    );
-  })}
-</div>
-
-
-                    <div className="order-items">
+                    {/* 🧾 PRINTABLE ORDER SUMMARY */}
+                    <div
+                      className="order-summary"
+                      ref={(el) => {
+                        printRefs.current[order.id] = el;
+                        if (order.id === printRef.current?.dataset?.orderid) {
+                          printRef.current = el;
+                        }
+                      }}
+                      data-orderid={order.id}
+                    >
+                      <h3>Order Summary</h3>
                       {order.items.map((item) => (
                         <div key={item.id || item.name} className="order-item">
                           <img
@@ -206,22 +221,44 @@ function OrderHistory() {
                           </div>
                         </div>
                       ))}
+                      <p className="total-price">
+                        Total Price: ₹{calculateTotal(order.items).toFixed(2)}
+                      </p>
                     </div>
 
-                    <p className="total-price">
-                      Total Price: ₹{calculateTotal(order.items).toFixed(2)}
-                    </p>
+                    {/* ⚙️ ACTION BUTTONS */}
+                    <div className="button-section">
+                      {canCancel(order.date) &&
+                        orderStatus !== ORDER_STATUS.CANCELLED && (
+                          <button
+                            className="cancel-btn"
+                            onClick={() => handleCancelOrder(order.id)}
+                          >
+                            Cancel Order
+                          </button>
+                        )}
 
-                    {canCancel(order.date) &&
-                      orderStatus !== ORDER_STATUS.CANCELLED && (
+                      {(isTimelineComplete ||
+                        orderStatus === ORDER_STATUS.CANCELLED) && (
                         <button
-                          className="cancel-btn"
-                          title={`You can cancel your order within ${CANCEL_HOURS_LIMIT} hours of comfirmed it.`}
-                          onClick={() => handleCancelOrder(order.id)}
+                          className="print-btn"
+                          onClick={() => {
+                            printRef.current = printRefs.current[order.id];
+                            if (!printRef.current) {
+                              console.warn(
+                                "⚠️ No ref found for printing order",
+                                order.id
+                              );
+                              return;
+                            }
+                            handlePrint();
+                          }}
                         >
-                          Cancel Order
+                          <FaPrint style={{ marginRight: "6px" }} />
+                          Download Summary
                         </button>
                       )}
+                    </div>
                   </div>
                 )}
               </div>
