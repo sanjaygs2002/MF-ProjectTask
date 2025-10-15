@@ -1,56 +1,53 @@
 .footer {
   background-color: #232f3e;
   color: white;
-  padding: 30px 50px;
-  margin-top: 30px;
-  position: relative; /* important for absolute positioning inside */
+  padding: 50px 50px 30px 50px;
+  position: relative; /* important for absolute positioning inside footer */
+  font-family: Arial, sans-serif;
 }
-
-.footer-sections {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-}
-
-.footer h4 {
-  margin-bottom: 10px;
-  font-size: 18px;
-}
-
-.footer p {
-  margin: 4px 0;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.footer p:hover {
-  text-decoration: underline;
-}
-
-/* Back to top button fixed in top-right of footer */
-.back-to-top {
+ 
+/* Back to Top button positioned at top-right of footer */
+.footer-top-button {
   position: absolute;
-  top:-40px;     /* distance from top of footer */
-  right: 20px;   /* distance from right edge */
-  width: 40px;
-  height: 40px;
-  background-color: #37475a;
-  color: white;
+  top: -50px;    /* slightly above the footer content */
+  right: 30px;   /* distance from right edge */
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff9a00, #ff3d00);
+  color: #fff;
+  font-size: 24px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 20px;
-  box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
-  transition: background 0.3s ease;
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
-
-.back-to-top:hover {
-  background-color: #232f3e;
+ 
+.footer-top-button:hover {
+  transform: scale(1.1) rotate(10deg);
+  background: linear-gradient(135deg, #ff3d00, #ff9a00);
 }
-
-
-
-
-
+ 
+.footer-sections {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+ 
+.footer h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+ 
+.footer p {
+  margin: 4px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+ 
+.footer p:hover {
+  text-decoration: underline;
+}

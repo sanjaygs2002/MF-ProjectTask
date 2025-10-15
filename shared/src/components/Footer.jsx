@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 import "../styles/footer.css";
-
+ 
 export default function Footer() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.scrollY > 200) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
-    };
-
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
-
+  const location = useLocation();
+ 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.documentElement.scrollTop = 0; // Chrome, Firefox, IE, Opera
+    document.body.scrollTop = 0; // Safari
   };
-
+ 
   return (
     <footer className="footer">
+      {/* Show Back to Top button only on home page */}
+      {location.pathname === "/" && (
+        <div className="footer-top-button" onClick={scrollToTop}>
+          ↑
+        </div>
+      )}
+ 
       <div className="footer-sections">
         <div>
           <h4>Get to Know Us</h4>
@@ -31,14 +27,14 @@ export default function Footer() {
           <p>Press Releases</p>
           <p>Amazon Science</p>
         </div>
-
+ 
         <div>
           <h4>Connect with Us</h4>
           <p>Facebook</p>
           <p>Twitter</p>
           <p>Instagram</p>
         </div>
-
+ 
         <div>
           <h4>Make Money with Us</h4>
           <p>Sell on Amazon</p>
@@ -51,7 +47,7 @@ export default function Footer() {
           <p>Advertise Your Products</p>
           <p>Amazon Pay on Merchants</p>
         </div>
-
+ 
         <div>
           <h4>Let Us Help You</h4>
           <p>Your Account</p>
@@ -62,13 +58,7 @@ export default function Footer() {
           <p>Help</p>
         </div>
       </div>
-
-      {/* Floating button */}
-      {visible && (
-        <div className="back-to-top" onClick={scrollToTop}>
-          ↑
-        </div>
-      )}
     </footer>
   );
 }
+ 

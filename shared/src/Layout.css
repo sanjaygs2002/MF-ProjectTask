@@ -1,44 +1,52 @@
-.layout-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  position: relative;
+/* Layout main container */
+.layout-main {
+  min-height: 100vh;        /* full viewport height */
+  overflow-y: auto;         /* enable scrolling inside main */
 }
 
-.layout-main {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-}
 
 /* Scroll-to-top button */
 .scroll-top-btn {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
+  bottom: 40px;
+  right: 40px;
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #232f3e, #3c4b5c);
-  color: white;
+  background-color: #232f3e;
   border: none;
   cursor: pointer;
-  z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .scroll-top-btn:hover {
-  transform: translateY(-5px);
-  background: linear-gradient(135deg, #37475a, #485769);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  animation: bounce 0.6s;
+  background-color: #444c5c;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  60% { transform: translateY(-4px); }
 }
 
 .arrow-icon {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
+  stroke: white;
 }
