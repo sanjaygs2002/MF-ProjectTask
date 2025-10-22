@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "host/cartSlice";
@@ -23,10 +23,13 @@ function ProductDetail() {
   const { selected } = useSelector((state) => state.products);
   const { user } = useSelector((state) => state.auth);
 
+  // ✅ All hooks declared at top level
   const [quantity, setQuantity] = useState(1);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [notification, setNotification] = useState(null);
   const [errors, setErrors] = useState({});
+  const [currentImage, setCurrentImage] = useState(0);
+
   const [formData, setFormData] = useState({
     name: user?.username || "",
     email: user?.email || "",
@@ -43,7 +46,16 @@ function ProductDetail() {
 
   const totalPrice = (selected.offerPrice || selected.price) * quantity;
 
-  // ✅ Tooltip Notification Logic
+  // ✅ Carousel images with fallback
+  const images = selected.images && selected.images.length > 0
+    ? selected.images
+    : [selected.image];
+
+  const nextImage = () => setCurrentImage((prev) => (prev + 1) % images.length);
+  const prevImage = () =>
+    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+
+  // ✅ Notification logic
   const showNotification = (msg, color = NOTIFY_COLOR.INFO) => {
     setNotification({ msg, color });
     setTimeout(() => setNotification(null), NOTIFY_DURATION);
@@ -51,7 +63,6 @@ function ProductDetail() {
 
   const validateForm = () => {
     const newErrors = {};
-
     if (!formData.name.trim()) newErrors.name = FORM_ERRORS.NAME_REQUIRED;
     if (!formData.email) newErrors.email = FORM_ERRORS.EMAIL_REQUIRED;
     else if (!/\S+@\S+\.\S+/.test(formData.email))
@@ -110,7 +121,7 @@ function ProductDetail() {
 
   return (
     <div className="product-detail-container">
-      {/* ✅ Tooltip Notification */}
+      {/* ✅ Notification */}
       {notification && (
         <div
           className="notification-box"
@@ -120,17 +131,38 @@ function ProductDetail() {
         </div>
       )}
 
+      {/* ✅ Image Carousel */}
       <div className="image-section">
         <button className="back-btn" onClick={() => navigate("/")}>
           ← Back
         </button>
-        <img
-          src={`${IMAGE_BASE_URL}${selected.image}`}
-          alt={selected.name}
-          className="product-detail-img"
-        />
+        <div className="carousel-wrapper">
+          <button className="carousel-btn left" onClick={prevImage}>
+            ❮
+          </button>
+          <img
+            src={`${IMAGE_BASE_URL}${images[currentImage]}`}
+            alt={selected.name}
+            className="product-detail-img"
+          />
+          <button className="carousel-btn right" onClick={nextImage}>
+            ❯
+          </button>
+        </div>
+        <div className="thumbnail-container">
+          {images.map((img, index) => (
+            <img
+              key={index}
+              src={`${IMAGE_BASE_URL}${img}`}
+              alt="thumb"
+              className={`thumbnail ${index === currentImage ? "active" : ""}`}
+              onClick={() => setCurrentImage(index)}
+            />
+          ))}
+        </div>
       </div>
 
+      {/* ✅ Product Info */}
       <div className="info-section">
         <h2 className="product-title">{selected.name}</h2>
 

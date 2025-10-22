@@ -154,6 +154,24 @@
           "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
           "image": "image3.jpg",
           "quantity": 1
+        },
+        {
+          "id": "14",
+          "name": "Aviator Sunglasses",
+          "rating": 4.5,
+          "brand": "Ray-Ban",
+          "category": "Accessories",
+          "color": "Black",
+          "gender": "Unisex",
+          "material": "Metal Frame",
+          "lensType": "UV Protection",
+          "frameShape": "Aviator",
+          "originalPrice": 199.99,
+          "offerPrice": 149.99,
+          "offers": "25% off",
+          "description": "Classic aviator sunglasses with UV-protected lenses and sleek metal frame. A timeless accessory for sunny days and stylish outings.",
+          "image": "images14.jpeg",
+          "quantity": 1
         }
       ],
       "orders": [
@@ -875,6 +893,76 @@
           ],
           "date": "2025-10-14T09:53:57.356Z",
           "status": "Cancelled"
+        },
+        {
+          "id": "1760593972276",
+          "items": [
+            {
+              "id": "3",
+              "name": "Sporty Blue Watch",
+              "rating": 4.2,
+              "brand": "Brand C",
+              "category": "Watches",
+              "color": "Blue",
+              "gender": "Female",
+              "material": "Silicone Band",
+              "movementType": "Quartz",
+              "displayType": "Digital",
+              "waterResistance": "Workout and rain safe",
+              "batteryLife": "Up to 18 months",
+              "originalPrice": 105.25,
+              "offerPrice": 99.99,
+              "offers": "5% off",
+              "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
+              "image": "image3.jpg",
+              "quantity": 1,
+              "totalPrice": 99.99
+            }
+          ],
+          "userInfo": {
+            "name": "Harish",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-10-16T05:52:52.276Z",
+          "status": "Placed"
+        },
+        {
+          "id": "1761099346435",
+          "items": [
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "category": "Watches",
+              "color": "Gold",
+              "gender": "Male",
+              "material": "Gold-tone casing with leather strap",
+              "movementType": "Automatic",
+              "displayType": "Analog",
+              "waterResistance": "Light rain and hand wash safe",
+              "batteryLife": "Self-winding",
+              "originalPrice": 352.93,
+              "offerPrice": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+              "image": "image2.jpg",
+              "quantity": 1,
+              "totalPrice": 299.99
+            }
+          ],
+          "userInfo": {
+            "name": "Harish",
+            "email": "harish@gmail.com",
+            "address": "6/90A Udumelpat pethapampatti ",
+            "phone": "8474874740",
+            "payment": "Cash on Delivery"
+          },
+          "date": "2025-10-22T02:15:46.435Z",
+          "status": "Placed"
         }
       ]
     },
@@ -1647,6 +1735,64 @@
       "address": "Chennai",
       "cart": [],
       "orders": []
+    },
+    {
+      "id": "560f",
+      "username": "Lachu",
+      "email": "lachu@gmail.com",
+      "password": "Lachus@2002",
+      "phone": "5468747463",
+      "address": "Sipcot",
+      "cart": [],
+      "orders": []
+    },
+    {
+      "id": "d8d3",
+      "username": "Mani",
+      "email": "mani@gmail.com",
+      "password": "Mani@2002",
+      "phone": "8467384783",
+      "address": "Kerala",
+      "cart": [
+        {
+          "id": "2",
+          "name": "Luxury Gold Watch",
+          "rating": 4.8,
+          "brand": "Brand B",
+          "category": "Watches",
+          "color": "Gold",
+          "gender": "Male",
+          "material": "Gold-tone casing with leather strap",
+          "movementType": "Automatic",
+          "displayType": "Analog",
+          "waterResistance": "Light rain and hand wash safe",
+          "batteryLife": "Self-winding",
+          "originalPrice": 352.93,
+          "offerPrice": 299.99,
+          "offers": "15% off",
+          "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
+          "image": "image2.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "11",
+          "name": "Running Shoes",
+          "rating": 4.5,
+          "brand": "Adidas",
+          "category": "Footwear",
+          "color": "Blue",
+          "gender": "Male",
+          "material": "Mesh Upper",
+          "sole": "EVA Foam",
+          "originalPrice": 139.99,
+          "offerPrice": 119.99,
+          "offers": "15% off",
+          "description": "Lightweight running shoes with great cushioning and breathable mesh. Designed for performance and comfort.",
+          "image": "images11.jpeg",
+          "quantity": 1
+        }
+      ],
+      "orders": []
     }
   ],
   "products": [
@@ -1667,7 +1813,8 @@
       "offerPrice": 149.99,
       "offers": "10% off",
       "description": "Elegant silver watch with a stainless steel band, featuring a minimalist analog dial and quartz movement. Ideal for both casual and formal occasions.",
-      "image": "image1.jpg"
+      "image": "image1.jpg",
+      "images":["image1.jpg","image19.jpg","image20.jpg"]
     },
     {
       "id": "2",
@@ -1686,7 +1833,8 @@
       "offerPrice": 299.99,
       "offers": "15% off",
       "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
-      "image": "image2.jpg"
+      "image": "image2.jpg",
+      "images":["image2.jpg","image_2.jpg","image_22.jpg"]
     },
     {
       "id": "3",

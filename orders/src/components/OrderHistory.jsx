@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders, cancelOrder } from "host/store";
 import {
@@ -39,10 +39,8 @@ function OrderHistory() {
   const [openOrder, setOpenOrder] = useState(null);
   const [filterDate, setFilterDate] = useState("");
 
-  // ✅ Keep refs for all order print elements
   const printRefs = useRef({});
 
-  // ✅ Single print hook (uses contentRef)
   const printRef = useRef();
   const handlePrint = useReactToPrint({
     contentRef: printRef,
@@ -89,7 +87,7 @@ function OrderHistory() {
     <div className="order-history-container">
       <h2>Your Orders</h2>
 
-      {/* 🔍 Date Filter */}
+      
       <div className="filter-container">
         <label htmlFor="order-date">Filter by Date: </label>
         <input
@@ -116,7 +114,7 @@ function OrderHistory() {
             const isOpen = openOrder === order.id;
             const orderStatus = order.status;
 
-            // ✅ Timeline completion logic
+        
             const totalStages = TIMELINE_STAGES.length;
             const stageDuration = CANCEL_HOURS_LIMIT;
             const isTimelineComplete =
@@ -142,7 +140,7 @@ function OrderHistory() {
 
                 {isOpen && (
                   <div className="accordion-body">
-                    {/* 🚚 TIMELINE */}
+                
                     <div className="timeline-container">
                       {TIMELINE_STAGES.map((stage, idx) => {
                         const isCancelled =
@@ -184,7 +182,7 @@ function OrderHistory() {
                       })}
                     </div>
 
-                    {/* 🧾 PRINTABLE ORDER SUMMARY */}
+                  
                     <div
                       className="order-summary"
                       ref={(el) => {
@@ -229,14 +227,19 @@ function OrderHistory() {
                     {/* ⚙️ ACTION BUTTONS */}
                     <div className="button-section">
                       {canCancel(order.date) &&
-                        orderStatus !== ORDER_STATUS.CANCELLED && (
-                          <button
-                            className="cancel-btn"
-                            onClick={() => handleCancelOrder(order.id)}
-                          >
-                            Cancel Order
-                          </button>
-                        )}
+  orderStatus !== ORDER_STATUS.CANCELLED && (
+    <div className="cancel-btn-container">
+      <button
+        className="cancel-btn"
+        onClick={() => handleCancelOrder(order.id)}
+      >
+        Cancel Order
+      </button>
+      <span className="cancel-tooltip">
+        You can cancel the order within {CANCEL_HOURS_LIMIT} hours
+      </span>
+    </div>
+)}
 
                       {(isTimelineComplete ||
                         orderStatus === ORDER_STATUS.CANCELLED) && (

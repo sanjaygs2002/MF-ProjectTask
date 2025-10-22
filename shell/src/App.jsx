@@ -19,10 +19,9 @@ const tagManagerArgs = {
   gtmId: "GTM-TKQNSNFJ",
 };
 
-// Initialize GTM once
+
 TagManager.initialize(tagManagerArgs);
 
-// ✅ Track page views on route change
 const TrackPageView = () => {
   const location = useLocation();
 
@@ -46,7 +45,7 @@ function AppWrapper() {
 
   return (
     <BrowserRouter>
-      {/* Track page view must be inside BrowserRouter */}
+     
       <TrackPageView />
       <Layout
         onSearch={setSearch}
