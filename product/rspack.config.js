@@ -13,6 +13,11 @@ module.exports = {
   entry: {
     main: './src/index.js',
   },
+   moduleNameMapper: {
+    "^host/store$": "<rootDir>/src/store.js",
+    "^host/cartSlice$": "<rootDir>/src/cartSlice.js",
+    "^host/orderSlice$": "<rootDir>/src/orderSlice.js",
+  },
   
   devServer: {
     port: 8083,

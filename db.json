@@ -1853,7 +1853,8 @@
       "offerPrice": 99.99,
       "offers": "5% off",
       "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
-      "image": "image3.jpg"
+      "image": "image3.jpg",
+      "images":["image3.jpg","image_3.jpg","image_33.jpg"]
     },
     {
       "id": "4",
@@ -1870,7 +1871,8 @@
       "offerPrice": 199.99,
       "offers": "15% off",
       "description": "Noise-cancelling wireless headphones with long battery life, immersive sound quality, and ergonomic design. Ideal for travel, work, and entertainment.",
-      "image": "images4.jpeg"
+      "image": "images4.jpeg",
+      "images":["images4.jpeg","image_4.jpg","image_44.jpg"]
     },
     {
       "id": "5",
@@ -1888,7 +1890,8 @@
       "offerPrice": 1299.99,
       "offers": "10% off",
       "description": "High-performance gaming laptop with RTX graphics, fast SSD, and advanced cooling. Built for immersive gameplay and heavy multitasking.",
-      "image": "images5.jpeg"
+      "image": "images5.jpeg",
+      "images":["images5.jpeg","image_5.jpg","image_55.jpg"]
     },
     {
       "id": "6",
@@ -1906,7 +1909,8 @@
       "offerPrice": 1099.99,
       "offers": "12% off",
       "description": "Latest smartphone with advanced camera, fast processor, and sleek design. Features include Face ID, 5G connectivity, and iOS 17.",
-      "image": "images6.jpeg"
+      "image": "images6.jpeg",
+      "images":["images6.jpeg","image_6.jpg","image_66.jpg"]
     },
     {
       "id": "7",
@@ -1923,7 +1927,8 @@
       "offerPrice": 59.99,
       "offers": "20% off",
       "description": "Stylish slim fit jeans with durable fabric and classic mid-wash finish. Designed for comfort and everyday wear.",
-      "image": "images7.jpeg"
+      "image": "images7.jpeg",
+      "images":["images7.jpeg","image_7.jpg","image_77.jpg"]
     },
     {
       "id": "8",
@@ -1940,7 +1945,8 @@
       "offerPrice": 199.99,
       "offers": "25% off",
       "description": "Premium black leather jacket with modern fit and soft inner lining. Ideal for cool weather and stylish outings.",
-      "image": "images8.jpeg"
+      "image": "images8.jpeg",
+      "images":["images8.jpeg","image_8.jpg","image_88.jpg"]
     },
     {
       "id": "9",
@@ -1957,7 +1963,8 @@
       "offerPrice": 59.99,
       "offers": "25% off",
       "description": "Lightweight floral dress perfect for summer outings. Features breathable fabric and flattering silhouette.",
-      "image": "images9.jpeg"
+      "image": "images9.jpeg",
+      "images":["images9.jpeg","image_9.jpg","image_99.jpg"]
     },
     {
       "id": "10",
@@ -1973,7 +1980,8 @@
       "offerPrice": 89.99,
       "offers": "5% off",
       "description": "Comfortable sneakers suitable for daily wear. Lightweight design with cushioned sole for all-day comfort.",
-      "image": "images10.jpeg"
+      "image": "images10.jpeg",
+      "images":["images10.jpeg","image_10.jpg","image_1010.jpg"]
     },
     {
       "id": "11",
@@ -1989,7 +1997,8 @@
       "offerPrice": 119.99,
       "offers": "15% off",
       "description": "Lightweight running shoes with great cushioning and breathable mesh. Designed for performance and comfort.",
-      "image": "images11.jpeg"
+      "image": "images11.jpeg",
+      "images":["images11.jpeg","image_11.jpg","image_1111.jpg"]
     },
     {
       "id": "12",
@@ -2005,7 +2014,8 @@
       "offerPrice": 79.99,
       "offers": "20% off",
       "description": "Elegant heeled sandals perfect for evening wear. Features a sleek design and comfortable fit.",
-      "image": "images12.jpeg"
+      "image": "images12.jpeg",
+      "images":["images12.jpeg","image_12.jpg","image_1212.jpg"]
     },
     {
       "id": "13",
@@ -2023,7 +2033,8 @@
       "offerPrice": 899.99,
       "offers": "10% off",
       "description": "Luxury handbag crafted from premium leather with elegant stitching and multiple compartments. Perfect for upscale events and daily sophistication.",
-      "image": "images13.jpeg"
+      "image": "images13.jpeg",
+      "images":["images13.jpeg","image_13.jpg","image_1313.jpg"]
     },
     {
       "id": "14",
@@ -2040,7 +2051,8 @@
       "offerPrice": 149.99,
       "offers": "25% off",
       "description": "Classic aviator sunglasses with UV-protected lenses and sleek metal frame. A timeless accessory for sunny days and stylish outings.",
-      "image": "images14.jpeg"
+      "image": "images14.jpeg",
+      "images":["images14.jpeg","image_14.jpg","image_1414.jpg"]
     },
     {
       "id": "15",
@@ -2057,7 +2069,8 @@
       "offerPrice": 59.99,
       "offers": "25% off",
       "description": "Durable leather wallet with multiple compartments and a sleek bi-fold design. Ideal for everyday use and gifting.",
-      "image": "images15.jpeg"
+      "image": "images15.jpeg",
+      "images":["images15.jpeg","image_15.jpg","image_1515.jpg"]
     },
     {
       "id": "16",
@@ -2073,7 +2086,8 @@
       "offerPrice": 169.99,
       "offers": "15% off",
       "description": "20L microwave oven with grill and auto cook menu. Compact and efficient for quick meals and reheating.",
-      "image": "images16.jpeg"
+      "image": "images16.jpeg",
+      "images":["images16.jpeg","image_16.jpg","image_1616.jpg"]
     },
     {
       "id": "17",
@@ -2090,7 +2104,8 @@
       "offerPrice": 699.99,
       "offers": "12% off",
       "description": "Double door refrigerator with inverter technology for energy efficiency and consistent cooling. Spacious and stylish for modern kitchens.",
-      "image": "images17.jpeg"
+      "image": "images17.jpeg",
+      "images":["images17.jpeg","image_17.jpg","image_1717.jpg"]
     },
     {
       "id": "18",
@@ -2107,7 +2122,8 @@
       "offerPrice": 599.99,
       "offers": "14% off",
       "description": "7kg front load washing machine with multiple wash modes and inverter motor for quiet and efficient cleaning.",
-      "image": "images18.jpeg"
+      "image": "images18.jpeg",
+      "images":["images18.jpeg","image_18.jpg","image_1818.jpg"]
     },
     {
       "id": "19",
