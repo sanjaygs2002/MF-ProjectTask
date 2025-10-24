@@ -1755,26 +1755,6 @@
       "address": "Kerala",
       "cart": [
         {
-          "id": "2",
-          "name": "Luxury Gold Watch",
-          "rating": 4.8,
-          "brand": "Brand B",
-          "category": "Watches",
-          "color": "Gold",
-          "gender": "Male",
-          "material": "Gold-tone casing with leather strap",
-          "movementType": "Automatic",
-          "displayType": "Analog",
-          "waterResistance": "Light rain and hand wash safe",
-          "batteryLife": "Self-winding",
-          "originalPrice": 352.93,
-          "offerPrice": 299.99,
-          "offers": "15% off",
-          "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
-          "image": "image2.jpg",
-          "quantity": 1
-        },
-        {
           "id": "11",
           "name": "Running Shoes",
           "rating": 4.5,
@@ -1789,6 +1769,31 @@
           "offers": "15% off",
           "description": "Lightweight running shoes with great cushioning and breathable mesh. Designed for performance and comfort.",
           "image": "images11.jpeg",
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "Sporty Blue Watch",
+          "rating": 4.2,
+          "brand": "Brand C",
+          "category": "Watches",
+          "color": "Blue",
+          "gender": "Female",
+          "material": "Silicone Band",
+          "movementType": "Quartz",
+          "displayType": "Digital",
+          "waterResistance": "Workout and rain safe",
+          "batteryLife": "Up to 18 months",
+          "originalPrice": 105.25,
+          "offerPrice": 99.99,
+          "offers": "5% off",
+          "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
+          "image": "image3.jpg",
+          "images": [
+            "image3.jpg",
+            "image_3.jpg",
+            "image_33.jpg"
+          ],
           "quantity": 1
         }
       ],
@@ -1814,7 +1819,11 @@
       "offers": "10% off",
       "description": "Elegant silver watch with a stainless steel band, featuring a minimalist analog dial and quartz movement. Ideal for both casual and formal occasions.",
       "image": "image1.jpg",
-      "images":["image1.jpg","image19.jpg","image20.jpg"]
+      "images": [
+        "image1.jpg",
+        "image19.jpg",
+        "image20.jpg"
+      ]
     },
     {
       "id": "2",
@@ -1834,7 +1843,11 @@
       "offers": "15% off",
       "description": "Luxurious gold watch with a rich leather strap and automatic movement. Designed for elegance and durability, perfect for professional and formal wear.",
       "image": "image2.jpg",
-      "images":["image2.jpg","image_2.jpg","image_22.jpg"]
+      "images": [
+        "image2.jpg",
+        "image_2.jpg",
+        "image_22.jpg"
+      ]
     },
     {
       "id": "3",
@@ -1854,7 +1867,11 @@
       "offers": "5% off",
       "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
       "image": "image3.jpg",
-      "images":["image3.jpg","image_3.jpg","image_33.jpg"]
+      "images": [
+        "image3.jpg",
+        "image_3.jpg",
+        "image_33.jpg"
+      ]
     },
     {
       "id": "4",
@@ -1872,7 +1889,11 @@
       "offers": "15% off",
       "description": "Noise-cancelling wireless headphones with long battery life, immersive sound quality, and ergonomic design. Ideal for travel, work, and entertainment.",
       "image": "images4.jpeg",
-      "images":["images4.jpeg","image_4.jpg","image_44.jpg"]
+      "images": [
+        "images4.jpeg",
+        "image_4.jpg",
+        "image_44.jpg"
+      ]
     },
     {
       "id": "5",
@@ -1891,7 +1912,11 @@
       "offers": "10% off",
       "description": "High-performance gaming laptop with RTX graphics, fast SSD, and advanced cooling. Built for immersive gameplay and heavy multitasking.",
       "image": "images5.jpeg",
-      "images":["images5.jpeg","image_5.jpg","image_55.jpg"]
+      "images": [
+        "images5.jpeg",
+        "image_5.jpg",
+        "image_55.jpg"
+      ]
     },
     {
       "id": "6",
@@ -1910,7 +1935,11 @@
       "offers": "12% off",
       "description": "Latest smartphone with advanced camera, fast processor, and sleek design. Features include Face ID, 5G connectivity, and iOS 17.",
       "image": "images6.jpeg",
-      "images":["images6.jpeg","image_6.jpg","image_66.jpg"]
+      "images": [
+        "images6.jpeg",
+        "image_6.jpg",
+        "image_66.jpg"
+      ]
     },
     {
       "id": "7",
@@ -1928,7 +1957,11 @@
       "offers": "20% off",
       "description": "Stylish slim fit jeans with durable fabric and classic mid-wash finish. Designed for comfort and everyday wear.",
       "image": "images7.jpeg",
-      "images":["images7.jpeg","image_7.jpg","image_77.jpg"]
+      "images": [
+        "images7.jpeg",
+        "image_7.jpg",
+        "image_77.jpg"
+      ]
     },
     {
       "id": "8",
@@ -1946,7 +1979,11 @@
       "offers": "25% off",
       "description": "Premium black leather jacket with modern fit and soft inner lining. Ideal for cool weather and stylish outings.",
       "image": "images8.jpeg",
-      "images":["images8.jpeg","image_8.jpg","image_88.jpg"]
+      "images": [
+        "images8.jpeg",
+        "image_8.jpg",
+        "image_88.jpg"
+      ]
     },
     {
       "id": "9",
@@ -1964,7 +2001,11 @@
       "offers": "25% off",
       "description": "Lightweight floral dress perfect for summer outings. Features breathable fabric and flattering silhouette.",
       "image": "images9.jpeg",
-      "images":["images9.jpeg","image_9.jpg","image_99.jpg"]
+      "images": [
+        "images9.jpeg",
+        "image_9.jpg",
+        "image_99.jpg"
+      ]
     },
     {
       "id": "10",
@@ -1981,7 +2022,11 @@
       "offers": "5% off",
       "description": "Comfortable sneakers suitable for daily wear. Lightweight design with cushioned sole for all-day comfort.",
       "image": "images10.jpeg",
-      "images":["images10.jpeg","image_10.jpg","image_1010.jpg"]
+      "images": [
+        "images10.jpeg",
+        "image_10.jpg",
+        "image_1010.jpg"
+      ]
     },
     {
       "id": "11",
@@ -1998,7 +2043,11 @@
       "offers": "15% off",
       "description": "Lightweight running shoes with great cushioning and breathable mesh. Designed for performance and comfort.",
       "image": "images11.jpeg",
-      "images":["images11.jpeg","image_11.jpg","image_1111.jpg"]
+      "images": [
+        "images11.jpeg",
+        "image_11.jpg",
+        "image_1111.jpg"
+      ]
     },
     {
       "id": "12",
@@ -2015,7 +2064,11 @@
       "offers": "20% off",
       "description": "Elegant heeled sandals perfect for evening wear. Features a sleek design and comfortable fit.",
       "image": "images12.jpeg",
-      "images":["images12.jpeg","image_12.jpg","image_1212.jpg"]
+      "images": [
+        "images12.jpeg",
+        "image_12.jpg",
+        "image_1212.jpg"
+      ]
     },
     {
       "id": "13",
@@ -2034,7 +2087,11 @@
       "offers": "10% off",
       "description": "Luxury handbag crafted from premium leather with elegant stitching and multiple compartments. Perfect for upscale events and daily sophistication.",
       "image": "images13.jpeg",
-      "images":["images13.jpeg","image_13.jpg","image_1313.jpg"]
+      "images": [
+        "images13.jpeg",
+        "image_13.jpg",
+        "image_1313.jpg"
+      ]
     },
     {
       "id": "14",
@@ -2052,7 +2109,11 @@
       "offers": "25% off",
       "description": "Classic aviator sunglasses with UV-protected lenses and sleek metal frame. A timeless accessory for sunny days and stylish outings.",
       "image": "images14.jpeg",
-      "images":["images14.jpeg","image_14.jpg","image_1414.jpg"]
+      "images": [
+        "images14.jpeg",
+        "image_14.jpg",
+        "image_1414.jpg"
+      ]
     },
     {
       "id": "15",
@@ -2070,7 +2131,11 @@
       "offers": "25% off",
       "description": "Durable leather wallet with multiple compartments and a sleek bi-fold design. Ideal for everyday use and gifting.",
       "image": "images15.jpeg",
-      "images":["images15.jpeg","image_15.jpg","image_1515.jpg"]
+      "images": [
+        "images15.jpeg",
+        "image_15.jpg",
+        "image_1515.jpg"
+      ]
     },
     {
       "id": "16",
@@ -2087,7 +2152,11 @@
       "offers": "15% off",
       "description": "20L microwave oven with grill and auto cook menu. Compact and efficient for quick meals and reheating.",
       "image": "images16.jpeg",
-      "images":["images16.jpeg","image_16.jpg","image_1616.jpg"]
+      "images": [
+        "images16.jpeg",
+        "image_16.jpg",
+        "image_1616.jpg"
+      ]
     },
     {
       "id": "17",
@@ -2105,7 +2174,11 @@
       "offers": "12% off",
       "description": "Double door refrigerator with inverter technology for energy efficiency and consistent cooling. Spacious and stylish for modern kitchens.",
       "image": "images17.jpeg",
-      "images":["images17.jpeg","image_17.jpg","image_1717.jpg"]
+      "images": [
+        "images17.jpeg",
+        "image_17.jpg",
+        "image_1717.jpg"
+      ]
     },
     {
       "id": "18",
@@ -2123,7 +2196,11 @@
       "offers": "14% off",
       "description": "7kg front load washing machine with multiple wash modes and inverter motor for quiet and efficient cleaning.",
       "image": "images18.jpeg",
-      "images":["images18.jpeg","image_18.jpg","image_1818.jpg"]
+      "images": [
+        "images18.jpeg",
+        "image_18.jpg",
+        "image_1818.jpg"
+      ]
     },
     {
       "id": "19",
