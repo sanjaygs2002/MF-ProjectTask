@@ -1,60 +1,44 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
-import CartPage from "./CartPage";
 import { BrowserRouter } from "react-router-dom";
-import { updateCartQuantity, removeFromCart } from "host/cartSlice";
+import CartPage from "./CartPage";
 
-// ✅ Mock toastify
-jest.mock("react-toastify", () => ({
-  toast: {
-    success: jest.fn(),
-    info: jest.fn(),
-    error: jest.fn(),
-  },
-}));
-import { toast } from "react-toastify";
-
-// ✅ Mock Redux actions (from shell MFE)
+// ✅ Mock Redux actions
 jest.mock("host/cartSlice", () => ({
+  fetchCart: jest.fn(() => ({ type: "FETCH_CART" })),
   updateCartQuantity: jest.fn(() => ({ type: "UPDATE_CART_QTY" })),
   removeFromCart: jest.fn(() => ({ type: "REMOVE_FROM_CART" })),
-  fetchCart: jest.fn((userId) => ({ type: "FETCH_CART", payload: userId })),
+  openCheckout: jest.fn(() => ({ type: "OPEN_CHECKOUT" })),
+  closeCheckout: jest.fn(() => ({ type: "CLOSE_CHECKOUT" })),
+  placeOrder: jest.fn(() => Promise.resolve({ type: "PLACE_ORDER" })),
 }));
 
+import {
+  updateCartQuantity,
+  removeFromCart,
+} from "host/cartSlice";
 
 const mockStore = configureStore([]);
 
-describe("🛒 Cart Page Functionalities (Toast Based)", () => {
+describe("🛒 Cart Page Functionalities (Notification-Based)", () => {
   let store;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = mockStore({
-      auth: { user: { id: 1, email: "sanjay@gmail.com" } },
+      auth: { user: { id: 1, email: "test@gmail.com" } },
       cart: {
         items: [
-          {
-            id: "1",
-            name: "Classic Silver Watch",
-            offerPrice: 2500,
-            quantity: 1,
-          },
-          {
-            id: "2",
-            name: "Leather Strap Watch",
-            offerPrice: 3000,
-            quantity: 2,
-          },
+          { id: "1", name: "Silver Watch", offerPrice: 2500, quantity: 2 },
+          { id: "2", name: "Leather Watch", offerPrice: 3000, quantity: 2 },
         ],
         checkoutOpen: false,
       },
     });
   });
 
-  // 1️⃣ Select & Deselect Items
-  test("should toggle item selection correctly", () => {
+  const renderCart = () =>
     render(
       <Provider store={store}>
         <BrowserRouter>
@@ -63,70 +47,88 @@ describe("🛒 Cart Page Functionalities (Toast Based)", () => {
       </Provider>
     );
 
-    const checkboxes = screen.getAllByRole("checkbox");
-    fireEvent.click(checkboxes[0]);
-    expect(checkboxes[0].checked).toBe(false);
+  // ✅ 1️⃣ Checkbox toggle test (with DOM re-query)
+  test("should toggle item selection correctly", async () => {
+    renderCart();
 
-    fireEvent.click(checkboxes[1]);
+    // Get initial checkboxes
+    let checkboxes = screen.getAllByRole("checkbox");
+    expect(checkboxes.length).toBeGreaterThan(0);
+
+    // Click second item checkbox
+    await act(async () => {
+      fireEvent.click(checkboxes[1]);
+    });
+
+    // Re-query after update (important!)
+    checkboxes = await screen.findAllByRole("checkbox");
     expect(checkboxes[1].checked).toBe(true);
+
+    // Click select all
+    await act(async () => {
+      fireEvent.click(checkboxes[0]);
+    });
+    checkboxes = await screen.findAllByRole("checkbox");
+    expect(checkboxes[0].checked).toBe(true);
+
+    // Deselect all
+    await act(async () => {
+      fireEvent.click(checkboxes[0]);
+    });
+    checkboxes = await screen.findAllByRole("checkbox");
+    expect(checkboxes[0].checked).toBe(false);
   });
 
-  // 2️⃣ Quantity Management
-  test("should increase and decrease quantity", () => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <CartPage />
-        </BrowserRouter>
-      </Provider>
-    );
+  // ✅ 2️⃣ Quantity update
+  test("should update quantity and show notification", async () => {
+    jest.useFakeTimers();
+    renderCart();
 
-    const plusButtons = screen.getAllByText("+");
-    const minusButtons = screen.getAllByText("-");
+    const plus = screen.getAllByText("+")[0];
+    const minus = screen.getAllByText("-")[0];
 
-    fireEvent.click(plusButtons[0]);
-    expect(updateCartQuantity).toHaveBeenCalled();
-    expect(toast.info).toHaveBeenCalled();
+    await act(async () => {
+      fireEvent.click(plus);
+    });
+    expect(updateCartQuantity).toHaveBeenCalledTimes(1);
+    expect(screen.getByText(/Cart updated/i)).toBeInTheDocument();
 
-    fireEvent.click(minusButtons[0]);
-    expect(updateCartQuantity).toHaveBeenCalled();
+    await act(async () => {
+      fireEvent.click(minus);
+    });
+    expect(updateCartQuantity).toHaveBeenCalledTimes(2);
+
+    act(() => jest.runAllTimers());
+    jest.useRealTimers();
   });
 
-  // 3️⃣ Cart Removal
-  test("should remove item from cart when Remove clicked", () => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <CartPage />
-        </BrowserRouter>
-      </Provider>
-    );
+  // ✅ 3️⃣ Cart Removal
+  test("should remove item from cart and show notification", async () => {
+    renderCart();
+    const removeBtns = screen.getAllByText(/remove/i);
 
-    const removeButtons = screen.getAllByText(/remove/i);
-    fireEvent.click(removeButtons[0]);
+    await act(async () => {
+      fireEvent.click(removeBtns[0]);
+    });
 
-    expect(removeFromCart).toHaveBeenCalled();
-    expect(toast.success).toHaveBeenCalled();
+    expect(removeFromCart).toHaveBeenCalledTimes(1);
+    expect(screen.getByText(/Item removed/i)).toBeInTheDocument();
   });
 
-  // 4️⃣ Toast Notifications for Quantity & Removal
-  test("should show toast notifications when quantity changes or item removed", () => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <CartPage />
-        </BrowserRouter>
-      </Provider>
-    );
+  // ✅ 4️⃣ Notifications
+  test("should show correct notification messages for actions", async () => {
+    renderCart();
 
-    const plusButtons = screen.getAllByText("+");
-    fireEvent.click(plusButtons[0]);
-    expect(toast.info).toHaveBeenCalled();
+    const plus = screen.getAllByText("+")[0];
+    await act(async () => {
+      fireEvent.click(plus);
+    });
+    expect(screen.getByText(/Cart updated/i)).toBeInTheDocument();
 
-    const removeButtons = screen.getAllByText(/remove/i);
-    fireEvent.click(removeButtons[0]);
-    expect(toast.success).toHaveBeenCalled();
+    const removeBtns = screen.getAllByText(/remove/i);
+    await act(async () => {
+      fireEvent.click(removeBtns[0]);
+    });
+    expect(screen.getByText(/Item removed/i)).toBeInTheDocument();
   });
 });
-
-

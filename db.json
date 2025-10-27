@@ -1770,34 +1770,49 @@
           "description": "Lightweight running shoes with great cushioning and breathable mesh. Designed for performance and comfort.",
           "image": "images11.jpeg",
           "quantity": 1
-        },
-        {
-          "id": "3",
-          "name": "Sporty Blue Watch",
-          "rating": 4.2,
-          "brand": "Brand C",
-          "category": "Watches",
-          "color": "Blue",
-          "gender": "Female",
-          "material": "Silicone Band",
-          "movementType": "Quartz",
-          "displayType": "Digital",
-          "waterResistance": "Workout and rain safe",
-          "batteryLife": "Up to 18 months",
-          "originalPrice": 105.25,
-          "offerPrice": 99.99,
-          "offers": "5% off",
-          "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
-          "image": "image3.jpg",
-          "images": [
-            "image3.jpg",
-            "image_3.jpg",
-            "image_33.jpg"
-          ],
-          "quantity": 1
         }
       ],
-      "orders": []
+      "orders": [
+        {
+          "id": 1761545218954,
+          "userInfo": {
+            "name": "Mani",
+            "email": "mani@gmail.com",
+            "address": "Kerala",
+            "phone": "8467384783",
+            "payment": "Cash on Delivery"
+          },
+          "items": [
+            {
+              "id": "3",
+              "name": "Sporty Blue Watch",
+              "rating": 4.2,
+              "brand": "Brand C",
+              "category": "Watches",
+              "color": "Blue",
+              "gender": "Female",
+              "material": "Silicone Band",
+              "movementType": "Quartz",
+              "displayType": "Digital",
+              "waterResistance": "Workout and rain safe",
+              "batteryLife": "Up to 18 months",
+              "originalPrice": 105.25,
+              "offerPrice": 99.99,
+              "offers": "5% off",
+              "description": "Sporty watch with a comfortable silicone band and digital display. Lightweight and durable, ideal for active lifestyles and daily wear.",
+              "image": "image3.jpg",
+              "images": [
+                "image3.jpg",
+                "image_3.jpg",
+                "image_33.jpg"
+              ],
+              "quantity": 1
+            }
+          ],
+          "date": "2025-10-27T06:06:58.954Z",
+          "status": "Pending"
+        }
+      ]
     }
   ],
   "products": [
